@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大会結果 | SAIL RANK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.page-hero{padding:120px 24px 60px;background:linear-gradient(180deg,rgba(0,100,200,.12) 0%,transparent 100%);border-bottom:1px solid var(--border)}
+.page-hero-inner{max-width:1200px;margin:auto}
+.page-title{font-family:var(--font-display);font-size:clamp(44px,6vw,72px);letter-spacing:.04em;color:#fff;margin-bottom:8px}
+.page-desc{font-size:15px;color:var(--muted2)}
+.year-nav{max-width:1200px;margin:40px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap}
+.year-btn{padding:10px 24px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-family:var(--font-display);font-size:18px;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.year-btn:hover{border-color:var(--accent);color:var(--accent)}
+.year-btn.active{background:var(--accent);border-color:var(--accent);color:#000}
+.year-content{display:none;padding:40px 24px 80px;max-width:1200px;margin:auto}
+.year-content.active{display:block}
+.year-heading{font-family:var(--font-display);font-size:48px;color:var(--accent);letter-spacing:.06em;margin-bottom:32px;border-bottom:1px solid var(--border);padding-bottom:16px}
+
+/* 大会セクション */
+.event-section{margin-bottom:32px}
+.event-section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.06em}
+.badge-rank{background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.25);color:var(--accent)}
+.badge-norank{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted2)}
+.badge-gold{background:rgba(245,183,49,.12);border:1px solid rgba(245,183,49,.3);color:var(--gold)}
+
+/* PDFリンクグリッド */
+.pdf-grid{display:flex;flex-wrap:wrap;gap:8px}
+.pdf-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--muted2);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer}
+.pdf-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.06)}
+.pdf-icon{font-size:16px}
+.pdf-label{white-space:nowrap}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">SAIL<span>RANK</span></a>
+    <div class="nav-links">
+      <a href="ranking.html">ランキング</a>
+      <a href="forecast.html">AI予測</a>
+      <a href="players.html">選手DB</a>
+      <a href="results.html" style="color:#fff">大会結果</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a>
+    <a href="players.html">選手DB</a><a href="results.html">大会結果</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-label">RESULTS</div>
+    <h1 class="page-title">大会結果</h1>
+    <p class="page-desc">関東学生ヨット選手権の全大会PDF。クリックで新しいタブに開きます。</p>
+  </div>
+</div>
+
+<div class="year-nav">
+  <button class="year-btn active" onclick="switchYear('2019',this)">2019</button>
+  <button class="year-btn" onclick="switchYear('2018',this)">2018</button>
+  <button class="year-btn" onclick="switchYear('2017',this)">2017</button>
+  <button class="year-btn" onclick="switchYear('2016',this)">2016</button>
+</div>
+
+<!-- 2019 -->
+<div class="year-content active" id="year-2019">
+  <h2 class="year-heading">2019</h2>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 決勝 <span class="badge badge-rank">×1.0 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <span class="pdf-link" style="opacity:.4;cursor:default"><span class="pdf-icon">📄</span><span class="pdf-label">470級（準備中）</span></span>
+      <span class="pdf-link" style="opacity:.4;cursor:default"><span class="pdf-icon">📄</span><span class="pdf-label">総合（準備中）</span></span>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 予選 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">関東個人選手権 <span class="badge badge-gold">×0.8 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_個人選手権_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季 女子レース <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_女子_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2019/2019_女子_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- 2018 -->
+<div class="year-content" id="year-2018">
+  <h2 class="year-heading">2018</h2>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 決勝（第85回） <span class="badge badge-rank">×1.0 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_春季決勝_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_春季決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_春季決勝_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 予選 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_春季予選_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_春季予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">秋季選手権 決勝（第86回） <span class="badge badge-rank">×1.0 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_秋季決勝_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_秋季決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_秋季決勝_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">秋季選手権 予選 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_秋季予選_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_秋季予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">関東個人選手権 <span class="badge badge-gold">×0.8 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <span class="pdf-link" style="opacity:.4;cursor:default"><span class="pdf-icon">📄</span><span class="pdf-label">470級（準備中）</span></span>
+      <span class="pdf-link" style="opacity:.4;cursor:default"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級（準備中）</span></span>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">全日本学生個人選手権 <span class="badge badge-norank">参考</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_全日本個人_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_全日本個人_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季 女子レース <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_春季女子_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_春季女子_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_春季女子_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">女子 予選・決勝 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_女子予選_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">予選 470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_女子予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">予選 スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_女子予選_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">予選 総合</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_女子決勝_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">決勝 470級</span></a>
+      <a class="pdf-link" href="pdf/2018/2018_女子決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">決勝 スナイプ級</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- 2017 -->
+<div class="year-content" id="year-2017">
+  <h2 class="year-heading">2017</h2>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 決勝 <span class="badge badge-rank">×1.0 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_決勝_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_決勝_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 予選 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_予選_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">関東個人選手権 <span class="badge badge-gold">×0.8 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_個人選手権_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_個人選手権_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季 女子レース <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_女子_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_女子_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2017/2017_女子_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- 2016 -->
+<div class="year-content" id="year-2016">
+  <h2 class="year-heading">2016</h2>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 決勝 <span class="badge badge-rank">×1.0 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_決勝_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2016/2016_決勝_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">春季選手権 予選 <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_予選_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2016/2016_予選_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">関東個人選手権 <span class="badge badge-gold">×0.8 ランキング対象</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_個人選手権_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2016/2016_個人選手権_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">女子レース <span class="badge badge-norank">ランキング対象外</span></div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_女子_470級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">470級</span></a>
+      <a class="pdf-link" href="pdf/2016/2016_女子_スナイプ級.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">スナイプ級</span></a>
+      <a class="pdf-link" href="pdf/2016/2016_女子_総合.pdf" target="_blank"><span class="pdf-icon">📄</span><span class="pdf-label">総合</span></a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p></div>
+      <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
+    </div>
+    <div class="footer-bottom"><small>© 2024 SAIL RANK. データは公式大会結果をもとに作成。</small></div>
+  </div>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+function switchYear(year, btn) {
+  document.querySelectorAll('.year-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.year-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('year-' + year).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
