@@ -15,42 +15,43 @@
 .page-desc{font-size:15px;color:var(--muted2)}
 .tab-group{max-width:1200px;margin:0 auto;padding:32px 24px 0}
 .tab-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.tab-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:24px}
-.tab-btn{padding:9px 18px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.tab-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px}
+.tab-btn{padding:8px 16px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
 .tab-btn:hover{border-color:var(--accent);color:var(--accent)}
 .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#000}
 .tab-panels{max-width:1200px;margin:0 auto;padding:0 24px 80px}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
-.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
 .panel-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:#fff}
 .panel-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid var(--border);color:var(--muted2)}
 .rank-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .rank-header{display:grid;padding:12px 20px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
-.h-individual{grid-template-columns:56px 1fr 160px 100px 90px 90px}
-.r-individual{grid-template-columns:56px 1fr 160px 100px 90px 90px}
-.h-univ{grid-template-columns:56px 1fr 80px 80px 100px 100px}
-.r-univ{grid-template-columns:56px 1fr 80px 80px 100px 100px}
-.rank-row{display:grid;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s}
+.h6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.r6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.h-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.r-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.rank-row{display:grid;padding:13px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s;cursor:pointer}
 .rank-row:last-child{border-bottom:none}
-.rank-row:hover{background:rgba(255,255,255,.03)}
+.rank-row:hover{background:rgba(255,255,255,.04)}
 .rank-num{font-family:var(--font-display);font-size:20px;color:var(--muted);letter-spacing:.04em}
-.rank-row.top1 .rank-num{color:var(--gold)}
-.rank-row.top2 .rank-num{color:#c0c0c0}
-.rank-row.top3 .rank-num{color:#cd7f32}
+.top1 .rank-num{color:var(--gold)}
+.top2 .rank-num{color:#c0c0c0}
+.top3 .rank-num{color:#cd7f32}
 .rank-name{font-size:15px;font-weight:700;color:#fff}
+.rank-sub{font-size:12px;color:var(--muted2);margin-top:2px}
 .rank-univ{font-size:13px;color:var(--muted2)}
 .rank-cls{font-size:12px;color:var(--muted2)}
-.rank-pos{font-size:12px}
-.rank-pos.skipper{color:var(--accent)}
-.rank-pos.crew{color:var(--gold)}
+.rank-role{font-size:12px;font-weight:700}
+.role-sk{color:var(--accent)}
+.role-cr{color:var(--gold)}
 .rank-pt{text-align:right;font-family:var(--font-display);font-size:20px;color:var(--accent);letter-spacing:.04em}
 .text-right{text-align:right}
-.empty-msg{padding:40px;text-align:center;color:var(--muted)}
+.empty{padding:40px;text-align:center;color:var(--muted)}
 @media(max-width:700px){
-  .h-individual,.r-individual{grid-template-columns:44px 1fr 80px}
-  .h-individual>*:nth-child(n+4),.r-individual>*:nth-child(n+4){display:none}
-  .h-univ,.r-univ{grid-template-columns:44px 1fr 80px}
+  .h6,.r6{grid-template-columns:44px 1fr 70px}
+  .h6>*:nth-child(n+4),.r6>*:nth-child(n+4){display:none}
+  .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
   .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
 }
 </style>
@@ -76,62 +77,57 @@
   <div class="page-hero-inner">
     <div class="section-label">RANKING</div>
     <h1 class="page-title">年間ランキング</h1>
-    <p class="page-desc">2016〜2019年度の関東決勝・個人選手権を対象に独自アルゴリズムで算出。</p>
+    <p class="page-desc">2016〜2019年度・決勝×1.0・個人選手権×0.8で算出。968名のデータから集計。</p>
   </div>
 </div>
 <div class="tab-group">
   <div class="tab-group-label">個人ランキング</div>
   <div class="tab-row">
     <button class="tab-btn active" data-tab="overall">総合</button>
-    <button class="tab-btn" data-tab="470">470級</button>
-    <button class="tab-btn" data-tab="snipe">スナイプ級</button>
-    <button class="tab-btn" data-tab="skipper">スキッパー</button>
-    <button class="tab-btn" data-tab="crew">クルー</button>
-    <button class="tab-btn" data-tab="women">女子</button>
+    <button class="tab-btn" data-tab="skipper">全スキッパー</button>
+    <button class="tab-btn" data-tab="crew">全クルー</button>
+    <button class="tab-btn" data-tab="sk470">470スキッパー</button>
+    <button class="tab-btn" data-tab="cr470">470クルー</button>
+    <button class="tab-btn" data-tab="skSnipe">Snipeスキッパー</button>
+    <button class="tab-btn" data-tab="crSnipe">Snipeクルー</button>
   </div>
-  <div class="tab-group-label">団体ランキング</div>
+  <div class="tab-group-label">大学ランキング</div>
   <div class="tab-row">
     <button class="tab-btn" data-tab="university">大学総合</button>
-    <button class="tab-btn" data-tab="univ470">大学 470級</button>
-    <button class="tab-btn" data-tab="univSnipe">大学 スナイプ級</button>
   </div>
 </div>
 <div class="tab-panels">
   <div class="tab-panel active" id="panel-overall">
-    <div class="panel-header"><div class="panel-title">個人総合ランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-overall"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-470">
-    <div class="panel-header"><div class="panel-title">470級ランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-470"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-snipe">
-    <div class="panel-header"><div class="panel-title">スナイプ級ランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-snipe"></div></div>
+    <div class="panel-header"><div class="panel-title">個人総合</div><div class="panel-badge">スキッパー・クルー合算 2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-overall"></div></div>
   </div>
   <div class="tab-panel" id="panel-skipper">
-    <div class="panel-header"><div class="panel-title">スキッパーランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-skipper"></div></div>
+    <div class="panel-header"><div class="panel-title">全スキッパー</div><div class="panel-badge">470+Snipe合算 2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-skipper"></div></div>
   </div>
   <div class="tab-panel" id="panel-crew">
-    <div class="panel-header"><div class="panel-title">クルーランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-crew"></div></div>
+    <div class="panel-header"><div class="panel-title">全クルー</div><div class="panel-badge">470+Snipe合算 2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-crew"></div></div>
   </div>
-  <div class="tab-panel" id="panel-women">
-    <div class="panel-header"><div class="panel-title">女子ランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-individual"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>ポジション</span><span class="text-right">累計Pt</span></div><div id="list-women"></div></div>
+  <div class="tab-panel" id="panel-sk470">
+    <div class="panel-header"><div class="panel-title">470級 スキッパー</div><div class="panel-badge">2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-sk470"></div></div>
+  </div>
+  <div class="tab-panel" id="panel-cr470">
+    <div class="panel-header"><div class="panel-title">470級 クルー</div><div class="panel-badge">2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-cr470"></div></div>
+  </div>
+  <div class="tab-panel" id="panel-skSnipe">
+    <div class="panel-header"><div class="panel-title">スナイプ級 スキッパー</div><div class="panel-badge">2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-skSnipe"></div></div>
+  </div>
+  <div class="tab-panel" id="panel-crSnipe">
+    <div class="panel-header"><div class="panel-title">スナイプ級 クルー</div><div class="panel-badge">2016〜2019</div></div>
+    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-crSnipe"></div></div>
   </div>
   <div class="tab-panel" id="panel-university">
-    <div class="panel-header"><div class="panel-title">大学総合ランキング</div><div class="panel-badge">2016〜2019 累計</div></div>
+    <div class="panel-header"><div class="panel-title">大学総合</div><div class="panel-badge">2016〜2019 累計</div></div>
     <div class="rank-table"><div class="rank-header h-univ"><span>順位</span><span>大学</span><span class="text-right">大会数</span><span class="text-right">TOP3</span><span class="text-right">平均順位</span><span class="text-right">累計Pt</span></div><div id="list-university"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-univ470">
-    <div class="panel-header"><div class="panel-title">大学 470級ランキング</div><div class="panel-badge">準備中</div></div>
-    <div class="rank-table"><div class="empty-msg">データ準備中です</div></div>
-  </div>
-  <div class="tab-panel" id="panel-univSnipe">
-    <div class="panel-header"><div class="panel-title">大学 スナイプ級ランキング</div><div class="panel-badge">準備中</div></div>
-    <div class="rank-table"><div class="empty-msg">データ準備中です</div></div>
   </div>
 </div>
 <footer class="footer">
@@ -154,27 +150,42 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     this.classList.add('active');
   });
 });
-function row(rank,p,tc){
-  return`<div class="rank-row r-individual ${tc}"><div class="rank-num">#${rank}</div><div><div class="rank-name">${p.name}</div></div><div class="rank-univ">${p.univ}</div><div class="rank-cls">${p.cls}</div><div class="rank-pos ${p.role==='Skipper'?'skipper':'crew'}">${p.role}</div><div class="rank-pt">${p.pt}</div></div>`;
-}
-function univRow(rank,u,tc){
-  return`<div class="rank-row r-univ ${tc}"><div class="rank-num">#${rank}</div><div class="rank-name">${u.name}</div><div class="rank-pt text-right">${u.events||'-'}</div><div class="rank-pt text-right" style="color:var(--gold)">${u.top3||'-'}</div><div class="rank-cls text-right">${u.avgRank?u.avgRank+'位':'-'}</div><div class="rank-pt">${u.pt}</div></div>`;
-}
 function tc(i){return i===0?'top1':i===1?'top2':i===2?'top3':'';}
+function row(rank,p,i){
+  const cls=p.cls==='470'?'470級':'スナイプ級';
+  const roleClass=p.role==='Skipper'?'role-sk':'role-cr';
+  return`<div class="rank-row r6 ${tc(i)}" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
+    <div class="rank-num">#${rank}</div>
+    <div><div class="rank-name">${p.name}</div><div class="rank-sub">出場${p.events}大会</div></div>
+    <div class="rank-univ">${p.univ}</div>
+    <div class="rank-cls">${cls}</div>
+    <div class="rank-role ${roleClass}">${p.role}</div>
+    <div class="rank-pt">${p.pt}</div>
+  </div>`;
+}
+function univRow(rank,u,i){
+  return`<div class="rank-row r-univ ${tc(i)}">
+    <div class="rank-num">#${rank}</div>
+    <div class="rank-name">${u.name}</div>
+    <div class="rank-pt text-right">${u.events}</div>
+    <div class="rank-pt text-right" style="color:var(--gold)">${u.top3}</div>
+    <div class="rank-cls text-right">${u.avgRank}位</div>
+    <div class="rank-pt">${u.pt}</div>
+  </div>`;
+}
+function render(id, data){
+  document.getElementById(id).innerHTML=data.map((p,i)=>row(i+1,p,i)).join('');
+}
 document.addEventListener('DOMContentLoaded',()=>{
-  const d=SITE_DATA.individualRanking;
-  document.getElementById('list-overall').innerHTML=d.map((p,i)=>row(i+1,p,tc(i))).join('');
-  const r470=d.filter(p=>p.cls==='470級');
-  document.getElementById('list-470').innerHTML=r470.map((p,i)=>row(i+1,p,tc(i))).join('');
-  const rS=d.filter(p=>p.cls==='スナイプ級');
-  document.getElementById('list-snipe').innerHTML=rS.map((p,i)=>row(i+1,p,tc(i))).join('');
-  const rSk=d.filter(p=>p.role==='Skipper');
-  document.getElementById('list-skipper').innerHTML=rSk.map((p,i)=>row(i+1,p,tc(i))).join('');
-  const rC=d.filter(p=>p.role==='Crew');
-  document.getElementById('list-crew').innerHTML=rC.length?rC.map((p,i)=>row(i+1,p,tc(i))).join(''):'<div class="empty-msg">クルーデータ準備中</div>';
-  const rW=SITE_DATA.womenRanking||[];
-  document.getElementById('list-women').innerHTML=rW.length?rW.map((p,i)=>row(i+1,p,tc(i))).join(''):'<div class="empty-msg">データ準備中</div>';
-  document.getElementById('list-university').innerHTML=SITE_DATA.universityRanking.map((u,i)=>univRow(i+1,u,tc(i))).join('');
+  render('list-overall',   SITE_DATA.individualRanking);
+  render('list-skipper',   SITE_DATA.rankingSkipper);
+  render('list-crew',      SITE_DATA.rankingCrew);
+  render('list-sk470',     SITE_DATA.ranking470Skipper);
+  render('list-cr470',     SITE_DATA.ranking470Crew);
+  render('list-skSnipe',   SITE_DATA.rankingSnipeSkipper);
+  render('list-crSnipe',   SITE_DATA.rankingSnipeCrew);
+  document.getElementById('list-university').innerHTML=
+    SITE_DATA.universityRanking.map((u,i)=>univRow(i+1,u,i)).join('');
 });
 </script>
 </body>
