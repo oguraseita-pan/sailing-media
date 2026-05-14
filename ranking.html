@@ -13,19 +13,28 @@
 .page-hero-inner{max-width:1200px;margin:auto}
 .page-title{font-family:var(--font-display);font-size:clamp(44px,6vw,72px);letter-spacing:.04em;color:#fff;margin-bottom:8px}
 .page-desc{font-size:15px;color:var(--muted2)}
-.tab-group{max-width:1200px;margin:0 auto;padding:32px 24px 0}
-.tab-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.tab-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px}
-.tab-btn{padding:8px 16px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
-.tab-btn:hover{border-color:var(--accent);color:var(--accent)}
-.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#000}
-.tab-panels{max-width:1200px;margin:0 auto;padding:0 24px 80px}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
+
+.tab-wrap{max-width:1200px;margin:0 auto;padding:32px 24px 0}
+
+/* 年度タブ（上段） */
+.year-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.year-btn{padding:8px 20px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-family:var(--font-display);font-size:20px;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.year-btn:hover{border-color:var(--accent);color:var(--accent)}
+.year-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700}
+
+/* カテゴリタブ（下段） */
+.cat-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.cat-btn{padding:7px 14px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
+.cat-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cat-btn.active{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.4);color:var(--accent)}
+
+.tab-panels{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+.rank-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
 .panel-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:#fff}
 .panel-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid var(--border);color:var(--muted2)}
-.rank-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+
 .rank-header{display:grid;padding:12px 20px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .h6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
 .r6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
@@ -73,120 +82,162 @@
     <a href="players.html">選手DB</a><a href="results.html">大会結果</a>
   </div>
 </nav>
+
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="section-label">RANKING</div>
-    <h1 class="page-title">年間ランキング</h1>
-    <p class="page-desc">2016〜2019年度・決勝×1.0・個人選手権×0.8で算出。968名のデータから集計。</p>
+    <h1 class="page-title">ランキング</h1>
+    <p class="page-desc">独自アルゴリズムで算出。年度別・歴代の切り替えが可能。</p>
   </div>
 </div>
-<div class="tab-group">
-  <div class="tab-group-label">個人ランキング</div>
-  <div class="tab-row">
-    <button class="tab-btn active" data-tab="overall">総合</button>
-    <button class="tab-btn" data-tab="skipper">全スキッパー</button>
-    <button class="tab-btn" data-tab="crew">全クルー</button>
-    <button class="tab-btn" data-tab="sk470">470スキッパー</button>
-    <button class="tab-btn" data-tab="cr470">470クルー</button>
-    <button class="tab-btn" data-tab="skSnipe">Snipeスキッパー</button>
-    <button class="tab-btn" data-tab="crSnipe">Snipeクルー</button>
+
+<div class="tab-wrap">
+  <!-- 年度タブ -->
+  <div class="year-tabs" id="yearTabs">
+    <button class="year-btn active" data-year="all">歴代</button>
+    <button class="year-btn" data-year="2019">2019</button>
+    <button class="year-btn" data-year="2018">2018</button>
+    <button class="year-btn" data-year="2017">2017</button>
+    <button class="year-btn" data-year="2016">2016</button>
   </div>
-  <div class="tab-group-label">大学ランキング</div>
-  <div class="tab-row">
-    <button class="tab-btn" data-tab="university">大学総合</button>
+
+  <!-- カテゴリタブ -->
+  <div class="cat-group-label">個人</div>
+  <div class="cat-tabs" id="catTabs">
+    <button class="cat-btn active" data-cat="individual">総合</button>
+    <button class="cat-btn" data-cat="skipper">全スキッパー</button>
+    <button class="cat-btn" data-cat="crew">全クルー</button>
+    <button class="cat-btn" data-cat="sk470">470 スキッパー</button>
+    <button class="cat-btn" data-cat="cr470">470 クルー</button>
+    <button class="cat-btn" data-cat="skSnipe">スナイプ スキッパー</button>
+    <button class="cat-btn" data-cat="crSnipe">スナイプ クルー</button>
+  </div>
+  <div class="cat-group-label">大学</div>
+  <div class="cat-tabs">
+    <button class="cat-btn" data-cat="university">大学総合</button>
   </div>
 </div>
+
 <div class="tab-panels">
-  <div class="tab-panel active" id="panel-overall">
-    <div class="panel-header"><div class="panel-title">個人総合</div><div class="panel-badge">スキッパー・クルー合算 2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-overall"></div></div>
+  <div class="panel-header">
+    <div class="panel-title" id="panelTitle">歴代 個人総合</div>
+    <div class="panel-badge" id="panelBadge">全年度累計</div>
   </div>
-  <div class="tab-panel" id="panel-skipper">
-    <div class="panel-header"><div class="panel-title">全スキッパー</div><div class="panel-badge">470+Snipe合算 2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-skipper"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-crew">
-    <div class="panel-header"><div class="panel-title">全クルー</div><div class="panel-badge">470+Snipe合算 2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-crew"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-sk470">
-    <div class="panel-header"><div class="panel-title">470級 スキッパー</div><div class="panel-badge">2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-sk470"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-cr470">
-    <div class="panel-header"><div class="panel-title">470級 クルー</div><div class="panel-badge">2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-cr470"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-skSnipe">
-    <div class="panel-header"><div class="panel-title">スナイプ級 スキッパー</div><div class="panel-badge">2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-skSnipe"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-crSnipe">
-    <div class="panel-header"><div class="panel-title">スナイプ級 クルー</div><div class="panel-badge">2016〜2019</div></div>
-    <div class="rank-table"><div class="rank-header h6"><span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span></div><div id="list-crSnipe"></div></div>
-  </div>
-  <div class="tab-panel" id="panel-university">
-    <div class="panel-header"><div class="panel-title">大学総合</div><div class="panel-badge">2016〜2019 累計</div></div>
-    <div class="rank-table"><div class="rank-header h-univ"><span>順位</span><span>大学</span><span class="text-right">大会数</span><span class="text-right">TOP3</span><span class="text-right">平均順位</span><span class="text-right">累計Pt</span></div><div id="list-university"></div></div>
+  <div class="rank-table" id="rankTable">
+    <div class="rank-header h6" id="rankHeader">
+      <span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span>
+    </div>
+    <div id="rankList"></div>
   </div>
 </div>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p></div>
       <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
     </div>
-    <div class="footer-bottom"><small>© 2024 SAIL RANK. データは公式大会結果をもとに独自算出。</small></div>
+    <div class="footer-bottom"><small>© 2024 SAIL RANK. 独自アルゴリズムで算出。</small></div>
   </div>
 </footer>
+
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
-document.querySelectorAll('.tab-btn').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.getElementById('panel-'+this.dataset.tab).classList.add('active');
+let currentYear = 'all';
+let currentCat  = 'individual';
+
+// データキー取得
+function getKey(year, cat) {
+  if (cat === 'university') return 'universityRanking';
+  if (year === 'all') {
+    const map = {individual:'individualRanking',skipper:'rankingSkipper',crew:'rankingCrew',
+                 sk470:'ranking470Skipper',cr470:'ranking470Crew',
+                 skSnipe:'rankingSnipeSkipper',crSnipe:'rankingSnipeCrew'};
+    return map[cat];
+  }
+  const map = {individual:`y${year}_individual`,skipper:`y${year}_skipper`,crew:`y${year}_crew`,
+               sk470:`y${year}_sk470`,cr470:`y${year}_cr470`,
+               skSnipe:`y${year}_skSnipe`,crSnipe:`y${year}_crSnipe`};
+  return map[cat];
+}
+
+function tc(i){return i===0?'top1':i===1?'top2':i===2?'top3':'';}
+
+function renderPlayers(data) {
+  const header = document.getElementById('rankHeader');
+  const ptLabel = currentYear==='all' ? '累計Pt' : `${currentYear}Pt`;
+  header.className = 'rank-header h6';
+  header.innerHTML = `<span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">${ptLabel}</span>`;
+  return (data||[]).map((p,i)=>{
+    const cls=p.cls==='470'?'470級':'スナイプ級';
+    const roleClass=p.role==='Skipper'?'role-sk':'role-cr';
+    return `<div class="rank-row r6 ${tc(i)}" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
+      <div class="rank-num">#${p.rank}</div>
+      <div><div class="rank-name">${p.name}</div><div class="rank-sub">出場${p.events}大会</div></div>
+      <div class="rank-univ">${p.univ}</div>
+      <div class="rank-cls">${cls}</div>
+      <div class="rank-role ${roleClass}">${p.role}</div>
+      <div class="rank-pt">${p.pt}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderUniv(data) {
+  const header = document.getElementById('rankHeader');
+  header.className = 'rank-header h-univ';
+  header.innerHTML = `<span>順位</span><span>大学</span><span class="text-right">大会数</span><span class="text-right">TOP3</span><span class="text-right">平均順位</span><span class="text-right">累計Pt</span>`;
+  return (data||[]).map((u,i)=>`
+    <div class="rank-row r-univ ${tc(i)}">
+      <div class="rank-num">#${u.rank}</div>
+      <div class="rank-name">${u.name}</div>
+      <div class="rank-pt text-right">${u.events}</div>
+      <div class="rank-pt text-right" style="color:var(--gold)">${u.top3}</div>
+      <div class="rank-cls text-right">${u.avgRank}位</div>
+      <div class="rank-pt">${u.pt}</div>
+    </div>`).join('');
+}
+
+function updateTitle() {
+  const yearLabel = currentYear==='all' ? '歴代' : `${currentYear}年度`;
+  const catLabel = {individual:'個人総合',skipper:'全スキッパー',crew:'全クルー',
+    sk470:'470級スキッパー',cr470:'470級クルー',
+    skSnipe:'スナイプスキッパー',crSnipe:'スナイプクルー',
+    university:'大学総合'}[currentCat];
+  document.getElementById('panelTitle').textContent = `${yearLabel} ${catLabel}`;
+  document.getElementById('panelBadge').textContent =
+    currentYear==='all' ? '全年度累計' : `${currentYear}年度`;
+}
+
+function render() {
+  updateTitle();
+  const key = getKey(currentYear, currentCat);
+  const data = SITE_DATA[key] || [];
+  const html = currentCat==='university' ? renderUniv(data) : renderPlayers(data);
+  document.getElementById('rankList').innerHTML = html || '<div class="empty">データなし</div>';
+}
+
+// 年度タブ
+document.getElementById('yearTabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-year]');
+  if (!btn) return;
+  document.querySelectorAll('.year-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentYear = btn.dataset.year;
+  render();
+});
+
+// カテゴリタブ
+document.querySelectorAll('[data-cat]').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
     this.classList.add('active');
+    currentCat = this.dataset.cat;
+    render();
   });
 });
-function tc(i){return i===0?'top1':i===1?'top2':i===2?'top3':'';}
-function row(rank,p,i){
-  const cls=p.cls==='470'?'470級':'スナイプ級';
-  const roleClass=p.role==='Skipper'?'role-sk':'role-cr';
-  return`<div class="rank-row r6 ${tc(i)}" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
-    <div class="rank-num">#${rank}</div>
-    <div><div class="rank-name">${p.name}</div><div class="rank-sub">出場${p.events}大会</div></div>
-    <div class="rank-univ">${p.univ}</div>
-    <div class="rank-cls">${cls}</div>
-    <div class="rank-role ${roleClass}">${p.role}</div>
-    <div class="rank-pt">${p.pt}</div>
-  </div>`;
-}
-function univRow(rank,u,i){
-  return`<div class="rank-row r-univ ${tc(i)}">
-    <div class="rank-num">#${rank}</div>
-    <div class="rank-name">${u.name}</div>
-    <div class="rank-pt text-right">${u.events}</div>
-    <div class="rank-pt text-right" style="color:var(--gold)">${u.top3}</div>
-    <div class="rank-cls text-right">${u.avgRank}位</div>
-    <div class="rank-pt">${u.pt}</div>
-  </div>`;
-}
-function render(id, data){
-  document.getElementById(id).innerHTML=data.map((p,i)=>row(i+1,p,i)).join('');
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  render('list-overall',   SITE_DATA.individualRanking);
-  render('list-skipper',   SITE_DATA.rankingSkipper);
-  render('list-crew',      SITE_DATA.rankingCrew);
-  render('list-sk470',     SITE_DATA.ranking470Skipper);
-  render('list-cr470',     SITE_DATA.ranking470Crew);
-  render('list-skSnipe',   SITE_DATA.rankingSnipeSkipper);
-  render('list-crSnipe',   SITE_DATA.rankingSnipeCrew);
-  document.getElementById('list-university').innerHTML=
-    SITE_DATA.universityRanking.map((u,i)=>univRow(i+1,u,i)).join('');
-});
+
+document.addEventListener('DOMContentLoaded', render);
 </script>
 </body>
 </html>
