@@ -20,12 +20,9 @@
 .year-content{display:none;padding:40px 24px 80px;max-width:1200px;margin:auto}
 .year-content.active{display:block}
 .year-heading{font-family:var(--font-display);font-size:48px;color:var(--accent);letter-spacing:.06em;margin-bottom:32px;border-bottom:1px solid var(--border);padding-bottom:16px}
-.event-section{margin-bottom:28px}
-.event-section-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-
-
-
-
+.event-section{margin-bottom:24px}
+.event-section-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
+.event-date{font-size:12px;color:var(--muted2);margin-bottom:8px}
 .pdf-grid{display:flex;flex-wrap:wrap;gap:8px}
 .pdf-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--muted2);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
 .pdf-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.06)}
@@ -64,12 +61,22 @@
   <button class="year-btn" onclick="switchYear('2016',this)">2016</button>
 </div>
 
-<!-- ======== 2019 ======== -->
+<!-- ======== 2019（大会日順） ======== -->
 <div class="year-content active" id="year-2019">
   <h2 class="year-heading">2019</h2>
 
   <div class="event-section">
+    <div class="event-section-title">2019年度 関東学生ヨット春季選手権大会 予選</div>
+    <div class="event-date">2019年5月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2019/2019_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">2019年度 関東学生ヨット春季選手権大会 決勝</div>
+    <div class="event-date">2019年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2019/2019_spring_final_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2019/2019_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -78,40 +85,8 @@
   </div>
 
   <div class="event-section">
-    <div class="event-section-title">2019年度 関東学生ヨット春季選手権大会 予選</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2019/2019_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2019/2019_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">第86回 関東学生ヨット選手権大会 決勝（2019年秋季）</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2019/2019_autumn_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2019/2019_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2019/2019_autumn_final_total.pdf" target="_blank">📄 総合</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">第86回 関東学生ヨット選手権大会 予選（2019年秋季）</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2019/2019_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2019/2019_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">2019年度 関東学生ヨット個人選手権大会</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2019/2019_individual_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2019/2019_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
     <div class="event-section-title">2019年度 関東学生ヨット春季選手権大会 女子レース</div>
+    <div class="event-date">2019年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2019/2019_spring_women_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2019/2019_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -120,7 +95,17 @@
   </div>
 
   <div class="event-section">
+    <div class="event-section-title">2019年度 関東学生ヨット個人選手権大会</div>
+    <div class="event-date">2019年7月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_individual_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2019/2019_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">2019年 関東学生女子ヨット秋季選手権大会</div>
+    <div class="event-date">2019年9月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2019/2019_autumn_women_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2019/2019_autumn_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -130,19 +115,49 @@
 
   <div class="event-section">
     <div class="event-section-title">第28回 全日本学生女子ヨット選手権大会 関東水域選考会</div>
+    <div class="event-date">2019年9月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2019/2019_allJapan_women_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2019/2019_allJapan_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
     </div>
   </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第86回 関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2019年9月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2019/2019_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第86回 関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2019年10月4日・5日・6日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2019/2019_autumn_final_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2019/2019_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2019/2019_autumn_final_total.pdf" target="_blank">📄 総合</a>
+    </div>
+  </div>
 </div>
 
-<!-- ======== 2018 ======== -->
+<!-- ======== 2018（大会日順） ======== -->
 <div class="year-content" id="year-2018">
   <h2 class="year-heading">2018</h2>
 
   <div class="event-section">
+    <div class="event-section-title">平成30年 春季関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2018年5月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2018/2018_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">平成30年 春季関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2018年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2018/2018_spring_final_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2018/2018_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -151,47 +166,8 @@
   </div>
 
   <div class="event-section">
-    <div class="event-section-title">平成30年 春季関東学生ヨット選手権大会 予選</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2018/2018_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2018/2018_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">第85回 関東学生ヨット選手権大会 決勝（2018年秋季）</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2018/2018_autumn_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2018/2018_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2018/2018_autumn_final_total.pdf" target="_blank">📄 総合</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">第85回 関東学生ヨット選手権大会 予選（2018年秋季）</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2018/2018_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2018/2018_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">2018年度 関東学生ヨット個人選手権大会</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2018/2018_individual_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2018/2018_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">2018年度 全日本学生ヨット個人選手権大会</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2018/2018_allJapan_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
     <div class="event-section-title">2018年度 春季関東学生ヨット選手権大会 女子レース</div>
+    <div class="event-date">2018年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2018/2018_spring_women_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2018/2018_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -200,7 +176,25 @@
   </div>
 
   <div class="event-section">
+    <div class="event-section-title">2018年度 関東学生ヨット個人選手権大会</div>
+    <div class="event-date">2018年7月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_individual_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2018/2018_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">2018年度 全日本学生ヨット個人選手権大会</div>
+    <div class="event-date">2018年9月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_allJapan_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">第85回 関東学生ヨット選手権大会 女子レース 予選・決勝</div>
+    <div class="event-date">2018年9月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2018/2018_women_qualifying_470.pdf" target="_blank">📄 予選 470級</a>
       <a class="pdf-link" href="pdf/2018/2018_women_qualifying_snipe.pdf" target="_blank">📄 予選 スナイプ級</a>
@@ -209,14 +203,43 @@
       <a class="pdf-link" href="pdf/2018/2018_women_final_snipe.pdf" target="_blank">📄 決勝 スナイプ級</a>
     </div>
   </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第85回 関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2018年9月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2018/2018_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第85回 関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2018年10月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2018/2018_autumn_final_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2018/2018_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2018/2018_autumn_final_total.pdf" target="_blank">📄 総合</a>
+    </div>
+  </div>
 </div>
 
-<!-- ======== 2017 ======== -->
+<!-- ======== 2017（大会日順） ======== -->
 <div class="year-content" id="year-2017">
   <h2 class="year-heading">2017</h2>
 
   <div class="event-section">
+    <div class="event-section-title">平成29年 春季関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2017年5月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2017/2017_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">平成29年 春季関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2017年5月13日・14日</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2017/2017_spring_final_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2017/2017_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -225,44 +248,59 @@
   </div>
 
   <div class="event-section">
-    <div class="event-section-title">平成29年 春季関東学生ヨット選手権大会 予選</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2017/2017_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2017/2017_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
-    <div class="event-section-title">2017年度 関東学生ヨット個人選手権大会</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2017/2017_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
-    </div>
-  </div>
-
-  <div class="event-section">
     <div class="event-section-title">2017年度 春季関東学生ヨット選手権大会 女子レース</div>
+    <div class="event-date">2017年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2017/2017_spring_women_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2017/2017_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
       <a class="pdf-link" href="pdf/2017/2017_spring_women_total.pdf" target="_blank">📄 総合</a>
     </div>
   </div>
-</div>
-
-<!-- ======== 2016 ======== -->
-<div class="year-content" id="year-2016">
-  <h2 class="year-heading">2016</h2>
 
   <div class="event-section">
-    <div class="event-section-title">平成28年 春季関東学生ヨット選手権大会 決勝</div>
+    <div class="event-section-title">2017年度 関東学生ヨット個人選手権大会</div>
+    <div class="event-date">2017年7月</div>
     <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2016/2016_spring_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2016/2016_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2017/2017_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
     </div>
   </div>
 
   <div class="event-section">
+    <div class="event-section-title">第84回 関東学生ヨット選手権大会 女子レース</div>
+    <div class="event-date">2017年9月9日・10日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_autumn_women_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2017/2017_autumn_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第26回 全日本学生女子ヨット選手権大会</div>
+    <div class="event-date">2017年9月15日〜17日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_allJapan_women_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2017/2017_allJapan_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2017/2017_allJapan_women_total.pdf" target="_blank">📄 総合</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第84回 関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2017年9月23日・24日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2017/2017_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2017/2017_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+</div>
+
+<!-- ======== 2016（大会日順） ======== -->
+<div class="year-content" id="year-2016">
+  <h2 class="year-heading">2016</h2>
+
+  <div class="event-section">
     <div class="event-section-title">平成28年 春季関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2016年5月</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2016/2016_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2016/2016_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -270,7 +308,27 @@
   </div>
 
   <div class="event-section">
+    <div class="event-section-title">平成28年 春季関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2016年5月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_spring_final_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2016/2016_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">平成28年度 関東学生女子ヨット春季選手権大会</div>
+    <div class="event-date">2016年5月</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_spring_women_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2016/2016_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2016/2016_spring_women_total.pdf" target="_blank">📄 総合</a>
+    </div>
+  </div>
+
+  <div class="event-section">
     <div class="event-section-title">2016年度 関東学生ヨット個人選手権大会</div>
+    <div class="event-date">2016年7月2日・3日</div>
     <div class="pdf-grid">
       <a class="pdf-link" href="pdf/2016/2016_individual_470.pdf" target="_blank">📄 470級</a>
       <a class="pdf-link" href="pdf/2016/2016_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
@@ -278,11 +336,31 @@
   </div>
 
   <div class="event-section">
-    <div class="event-section-title">平成28年度 関東学生女子ヨット春季選手権大会</div>
+    <div class="event-section-title">第25回 全日本学生女子ヨット選手権大会</div>
+    <div class="event-date">2016年9月17日〜19日</div>
     <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2016/2016_spring_women_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2016/2016_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2016/2016_spring_women_total.pdf" target="_blank">📄 総合</a>
+      <a class="pdf-link" href="pdf/2016/2016_allJapan_women_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2016/2016_allJapan_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2016/2016_allJapan_women_total.pdf" target="_blank">📄 総合</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第83回 関東学生ヨット選手権大会 予選</div>
+    <div class="event-date">2016年9月21日・22日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2016/2016_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+    </div>
+  </div>
+
+  <div class="event-section">
+    <div class="event-section-title">第83回 関東学生ヨット選手権大会 決勝</div>
+    <div class="event-date">2016年9月24日・25日・26日</div>
+    <div class="pdf-grid">
+      <a class="pdf-link" href="pdf/2016/2016_autumn_final_470.pdf" target="_blank">📄 470級</a>
+      <a class="pdf-link" href="pdf/2016/2016_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
+      <a class="pdf-link" href="pdf/2016/2016_autumn_final_total.pdf" target="_blank">📄 総合</a>
     </div>
   </div>
 </div>
