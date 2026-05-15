@@ -9,239 +9,279 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
-.page-hero{padding:120px 24px 60px;background:linear-gradient(180deg,rgba(0,100,200,.12) 0%,transparent 100%);border-bottom:1px solid var(--border)}
-.page-hero-inner{max-width:1200px;margin:auto}
-.page-title{font-family:var(--font-display);font-size:clamp(44px,6vw,72px);letter-spacing:.04em;color:#fff;margin-bottom:8px}
-.page-desc{font-size:15px;color:var(--muted2)}
-
-.tab-wrap{max-width:1200px;margin:0 auto;padding:32px 24px 0}
-
-/* 年度タブ（上段） */
-.year-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.year-btn{padding:8px 20px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-family:var(--font-display);font-size:20px;letter-spacing:.06em;cursor:pointer;transition:all .2s}
-.year-btn:hover{border-color:var(--accent);color:var(--accent)}
-.year-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700}
-
-/* カテゴリタブ（下段） */
-.cat-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
-.cat-btn{padding:7px 14px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
-.cat-btn:hover{border-color:var(--accent);color:var(--accent)}
-.cat-btn.active{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.4);color:var(--accent)}
-
-.tab-panels{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
-.rank-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.panel-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:#fff}
-.panel-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid var(--border);color:var(--muted2)}
-
-.rank-header{display:grid;padding:12px 20px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
-.h6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
-.r6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
-.h-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
-.r-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
-.rank-row{display:grid;padding:13px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s;cursor:pointer}
-.rank-row:last-child{border-bottom:none}
-.rank-row:hover{background:rgba(255,255,255,.04)}
-.rank-num{font-family:var(--font-display);font-size:20px;color:var(--muted);letter-spacing:.04em}
-.top1 .rank-num{color:var(--gold)}
-.top2 .rank-num{color:#c0c0c0}
-.top3 .rank-num{color:#cd7f32}
-.rank-name{font-size:15px;font-weight:700;color:#fff}
-.rank-sub{font-size:12px;color:var(--muted2);margin-top:2px}
-.rank-univ{font-size:13px;color:var(--muted2)}
-.rank-cls{font-size:12px;color:var(--muted2)}
-.rank-role{font-size:12px;font-weight:700}
-.role-sk{color:var(--accent)}
-.role-cr{color:var(--gold)}
-.rank-pt{text-align:right;font-family:var(--font-display);font-size:20px;color:var(--accent);letter-spacing:.04em}
-.text-right{text-align:right}
-.empty{padding:40px;text-align:center;color:var(--muted)}
-@media(max-width:700px){
-  .h6,.r6{grid-template-columns:44px 1fr 70px}
-  .h6>*:nth-child(n+4),.r6>*:nth-child(n+4){display:none}
-  .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
-  .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
+.page-hero {
+  padding: 120px 24px 60px;
+  background: linear-gradient(180deg, rgba(0,100,200,.12) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
 }
+.page-hero-inner {
+  max-width: 1200px;
+  margin: auto;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px);
+  letter-spacing: .04em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.page-desc { font-size: 15px; color: var(--muted2); }
+
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  padding: 24px 24px 0;
+  max-width: 1200px;
+  margin: auto;
+}
+.tab-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--muted2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.tab-btn.active {
+  background: var(--surface);
+  color: var(--accent);
+  border-color: rgba(0,212,255,.25);
+}
+.tab-content {
+  display: none;
+  padding: 0 24px 80px;
+  max-width: 1200px;
+  margin: auto;
+}
+.tab-content.active { display: block; }
+.tab-panel-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  overflow: hidden;
+}
+
+/* 女子ランキング用 */
+.women-badge {
+  display: inline-block;
+  background: rgba(255,100,180,.15);
+  border: 1px solid rgba(255,100,180,.3);
+  color: #ff88cc;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 99px;
+  letter-spacing: .06em;
+  margin-left: 8px;
+}
+
+/* 大学ランキング（詳細テーブル） */
+.rank-header-6 {
+  grid-template-columns: 60px 1fr 80px 80px 100px 100px;
+}
+.rank-row-6 {
+  grid-template-columns: 60px 1fr 80px 80px 100px 100px;
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --tack-purple: #7c3aed; }
+.tack-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 44px;
+  background: #0a0a0a; border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.tack-nav-logo img { height: 18px; width: auto; display: block; filter: invert(1) brightness(.85); }
+.tack-nav-links { display: flex; align-items: center; gap: 24px; }
+.tack-nav-links a {
+  font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .1em;
+  color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s;
+}
+.tack-nav-links a:hover { color: rgba(255,255,255,.85); }
+.tack-nav-badge {
+  font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .14em;
+  color: rgba(255,255,255,.3); padding-left: 12px;
+  border-left: 1px solid rgba(255,255,255,.1); text-transform: uppercase;
+}
+@media(max-width:600px){ .tack-nav{padding:0 16px;} .tack-nav-badge{display:none;} .tack-nav-links{gap:14px;} }
 </style>
 </head>
 <body>
+<div class="tack-nav">
+  <a href="index.html" class="tack-nav-logo">
+    <img src="tack-logo.png" alt="TACK Sailing Media">
+  </a>
+  <div class="tack-nav-links">
+    <a href="index.html">News</a>
+    <a href="#">Interview</a>
+    <a href="sailrank.html">SAIL RANK</a>
+    <a href="results.html">大会結果</a>
+  </div>
+  <div class="tack-nav-badge">Sailing Media</div>
+</div>
+
+
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="logo">SAIL<span>RANK</span></a>
+    <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
     <div class="nav-links">
       <a href="ranking.html" style="color:#fff">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a>
-    <a href="players.html">選手DB</a><a href="results.html">大会結果</a>
+    <a href="ranking.html">ランキング</a>
+    <a href="forecast.html">AI予測</a>
+    <a href="players.html">選手DB</a>
+    <a href="results.html">大会結果</a>
   </div>
 </nav>
 
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="section-label">RANKING</div>
-    <h1 class="page-title">ランキング</h1>
-    <p class="page-desc">独自アルゴリズムで算出。年度別・歴代の切り替えが可能。</p>
+    <h1 class="page-title">年間ランキング</h1>
+    <p class="page-desc">主要決勝大会のみを対象に、独自アルゴリズムで算出した年間成績。</p>
   </div>
 </div>
 
-<div class="tab-wrap">
-  <!-- 年度タブ -->
-  <div class="year-tabs" id="yearTabs">
-    <button class="year-btn active" data-year="all">歴代</button>
-    <button class="year-btn" data-year="2019">2019</button>
-    <button class="year-btn" data-year="2018">2018</button>
-    <button class="year-btn" data-year="2017">2017</button>
-    <button class="year-btn" data-year="2023">2023</button>
-    <button class="year-btn" data-year="2022">2022</button>
-    <button class="year-btn" data-year="2021">2021</button>
-    <button class="year-btn" data-year="2020">2020</button>
-    <button class="year-btn" data-year="2016">2016</button>
-  </div>
-
-  <!-- カテゴリタブ -->
-  <div class="cat-group-label">個人</div>
-  <div class="cat-tabs" id="catTabs">
-    <button class="cat-btn active" data-cat="individual">総合</button>
-    <button class="cat-btn" data-cat="skipper">全スキッパー</button>
-    <button class="cat-btn" data-cat="crew">全クルー</button>
-    <button class="cat-btn" data-cat="sk470">470 スキッパー</button>
-    <button class="cat-btn" data-cat="cr470">470 クルー</button>
-    <button class="cat-btn" data-cat="skSnipe">スナイプ スキッパー</button>
-    <button class="cat-btn" data-cat="crSnipe">スナイプ クルー</button>
-  </div>
-  <div class="cat-group-label">大学</div>
-  <div class="cat-tabs">
-    <button class="cat-btn" data-cat="university">大学総合</button>
-  </div>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('individual')">個人総合</button>
+  <button class="tab-btn" onclick="switchTab('women')">女子</button>
+  <button class="tab-btn" id="univTab" onclick="switchTab('university')">大学</button>
 </div>
 
-<div class="tab-panels">
-  <div class="panel-header">
-    <div class="panel-title" id="panelTitle">歴代 個人総合</div>
-    <div class="panel-badge" id="panelBadge">全年度累計</div>
-  </div>
-  <div class="rank-table" id="rankTable">
-    <div class="rank-header h6" id="rankHeader">
-      <span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">累計Pt</span>
+<!-- 個人総合 -->
+<div class="tab-content active" id="tab-individual">
+  <div class="tab-panel-box">
+    <div class="rank-header">
+      <span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span class="text-right">年間Pt</span>
     </div>
-    <div id="rankList"></div>
+    <div id="fullIndividualList"></div>
+  </div>
+</div>
+
+<!-- 女子 -->
+<div class="tab-content" id="tab-women">
+  <div class="tab-panel-box">
+    <div class="rank-header">
+      <span>順位</span><span>選手 <span class="women-badge">WOMEN'S</span></span><span>大学</span><span>クラス</span><span class="text-right">年間Pt</span>
+    </div>
+    <div id="womenList"></div>
+  </div>
+</div>
+
+<!-- 大学 -->
+<div class="tab-content" id="tab-university">
+  <div class="tab-panel-box">
+    <div class="rank-header rank-header-6">
+      <span>順位</span><span>大学</span><span>大会数</span><span>TOP3</span><span>平均順位</span><span class="text-right">大学Pt</span>
+    </div>
+    <div id="fullUnivList"></div>
   </div>
 </div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p></div>
-      <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
+      <div class="footer-brand">
+        <div class="logo">SAIL<span>RANK</span></div>
+        <p>学生セーリングの熱量を、数字で伝える。</p>
+      </div>
+      <div class="footer-links">
+        <a href="ranking.html">ランキング</a>
+        <a href="forecast.html">AI予測</a>
+        <a href="players.html">選手DB</a>
+        <a href="results.html">大会結果</a>
+      </div>
     </div>
-    <div class="footer-bottom"><small>© 2024 SAIL RANK. 独自アルゴリズムで算出。</small></div>
+    <div class="footer-bottom">
+      <small>© 2024 SAIL RANK. データは公式大会結果をもとに独自算出。</small>
+    </div>
   </div>
 </footer>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
-let currentYear = 'all';
-let currentCat  = 'individual';
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  // URLハッシュも更新
+  history.replaceState(null, '', '#' + id);
+}
 
-// データキー取得
-function getKey(year, cat) {
-  if (cat === 'university') return 'universityRanking';
-  if (year === 'all') {
-    const map = {individual:'individualRanking',skipper:'rankingSkipper',crew:'rankingCrew',
-                 sk470:'ranking470Skipper',cr470:'ranking470Crew',
-                 skSnipe:'rankingSnipeSkipper',crSnipe:'rankingSnipeCrew'};
-    return map[cat];
+// ページ初期化時にハッシュがあればそのタブを開く
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.replace('#', '');
+  if (hash && document.getElementById('tab-' + hash)) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + hash).classList.add('active');
+    document.getElementById(hash + 'Tab')?.classList.add('active');
   }
-  const map = {individual:`y${year}_individual`,skipper:`y${year}_skipper`,crew:`y${year}_crew`,
-               sk470:`y${year}_sk470`,cr470:`y${year}_cr470`,
-               skSnipe:`y${year}_skSnipe`,crSnipe:`y${year}_crSnipe`};
-  return map[cat];
-}
-
-function tc(i){return i===0?'top1':i===1?'top2':i===2?'top3':'';}
-
-function renderPlayers(data) {
-  const header = document.getElementById('rankHeader');
-  const ptLabel = currentYear==='all' ? '累計Pt' : `${currentYear}Pt`;
-  header.className = 'rank-header h6';
-  header.innerHTML = `<span>順位</span><span>選手</span><span>大学</span><span>クラス</span><span>役割</span><span class="text-right">${ptLabel}</span>`;
-  return (data||[]).map((p,i)=>{
-    const cls=p.cls==='470'?'470級':'スナイプ級';
-    const roleClass=p.role==='Skipper'?'role-sk':'role-cr';
-    return `<div class="rank-row r6 ${tc(i)}" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
-      <div class="rank-num">#${p.rank}</div>
-      <div><div class="rank-name">${p.name}</div><div class="rank-sub">出場${p.events}大会</div></div>
-      <div class="rank-univ">${p.univ}</div>
-      <div class="rank-cls">${cls}</div>
-      <div class="rank-role ${roleClass}">${p.role}</div>
-      <div class="rank-pt">${p.pt}</div>
-    </div>`;
-  }).join('');
-}
-
-function renderUniv(data) {
-  const header = document.getElementById('rankHeader');
-  header.className = 'rank-header h-univ';
-  header.innerHTML = `<span>順位</span><span>大学</span><span class="text-right">大会数</span><span class="text-right">TOP3</span><span class="text-right">平均順位</span><span class="text-right">累計Pt</span>`;
-  return (data||[]).map((u,i)=>`
-    <div class="rank-row r-univ ${tc(i)}">
-      <div class="rank-num">#${u.rank}</div>
-      <div class="rank-name">${u.name}</div>
-      <div class="rank-pt text-right">${u.events}</div>
-      <div class="rank-pt text-right" style="color:var(--gold)">${u.top3}</div>
-      <div class="rank-cls text-right">${u.avgRank}位</div>
-      <div class="rank-pt">${u.pt}</div>
-    </div>`).join('');
-}
-
-function updateTitle() {
-  const yearLabel = currentYear==='all' ? '歴代' : `${currentYear}年度`;
-  const catLabel = {individual:'個人総合',skipper:'全スキッパー',crew:'全クルー',
-    sk470:'470級スキッパー',cr470:'470級クルー',
-    skSnipe:'スナイプスキッパー',crSnipe:'スナイプクルー',
-    university:'大学総合'}[currentCat];
-  document.getElementById('panelTitle').textContent = `${yearLabel} ${catLabel}`;
-  document.getElementById('panelBadge').textContent =
-    currentYear==='all' ? '全年度累計' : `${currentYear}年度`;
-}
-
-function render() {
-  updateTitle();
-  const key = getKey(currentYear, currentCat);
-  const data = SITE_DATA[key] || [];
-  const html = currentCat==='university' ? renderUniv(data) : renderPlayers(data);
-  document.getElementById('rankList').innerHTML = html || '<div class="empty">データなし</div>';
-}
-
-// 年度タブ
-document.getElementById('yearTabs').addEventListener('click', e => {
-  const btn = e.target.closest('[data-year]');
-  if (!btn) return;
-  document.querySelectorAll('.year-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentYear = btn.dataset.year;
-  render();
 });
 
-// カテゴリタブ
-document.querySelectorAll('[data-cat]').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-    this.classList.add('active');
-    currentCat = this.dataset.cat;
-    render();
-  });
-});
+document.addEventListener('DOMContentLoaded', () => {
+  const topClass = ['top1','top2','top3'];
 
-document.addEventListener('DOMContentLoaded', render);
+  // 個人総合（全員）
+  const fullList = document.getElementById('fullIndividualList');
+  if (fullList) {
+    fullList.innerHTML = SITE_DATA.individualRanking.map((p, i) => `
+      <div class="rank-row ${topClass[i] || ''}">
+        <div class="rank-num">#${p.rank}</div>
+        <div><div class="rank-name">${p.name}</div><div class="rank-role">${p.role}</div></div>
+        <div class="rank-univ">${p.univ}</div>
+        <div class="rank-class">${p.cls}</div>
+        <div class="rank-pt">${p.pt}</div>
+      </div>
+    `).join('');
+  }
+
+  // 女子ランキング
+  const womenList = document.getElementById('womenList');
+  if (womenList) {
+    womenList.innerHTML = SITE_DATA.womenRanking
+      ? SITE_DATA.womenRanking.map((p, i) => `
+      <div class="rank-row ${topClass[i] || ''}">
+        <div class="rank-num">#${p.rank}</div>
+        <div><div class="rank-name">${p.name}</div><div class="rank-role">${p.role}</div></div>
+        <div class="rank-univ">${p.univ}</div>
+        <div class="rank-class">${p.cls}</div>
+        <div class="rank-pt">${p.pt}</div>
+      </div>
+    `).join('')
+      : '<div style="padding:40px;text-align:center;color:var(--muted)">データ準備中</div>';
+  }
+
+  // 大学ランキング（詳細）
+  const univList = document.getElementById('fullUnivList');
+  if (univList) {
+    univList.innerHTML = SITE_DATA.universityRanking.map((u, i) => `
+      <div class="rank-row rank-row-6 ${topClass[i] || ''}">
+        <div class="rank-num">#${u.rank}</div>
+        <div class="rank-name">${u.name}</div>
+        <div class="rank-class">${u.events || '-'}</div>
+        <div class="rank-class">${u.top3 !== undefined ? u.top3 : '-'}</div>
+        <div class="rank-class">${u.avgRank || '-'}</div>
+        <div class="rank-pt">${u.pt}</div>
+      </div>
+    `).join('');
+  }
+});
 </script>
 </body>
 </html>

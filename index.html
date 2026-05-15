@@ -3,223 +3,805 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SAIL RANK | 学生セーリング総合メディア</title>
-<meta name="description" content="全国大学生セーリングの独自ランキング・AI大会予測・選手データベース。学生セーリングをもっと熱く。">
+<title>TACK — Sailing Media</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #0a0a0a;
+  --white:   #f8f8f6;
+  --purple:  #7c3aed;
+  --purple-light: #ede9fe;
+  --gray:    #f1f0ee;
+  --gray-mid:#c8c6c2;
+  --muted:   #888680;
+  --border:  rgba(10,10,10,.1);
+  --font-disp: 'Bebas Neue', sans-serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--black);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 58px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: .04em;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--black); }
+
+.nav-sailrank {
+  background: var(--purple) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 6px 14px;
+  border-radius: 3px;
+  letter-spacing: .06em;
+  transition: opacity .15s !important;
+}
+.nav-sailrank:hover { opacity: .85; }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 0;
+  padding: 36px 32px 32px;
+  border-bottom: 1px solid var(--border);
+  align-items: stretch;
+}
+
+.hero-text {}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--purple);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--font-disp);
+  font-size: 42px;
+  letter-spacing: .04em;
+  color: var(--black);
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+
+.hero-sub {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 420px;
+}
+
+.hero-ad {
+  margin-left: 32px;
+  border: 1px dashed var(--gray-mid);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--gray);
+  min-height: 100px;
+}
+
+.hero-ad-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.hero-ad-sub {
+  font-size: 11px;
+  color: var(--gray-mid);
+}
+
+/* ── MAIN BODY ── */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── LEFT: NEWS ── */
+.news-col {
+  border-right: 1px solid var(--border);
+  padding: 24px 32px;
+}
+
+.col-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.col-head-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.col-head-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* featured article */
+.news-featured {
+  padding-bottom: 20px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.news-cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.news-featured-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: 6px;
+  transition: color .15s;
+  cursor: pointer;
+}
+.news-featured-title:hover { color: var(--purple); }
+
+.news-featured-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+
+.news-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gray-mid);
+  letter-spacing: .06em;
+}
+
+/* sub articles */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.news-item:last-child { border-bottom: none; }
+.news-item:hover .news-item-title { color: var(--purple); }
+
+.news-item-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray-mid);
+  padding-top: 2px;
+  min-width: 20px;
+}
+
+.news-item-title {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.45;
+  transition: color .15s;
+}
+
+.news-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.news-item-cat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--purple);
+  text-transform: uppercase;
+}
+
+.news-item-date {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--gray-mid);
+}
+
+/* ── RIGHT: RANK + AD ── */
+.rank-col {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* SAIL RANK */
+.rank-block {}
+
+.rank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rank-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.rank-link {
+  font-size: 11px;
+  color: var(--purple);
+  font-weight: 500;
+  transition: opacity .15s;
+}
+.rank-link:hover { opacity: .7; }
+
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rank-row:last-child { border-bottom: none; }
+
+.rank-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray-mid);
+}
+.rank-num.top { color: #b45309; }
+
+.rank-name {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.3;
+}
+
+.rank-univ {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.rank-pt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--purple);
+}
+
+/* AI予測ブロック */
+.ai-block {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+.ai-event {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.ai-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ai-row {
+  display: grid;
+  grid-template-columns: 16px 1fr 34px;
+  gap: 6px;
+  align-items: center;
+}
+
+.ai-rank {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.ai-bar-wrap {
+  height: 3px;
+  background: var(--gray);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.ai-bar {
+  height: 100%;
+  background: var(--purple);
+  border-radius: 99px;
+}
+
+.ai-pct {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--purple);
+  text-align: right;
+}
+
+/* ad in rank col */
+.rank-ad {
+  border: 1px dashed var(--gray-mid);
+  border-radius: 4px;
+  background: var(--gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 12px;
+  min-height: 90px;
+}
+
+/* ── BOTTOM STRIP ── */
+.bottom-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+
+.strip-item {
+  padding: 20px 24px;
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+}
+.strip-item:last-child { border-right: none; }
+.strip-item:hover { background: var(--gray); }
+
+.strip-cat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.strip-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.4;
+}
+
+.strip-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gray-mid);
+  margin-top: 5px;
+}
+
+/* ── SPONSOR BAR ── */
+.sponsor-bar {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  align-items: stretch;
+}
+
+.sponsor-label {
+  padding: 16px 20px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  background: var(--black);
+}
+
+.sponsor-label span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.5);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sponsor-slot {
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  transition: background .15s;
+  cursor: pointer;
+  min-height: 56px;
+}
+.sponsor-slot:last-child { border-right: none; }
+.sponsor-slot:hover { background: var(--gray); }
+
+.sponsor-slot.filled img {
+  height: 22px;
+  width: auto;
+  filter: grayscale(100%) opacity(.7);
+  transition: filter .2s;
+}
+.sponsor-slot.filled:hover img { filter: none; }
+
+.sponsor-slot-empty {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--gray-mid);
+  text-transform: uppercase;
+}
+
+/* ── FOOTER ── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  background: var(--black);
+}
+
+.footer-logo img {
+  height: 20px;
+  width: auto;
+  filter: invert(1) brightness(.7);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  font-size: 12px;
+  color: rgba(255,255,255,.4);
+  transition: color .15s;
+}
+.footer-nav a:hover { color: rgba(255,255,255,.8); }
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.25);
+  letter-spacing: .06em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-ad { margin-left: 0; margin-top: 16px; min-height: 70px; }
+  .main { grid-template-columns: 1fr; }
+  .rank-col { border-top: 1px solid var(--border); }
+  .news-col { border-right: none; padding: 20px 20px; }
+  .hero { padding: 24px 20px; }
+  .bottom-strip { grid-template-columns: 1fr; }
+  .strip-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .sponsor-bar { grid-template-columns: 1fr 1fr; }
+  .sponsor-label { display: none; }
+  .nav { padding: 0 20px; }
+  .hero-title { font-size: 32px; }
+}
+</style>
 </head>
 <body>
 
-<!-- ナビゲーション -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="logo">SAIL<span>RANK</span></a>
-    <div class="nav-links">
-      <a href="ranking.html">ランキング</a>
-      <a href="forecast.html">AI予測</a>
-      <a href="players.html">選手DB</a>
-      <a href="results.html">大会結果</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="ranking.html">ランキング</a>
-    <a href="forecast.html">AI予測</a>
-    <a href="players.html">選手DB</a>
-    <a href="results.html">大会結果</a>
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="tack-logo.png" alt="TACK Sailing Media">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">News</a>
+    <a href="#">Interview</a>
+    <a href="#">About</a>
+    <a href="ranking.html" class="nav-sailrank">SAIL RANK</a>
   </div>
 </nav>
 
-<!-- ヒーロー -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Sailing Media</div>
+    <div class="hero-title">学生セーリングの、<br>すべてを伝える。</div>
+    <div class="hero-sub">レース結果・独自ランキング・AI予測・インタビューを一ヶ所で。<br>データと熱量で、学生セーリングを深く伝える。</div>
   </div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="live-dot"></span>
-      2024 シーズン進行中
-    </div>
-    <h1 class="hero-title">
-      学生セーリングを、<br>
-      <em>データで熱く。</em>
-    </h1>
-    <p class="hero-desc">
-      全国大学生ヨット大会の成績を独自アルゴリズムで集計・分析。<br>
-      AIによる大会予測、選手ランキングで、学生セーリングをもっと面白く。
-    </p>
-    <div class="hero-cta">
-      <a href="ranking.html" class="btn-primary">ランキングを見る</a>
-      <a href="forecast.html" class="btn-ghost">AI予測を見る</a>
-    </div>
+  <div class="hero-ad">
+    <div class="hero-ad-label">Sponsor AD</div>
+    <div class="hero-ad-sub">広告掲載のご相談</div>
   </div>
-  <div class="hero-mvp">
-    <div class="mvp-label">2024 現在の総合首位</div>
-    <div class="mvp-name">山田 太郎</div>
-    <div class="mvp-univ">早稲田大学 / Skipper / 470級</div>
-    <div class="mvp-stats">
-      <div class="mvp-stat"><b>412.5</b><small>POINT</small></div>
-      <div class="mvp-stat"><b>5</b><small>大会</small></div>
-      <div class="mvp-stat"><b>4</b><small>TOP3</small></div>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- KPI バー -->
-<section class="kpi-bar">
-  <div class="kpi-bar-inner">
-    <div class="kpi-item">
-      <b>29</b><span>参加大学</span>
-    </div>
-    <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>8</b><span>対象大会</span>
-    </div>
-    <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>370+</b><span>集計成績</span>
-    </div>
-    <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>AI</b><span>予測搭載</span>
-    </div>
-  </div>
-</section>
+<!-- MAIN: LEFT NEWS + RIGHT RANK -->
+<div class="main">
 
-<!-- ランキングプレビュー -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <div class="section-label">OVERALL RANKING</div>
-        <h2 class="section-title">個人総合ランキング</h2>
-        <p class="section-desc">主要決勝大会のみを対象に、独自アルゴリズムで算出。</p>
-      </div>
-      <a href="ranking.html" class="btn-link">全員を見る →</a>
+  <!-- NEWS LEFT -->
+  <div class="news-col">
+    <div class="col-head">
+      <div class="col-head-title">Latest News</div>
+      <div class="col-head-line"></div>
     </div>
 
-    <div class="rank-table">
-      <div class="rank-header">
-        <span>順位</span>
-        <span>選手</span>
-        <span>大学</span>
-        <span>クラス</span>
-        <span class="text-right">年間Pt</span>
-      </div>
-      <!-- データはJSで動的に読み込み -->
-      <div id="rankList"></div>
-    </div>
-  </div>
-</section>
-
-<!-- AI予測プレビュー -->
-<section class="section section-dark">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <div class="section-label">AI FORECAST</div>
-        <h2 class="section-title">次回大会 AI予測</h2>
-        <p class="section-desc">過去の成績データをもとに、AIが大会前の順位を予測。</p>
-      </div>
-      <a href="forecast.html" class="btn-link">詳細を見る →</a>
+    <!-- featured -->
+    <div class="news-featured">
+      <div class="news-cat">レース結果</div>
+      <div class="news-featured-title">第90回 関東学生ヨット選手権大会 決勝 — 早稲田大学が3年連続総合優勝</div>
+      <div class="news-featured-desc">2023年10月14〜15日に江ノ島で開催。早稲田が470・スナイプ両クラスで安定した成績を収め、総合17点で制した。2位は日大（49点）、3位は慶應（82点）と続いた。</div>
+      <div class="news-date">2023.10.15</div>
     </div>
 
-    <div class="forecast-grid" id="forecastPreview"></div>
-  </div>
-</section>
-
-<!-- 大学ランキングプレビュー -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <div class="section-label">UNIVERSITY RANKING</div>
-        <h2 class="section-title">大学ランキング</h2>
-        <p class="section-desc">団体成績の総合ポイントで大学の強さを可視化。</p>
-      </div>
-      <a href="ranking.html#university" class="btn-link">全大学を見る →</a>
-    </div>
-    <div class="univ-grid" id="univGrid"></div>
-  </div>
-</section>
-
-<!-- スポンサー -->
-<section class="sponsor-section">
-  <div class="sponsor-inner">
-    <div class="sponsor-header">
-      <div>
-        <div class="sponsor-eyebrow">Official Sponsors</div>
-        <h2 class="sponsor-title">スポンサー</h2>
-        <p class="sponsor-sub">SAIL RANKは学生セーリング界への投資を検討する企業・ブランドのパートナーを募集しています。</p>
-      </div>
-      <a href="mailto:info@sailrank.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
-    </div>
-    <div class="sponsor-grid-top">
-      <a class="s-card s-title" href="https://aegil-ag.jp" target="_blank" rel="noopener">
-        <div class="s-title-badge">Title Sponsor</div>
-        <img class="s-title-logo" src="aegil-logo-white.png" alt="Aegil">
-        <div class="s-title-desc">高機能セーリングウェアブランド</div>
-      </a>
-      <div class="s-card s-gold">
-        <div class="s-gold-label">Gold Sponsor</div>
-        <div class="s-open-name">募集中</div>
-        <div class="s-open-plus">+</div>
-      </div>
-      <div class="s-card s-gold">
-        <div class="s-gold-label">Gold Sponsor</div>
-        <div class="s-open-name">募集中</div>
-        <div class="s-open-plus">+</div>
-      </div>
-    </div>
-    <div class="sponsor-grid-sm">
-      <div class="s-partner"><div class="s-partner-label">Official Partner</div><div class="s-partner-name">募集中</div></div>
-      <div class="s-partner"><div class="s-partner-label">Official Partner</div><div class="s-partner-name">募集中</div></div>
-      <div class="s-partner"><div class="s-partner-label">Official Partner</div><div class="s-partner-name">募集中</div></div>
-      <div class="s-partner"><div class="s-partner-label">Official Partner</div><div class="s-partner-name">募集中</div></div>
-    </div>
-    <div class="sponsor-recruit">
-      <div>
-        <div class="recruit-title">スポンサーシップのご案内</div>
-        <div class="recruit-desc">全国1,000名超の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
-        <div class="recruit-packages">
-          <span class="pkg-badge pkg-title">Title</span>
-          <span class="pkg-badge pkg-gold">Gold</span>
-          <span class="pkg-badge pkg-partner">Official Partner</span>
-          <span class="pkg-badge pkg-partner">MVP冠スポンサー</span>
-          <span class="pkg-badge pkg-partner">AI予測スポンサー</span>
+    <!-- sub list -->
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-item-num">02</div>
+        <div>
+          <div class="news-item-title">【AI予測】全日本学生ヨット選手権 — 早稲田28.5%・日大23.2%・慶應21.8%の三つ巴</div>
+          <div class="news-item-meta">
+            <span class="news-item-cat">AI予測</span>
+            <span class="news-item-date">2023.10.10</span>
+          </div>
         </div>
       </div>
-      <a href="mailto:info@sailrank.jp" class="recruit-contact">お問い合わせ</a>
+      <div class="news-item">
+        <div class="news-item-num">03</div>
+        <div>
+          <div class="news-item-title">「勝ちにこだわる理由」— 早稲田大学ヨット部主将・飯田澪インタビュー</div>
+          <div class="news-item-meta">
+            <span class="news-item-cat">インタビュー</span>
+            <span class="news-item-date">2023.10.05</span>
+          </div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-item-num">04</div>
+        <div>
+          <div class="news-item-title">2023年度 関東学生ヨット個人選手権大会 — スナイプ級・磯村麟之介（慶應）が制す</div>
+          <div class="news-item-meta">
+            <span class="news-item-cat">レース結果</span>
+            <span class="news-item-date">2023.06.11</span>
+          </div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-item-num">05</div>
+        <div>
+          <div class="news-item-title">2023年度 関東学生ヨット春季選手権大会 決勝 — 早稲田が総合17点で圧勝</div>
+          <div class="news-item-meta">
+            <span class="news-item-cat">レース結果</span>
+            <span class="news-item-date">2023.05.07</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo">SAIL<span>RANK</span></div>
-        <p>学生セーリングの熱量を、数字で伝える。</p>
+  <!-- RANK RIGHT -->
+  <div class="rank-col">
+
+    <div class="rank-block">
+      <div class="rank-header">
+        <div class="rank-title">SAIL RANK — 歴代TOP5</div>
+        <a href="ranking.html" class="rank-link">全て見る →</a>
       </div>
-      <div class="footer-links">
-        <a href="ranking.html">ランキング</a>
-        <a href="forecast.html">AI予測</a>
-        <a href="players.html">選手DB</a>
-        <a href="results.html">大会結果</a>
+      <div class="rank-list">
+        <div class="rank-row">
+          <div class="rank-num top">1</div>
+          <div><div class="rank-name">池田 紅葉</div><div class="rank-univ">日本大学</div></div>
+          <div class="rank-pt">370pt</div>
+        </div>
+        <div class="rank-row">
+          <div class="rank-num">2</div>
+          <div><div class="rank-name">三宅 功輔</div><div class="rank-univ">早稲田大学</div></div>
+          <div class="rank-pt">317pt</div>
+        </div>
+        <div class="rank-row">
+          <div class="rank-num">3</div>
+          <div><div class="rank-name">中山 由紀美</div><div class="rank-univ">日本大学</div></div>
+          <div class="rank-pt">317pt</div>
+        </div>
+        <div class="rank-row">
+          <div class="rank-num">4</div>
+          <div><div class="rank-name">佐藤 海志</div><div class="rank-univ">日本大学</div></div>
+          <div class="rank-pt">299pt</div>
+        </div>
+        <div class="rank-row">
+          <div class="rank-num">5</div>
+          <div><div class="rank-name">入江 裕太</div><div class="rank-univ">早稲田大学</div></div>
+          <div class="rank-pt">283pt</div>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <small>© 2024 SAIL RANK. データは公式大会結果をもとに独自算出。</small>
+
+    <div class="ai-block">
+      <div class="rank-title" style="margin-bottom:10px">AI予測 — 次回大会</div>
+      <div class="ai-event">2024年度 春季関東選手権 決勝</div>
+      <div class="ai-rows">
+        <div class="ai-row">
+          <div class="ai-rank">1</div>
+          <div>
+            <div style="font-size:11px;color:var(--black);margin-bottom:3px">早稲田大学</div>
+            <div class="ai-bar-wrap"><div class="ai-bar" style="width:100%"></div></div>
+          </div>
+          <div class="ai-pct">28.5%</div>
+        </div>
+        <div class="ai-row">
+          <div class="ai-rank">2</div>
+          <div>
+            <div style="font-size:11px;color:var(--black);margin-bottom:3px">日本大学</div>
+            <div class="ai-bar-wrap"><div class="ai-bar" style="width:81%"></div></div>
+          </div>
+          <div class="ai-pct">23.2%</div>
+        </div>
+        <div class="ai-row">
+          <div class="ai-rank">3</div>
+          <div>
+            <div style="font-size:11px;color:var(--black);margin-bottom:3px">慶應義塾大学</div>
+            <div class="ai-bar-wrap"><div class="ai-bar" style="width:76%"></div></div>
+          </div>
+          <div class="ai-pct">21.8%</div>
+        </div>
+        <div class="ai-row">
+          <div class="ai-rank">4</div>
+          <div>
+            <div style="font-size:11px;color:var(--black);margin-bottom:3px">明海大学</div>
+            <div class="ai-bar-wrap"><div class="ai-bar" style="width:37%"></div></div>
+          </div>
+          <div class="ai-pct">10.5%</div>
+        </div>
+        <div class="ai-row">
+          <div class="ai-rank">5</div>
+          <div>
+            <div style="font-size:11px;color:var(--black);margin-bottom:3px">中央大学</div>
+            <div class="ai-bar-wrap"><div class="ai-bar" style="width:29%"></div></div>
+          </div>
+          <div class="ai-pct">8.2%</div>
+        </div>
+      </div>
     </div>
+
+    <div class="rank-ad">
+      <div class="hero-ad-label">Sponsor AD</div>
+      <div class="hero-ad-sub">広告掲載のご相談</div>
+    </div>
+
   </div>
+</div>
+
+<!-- BOTTOM 3-COLUMN STRIP -->
+<div class="bottom-strip">
+  <div class="strip-item">
+    <div class="strip-cat">インタビュー</div>
+    <div class="strip-title">「データが変える戦略」— 慶應義塾大学コーチ</div>
+    <div class="strip-date">2023.09.20</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-cat">レース結果</div>
+    <div class="strip-title">2023年 関東学生女子ヨット秋季選手権 — 東海大学が優勝</div>
+    <div class="strip-date">2023.09.10</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-cat">大会情報</div>
+    <div class="strip-title">第91回 関東学生ヨット選手権大会 — 開催要項・日程</div>
+    <div class="strip-date">2024.01.15</div>
+  </div>
+</div>
+
+<!-- SPONSOR BAR -->
+<div class="sponsor-bar">
+  <div class="sponsor-label"><span>Sponsors</span></div>
+  <div class="sponsor-slot filled">
+    <img src="aegil-logo-black.png" alt="Aegil">
+  </div>
+  <div class="sponsor-slot">
+    <span class="sponsor-slot-empty">Gold Sponsor</span>
+  </div>
+  <div class="sponsor-slot">
+    <span class="sponsor-slot-empty">Gold Sponsor</span>
+  </div>
+  <div class="sponsor-slot">
+    <span class="sponsor-slot-empty">Partner</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="tack-logo.png" alt="TACK">
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">News</a>
+    <a href="#">Interview</a>
+    <a href="ranking.html">SAIL RANK</a>
+    <a href="results.html">大会結果</a>
+    <a href="#">About</a>
+    <a href="mailto:info@tack-sailing.jp">Contact</a>
+  </nav>
+  <div class="footer-copy">© 2024 TACK Sailing Media</div>
 </footer>
 
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>
