@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News | TACK Sailing Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --black:#111;--white:#fff;--off:#f7f6f3;
+  --purple:#6d28d9;--purple-s:#ede9fe;
+  --text:#1a1a1a;--muted:#71717a;--light:#a1a1aa;
+  --border:#e4e4e7;--radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--text);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav img{height:24px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:15px;font-weight:400;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:600}
+.nav-sr{background:var(--purple)!important;color:#fff!important;font-size:14px!important;font-weight:500!important;padding:8px 20px;border-radius:99px;transition:opacity .2s!important}
+.nav-sr:hover{opacity:.85}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-ham span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block}
+.mobile-nav{display:none;flex-direction:column;gap:0;background:var(--white);border-bottom:1px solid var(--border)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:14px 24px;font-size:15px;border-bottom:1px solid var(--border);color:var(--text)}
+
+.page-hero{padding:72px 40px 56px;max-width:960px;margin:0 auto}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.page-eyebrow::before{content:'';width:20px;height:2px;background:var(--purple);border-radius:2px}
+.page-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.page-desc{font-size:17px;color:var(--muted);line-height:1.85;max-width:540px}
+
+.divider{height:1px;background:var(--border);margin:0 40px}
+.sec{padding:48px 40px;max-width:960px;margin:0 auto}
+.sec-label{font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-size:26px;font-weight:700;margin-bottom:24px}
+
+.cat{display:inline-block;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-s);padding:3px 10px;border-radius:99px;margin-bottom:10px}
+.date{font-size:13px;color:var(--light)}
+
+footer{border-top:1px solid var(--border)}
+.ft{max-width:960px;margin:0 auto;padding:40px 40px 32px;display:flex;flex-direction:column;gap:24px}
+.ft-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft-brand img{height:20px;width:auto;margin-bottom:10px}
+.ft-tag{font-size:14px;color:var(--muted)}
+.ft-nav{display:flex;gap:22px;flex-wrap:wrap;padding-top:4px}
+.ft-nav a{font-size:14px;color:var(--muted);transition:color .15s}
+.ft-nav a:hover{color:var(--text)}
+.ft-copy{border-top:1px solid var(--border);padding-top:20px;font-size:13px;color:var(--light)}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .page-hero{padding:48px 20px 40px}
+  .divider{margin:0 20px}
+  .sec{padding:40px 20px}
+  .ft{padding:32px 20px}
+}
+
+
+/* カテゴリフィルター */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-btn{padding:7px 18px;border:1.5px solid var(--border);border-radius:99px;background:transparent;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.filter-btn:hover{border-color:var(--purple);color:var(--purple)}
+.filter-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+/* 特集記事 */
+.news-feat{border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin-bottom:16px;cursor:pointer;transition:border-color .2s}
+.news-feat:hover{border-color:var(--purple)}
+.feat-title{font-size:22px;font-weight:700;line-height:1.45;margin:10px 0 10px}
+.feat-desc{font-size:16px;color:var(--muted);line-height:1.85;margin-bottom:14px}
+
+/* 記事グリッド */
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ncard{border:1px solid var(--border);border-radius:var(--radius);padding:24px;cursor:pointer;transition:border-color .2s}
+.ncard:hover{border-color:var(--purple)}
+.ncard-title{font-size:16px;font-weight:600;line-height:1.5;margin:10px 0 12px}
+.ncard-meta{display:flex;align-items:center;gap:10px}
+
+/* ページネーション */
+.pagination{display:flex;justify-content:center;gap:8px;padding:40px 0 0}
+.page-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.page-btn:hover{border-color:var(--purple);color:var(--purple)}
+.page-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+@media(max-width:640px){.news-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html"><img src="tack-logo.png" alt="TACK"></a>
+  <div class="nav-links">
+    <a href="news.html" class="active">News</a>
+      <a href="interview.html">Interview</a>
+      <a href="about.html">About</a>
+      <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
+  </div>
+  <button class="nav-ham" id="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mnav">
+  <a href="news.html" class="active">News</a>
+      <a href="interview.html">Interview</a>
+      <a href="about.html">About</a>
+      <a href="sailrank.html">SAIL RANK</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-eyebrow">News</div>
+  <h1 class="page-title">最新ニュース</h1>
+  <p class="page-desc">レース結果・AI予測・インタビュー記事をお届けします。</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="sec">
+  <!-- フィルター -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterNews(this,'all')">すべて</button>
+    <button class="filter-btn" onclick="filterNews(this,'race')">レース結果</button>
+    <button class="filter-btn" onclick="filterNews(this,'ai')">AI予測</button>
+    <button class="filter-btn" onclick="filterNews(this,'interview')">インタビュー</button>
+    <button class="filter-btn" onclick="filterNews(this,'info')">大会情報</button>
+  </div>
+
+  <!-- 特集記事 -->
+  <div class="news-feat" data-cat="race">
+    <span class="cat">レース結果</span>
+    <div class="feat-title">第90回 関東学生ヨット選手権大会 決勝 — 早稲田大学が3年連続総合優勝</div>
+    <div class="feat-desc">2023年10月14〜15日、江ノ島にて開催。早稲田が470・スナイプ両クラスで安定した成績を収め、総合17点で制した。2位は日本大学（49点）、3位は慶應義塾大学（82点）と続いた。秋風が強まる中でのレースは接戦となり、特に470級では最終レースまで順位が入れ替わる展開となった。</div>
+    <div class="date">2023年10月15日</div>
+  </div>
+
+  <!-- 記事グリッド -->
+  <div class="news-grid">
+    <div class="ncard" data-cat="ai">
+      <span class="cat">AI予測</span>
+      <div class="ncard-title">【AI予測】全日本学生ヨット選手権 — 早稲田28.5%・日大23.2%・慶應21.8%の三つ巴</div>
+      <div class="ncard-meta"><div class="date">2023年10月10日</div></div>
+    </div>
+    <div class="ncard" data-cat="interview">
+      <span class="cat">インタビュー</span>
+      <div class="ncard-title">「勝ちにこだわる理由」— 早稲田大学ヨット部主将・飯田澪インタビュー</div>
+      <div class="ncard-meta"><div class="date">2023年10月5日</div></div>
+    </div>
+    <div class="ncard" data-cat="race">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">2023年度 関東学生ヨット個人選手権 スナイプ級 — 磯村麟之介（慶應）が制す</div>
+      <div class="ncard-meta"><div class="date">2023年6月11日</div></div>
+    </div>
+    <div class="ncard" data-cat="race">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">2023年度 関東学生ヨット春季選手権大会 決勝 — 早稲田が総合17点で圧勝</div>
+      <div class="ncard-meta"><div class="date">2023年5月7日</div></div>
+    </div>
+    <div class="ncard" data-cat="ai">
+      <span class="cat">AI予測</span>
+      <div class="ncard-title">【AI予測】2023年度 春季選手権 前予測 — 早稲田・慶應・日大の争いを分析</div>
+      <div class="ncard-meta"><div class="date">2023年5月1日</div></div>
+    </div>
+    <div class="ncard" data-cat="info">
+      <span class="cat">大会情報</span>
+      <div class="ncard-title">第90回 関東学生ヨット選手権大会 — 開催要項・エントリー情報</div>
+      <div class="ncard-meta"><div class="date">2023年8月20日</div></div>
+    </div>
+    <div class="ncard" data-cat="race">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">第88回 関東学生ヨット選手権大会 決勝 — 日本大学が優勝、早稲田・慶應が続く</div>
+      <div class="ncard-meta"><div class="date">2021年10月12日</div></div>
+    </div>
+    <div class="ncard" data-cat="race">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">第87回 関東学生ヨット選手権大会 決勝 — 早稲田大学が総合優勝</div>
+      <div class="ncard-meta"><div class="date">2020年10月18日</div></div>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <button class="page-btn active">1</button>
+    <button class="page-btn">2</button>
+    <button class="page-btn">3</button>
+    <button class="page-btn">→</button>
+  </div>
+</div>
+
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="tack-logo.png" alt="TACK">
+        <div class="ft-tag">学生セーリングの、すべてを伝える。</div>
+      </div>
+      <nav class="ft-nav">
+        <a href="index.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="interview.html">Interview</a>
+        <a href="about.html">About</a>
+        <a href="sailrank.html">SAIL RANK</a>
+        <a href="mailto:info@tack-sailing.jp">Contact</a>
+      </nav>
+    </div>
+    <div class="ft-copy">© 2024 TACK Sailing Media</div>
+  </div>
+</footer>
+<script>
+const h=document.getElementById('ham'),m=document.getElementById('mnav');
+if(h)h.addEventListener('click',()=>m.classList.toggle('open'));
+</script>
+
+<script>
+function filterNews(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-cat]').forEach(el => {
+    el.style.display = (cat === 'all' || el.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

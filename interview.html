@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interview | TACK Sailing Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --black:#111;--white:#fff;--off:#f7f6f3;
+  --purple:#6d28d9;--purple-s:#ede9fe;
+  --text:#1a1a1a;--muted:#71717a;--light:#a1a1aa;
+  --border:#e4e4e7;--radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--text);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav img{height:24px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:15px;font-weight:400;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:600}
+.nav-sr{background:var(--purple)!important;color:#fff!important;font-size:14px!important;font-weight:500!important;padding:8px 20px;border-radius:99px;transition:opacity .2s!important}
+.nav-sr:hover{opacity:.85}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-ham span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block}
+.mobile-nav{display:none;flex-direction:column;gap:0;background:var(--white);border-bottom:1px solid var(--border)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:14px 24px;font-size:15px;border-bottom:1px solid var(--border);color:var(--text)}
+
+.page-hero{padding:72px 40px 56px;max-width:960px;margin:0 auto}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.page-eyebrow::before{content:'';width:20px;height:2px;background:var(--purple);border-radius:2px}
+.page-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.page-desc{font-size:17px;color:var(--muted);line-height:1.85;max-width:540px}
+
+.divider{height:1px;background:var(--border);margin:0 40px}
+.sec{padding:48px 40px;max-width:960px;margin:0 auto}
+.sec-label{font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-size:26px;font-weight:700;margin-bottom:24px}
+
+.cat{display:inline-block;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-s);padding:3px 10px;border-radius:99px;margin-bottom:10px}
+.date{font-size:13px;color:var(--light)}
+
+footer{border-top:1px solid var(--border)}
+.ft{max-width:960px;margin:0 auto;padding:40px 40px 32px;display:flex;flex-direction:column;gap:24px}
+.ft-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft-brand img{height:20px;width:auto;margin-bottom:10px}
+.ft-tag{font-size:14px;color:var(--muted)}
+.ft-nav{display:flex;gap:22px;flex-wrap:wrap;padding-top:4px}
+.ft-nav a{font-size:14px;color:var(--muted);transition:color .15s}
+.ft-nav a:hover{color:var(--text)}
+.ft-copy{border-top:1px solid var(--border);padding-top:20px;font-size:13px;color:var(--light)}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .page-hero{padding:48px 20px 40px}
+  .divider{margin:0 20px}
+  .sec{padding:40px 20px}
+  .ft{padding:32px 20px}
+}
+
+
+/* フィーチャードインタビュー */
+.iv-feat{display:grid;grid-template-columns:1fr 280px;gap:32px;border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin-bottom:24px;cursor:pointer;transition:border-color .2s;align-items:center}
+.iv-feat:hover{border-color:var(--purple)}
+.iv-feat-img{border-radius:var(--radius);overflow:hidden;background:var(--off);height:200px;display:flex;align-items:center;justify-content:center}
+.iv-feat-img-inner{font-size:48px}
+.iv-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.iv-feat-title{font-size:22px;font-weight:700;line-height:1.45;margin-bottom:12px}
+.iv-feat-desc{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:14px}
+.iv-meta{display:flex;align-items:center;gap:12px}
+.iv-person{font-size:14px;font-weight:600;color:var(--text)}
+.iv-affil{font-size:13px;color:var(--muted)}
+
+/* グリッド */
+.iv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.iv-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .2s}
+.iv-card:hover{border-color:var(--purple)}
+.iv-card-img{height:120px;background:var(--off);display:flex;align-items:center;justify-content:center;font-size:36px}
+.iv-card-body{padding:18px}
+.iv-card-title{font-size:15px;font-weight:600;line-height:1.45;margin:8px 0 10px}
+.iv-card-meta{font-size:12px;color:var(--muted)}
+
+/* 募集バナー */
+.iv-recruit{background:var(--off);border:1.5px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;margin-top:32px}
+.iv-recruit-title{font-size:20px;font-weight:700;margin-bottom:10px}
+.iv-recruit-desc{font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.8}
+.iv-recruit-btn{display:inline-block;background:var(--purple);color:#fff;font-size:15px;font-weight:500;padding:12px 28px;border-radius:99px;transition:opacity .2s}
+.iv-recruit-btn:hover{opacity:.85}
+
+@media(max-width:768px){
+  .iv-feat{grid-template-columns:1fr}
+  .iv-feat-img{height:160px}
+  .iv-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.iv-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html"><img src="tack-logo.png" alt="TACK"></a>
+  <div class="nav-links">
+    <a href="news.html">News</a>
+      <a href="interview.html" class="active">Interview</a>
+      <a href="about.html">About</a>
+      <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
+  </div>
+  <button class="nav-ham" id="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mnav">
+  <a href="news.html">News</a>
+      <a href="interview.html" class="active">Interview</a>
+      <a href="about.html">About</a>
+      <a href="sailrank.html">SAIL RANK</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-eyebrow">Interview</div>
+  <h1 class="page-title">インタビュー</h1>
+  <p class="page-desc">トップセーラー・コーチ・OBへのインタビューを通じて、学生セーリングの現場と思想を伝えます。</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="sec">
+  <div class="sec-label">Featured</div>
+  <div class="sec-title">注目インタビュー</div>
+
+  <!-- フィーチャード -->
+  <div class="iv-feat">
+    <div>
+      <div class="iv-tag">インタビュー</div>
+      <div class="iv-feat-title">「勝ちにこだわる理由」— 早稲田大学ヨット部主将・飯田澪インタビュー</div>
+      <div class="iv-feat-desc">3年連続の関東学生王者として君臨する早稲田大学ヨット部。その主将として部を率いた飯田澪選手に、チームマネジメント・データ活用・後輩への想いを聞いた。</div>
+      <div class="iv-meta">
+        <div>
+          <div class="iv-person">飯田 澪</div>
+          <div class="iv-affil">早稲田大学ヨット部 元主将 / 470級スキッパー</div>
+        </div>
+        <div class="date">2023年10月5日</div>
+      </div>
+    </div>
+    <div class="iv-feat-img"><div class="iv-feat-img-inner">⛵</div></div>
+  </div>
+
+  <!-- グリッド -->
+  <div class="sec-label" style="margin-top:40px">All Interviews</div>
+  <div class="sec-title">インタビュー一覧</div>
+
+  <div class="iv-grid">
+    <div class="iv-card">
+      <div class="iv-card-img">🎯</div>
+      <div class="iv-card-body">
+        <span class="cat">コーチ</span>
+        <div class="iv-card-title">「データが変える戦略」— 慶應義塾大学ヨット部コーチ</div>
+        <div class="iv-card-meta">2023年9月20日</div>
+      </div>
+    </div>
+    <div class="iv-card">
+      <div class="iv-card-img">🏆</div>
+      <div class="iv-card-body">
+        <span class="cat">選手</span>
+        <div class="iv-card-title">歴代個人首位・池田紅葉（日本大学）が語る学生セーリングの醍醐味</div>
+        <div class="iv-card-meta">2023年8月15日</div>
+      </div>
+    </div>
+    <div class="iv-card">
+      <div class="iv-card-img">💡</div>
+      <div class="iv-card-body">
+        <span class="cat">OB</span>
+        <div class="iv-card-title">学生時代の経験が社会に活きる — セーリング出身の社会人が語る</div>
+        <div class="iv-card-meta">2023年7月10日</div>
+      </div>
+    </div>
+    <div class="iv-card">
+      <div class="iv-card-img">⚡</div>
+      <div class="iv-card-body">
+        <span class="cat">選手</span>
+        <div class="iv-card-title">「個人戦の哲学」— 佐藤海志（日本大学）スナイプ個人を極めた男</div>
+        <div class="iv-card-meta">2023年6月5日</div>
+      </div>
+    </div>
+    <div class="iv-card">
+      <div class="iv-card-img">🌊</div>
+      <div class="iv-card-body">
+        <span class="cat">選手</span>
+        <div class="iv-card-title">松尾虎太郎（早稲田大学）— スナイプで日本一を目指した4年間</div>
+        <div class="iv-card-meta">2023年3月20日</div>
+      </div>
+    </div>
+    <div class="iv-card">
+      <div class="iv-card-img">📖</div>
+      <div class="iv-card-body">
+        <span class="cat">監督</span>
+        <div class="iv-card-title">日本大学ヨット部監督・強さの哲学と育成論</div>
+        <div class="iv-card-meta">2022年11月30日</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 出演者募集 -->
+  <div class="iv-recruit">
+    <div class="iv-recruit-title">インタビュー出演者を募集しています</div>
+    <div class="iv-recruit-desc">現役選手・OB・コーチ・監督など、学生セーリングに関わる方のお話を聞かせてください。<br>取材・掲載は無料です。お気軽にご連絡ください。</div>
+    <a href="mailto:info@tack-sailing.jp" class="iv-recruit-btn">取材を申し込む</a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="tack-logo.png" alt="TACK">
+        <div class="ft-tag">学生セーリングの、すべてを伝える。</div>
+      </div>
+      <nav class="ft-nav">
+        <a href="index.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="interview.html">Interview</a>
+        <a href="about.html">About</a>
+        <a href="sailrank.html">SAIL RANK</a>
+        <a href="mailto:info@tack-sailing.jp">Contact</a>
+      </nav>
+    </div>
+    <div class="ft-copy">© 2024 TACK Sailing Media</div>
+  </div>
+</footer>
+<script>
+const h=document.getElementById('ham'),m=document.getElementById('mnav');
+if(h)h.addEventListener('click',()=>m.classList.toggle('open'));
+</script>
+</body>
+</html>

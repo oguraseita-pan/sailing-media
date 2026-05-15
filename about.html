@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About | TACK Sailing Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --black:#111;--white:#fff;--off:#f7f6f3;
+  --purple:#6d28d9;--purple-s:#ede9fe;
+  --text:#1a1a1a;--muted:#71717a;--light:#a1a1aa;
+  --border:#e4e4e7;--radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--text);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav img{height:24px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:15px;font-weight:400;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:600}
+.nav-sr{background:var(--purple)!important;color:#fff!important;font-size:14px!important;font-weight:500!important;padding:8px 20px;border-radius:99px;transition:opacity .2s!important}
+.nav-sr:hover{opacity:.85}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-ham span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block}
+.mobile-nav{display:none;flex-direction:column;gap:0;background:var(--white);border-bottom:1px solid var(--border)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:14px 24px;font-size:15px;border-bottom:1px solid var(--border);color:var(--text)}
+
+.page-hero{padding:72px 40px 56px;max-width:960px;margin:0 auto}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.page-eyebrow::before{content:'';width:20px;height:2px;background:var(--purple);border-radius:2px}
+.page-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.page-desc{font-size:17px;color:var(--muted);line-height:1.85;max-width:540px}
+
+.divider{height:1px;background:var(--border);margin:0 40px}
+.sec{padding:48px 40px;max-width:960px;margin:0 auto}
+.sec-label{font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-size:26px;font-weight:700;margin-bottom:24px}
+
+.cat{display:inline-block;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-s);padding:3px 10px;border-radius:99px;margin-bottom:10px}
+.date{font-size:13px;color:var(--light)}
+
+footer{border-top:1px solid var(--border)}
+.ft{max-width:960px;margin:0 auto;padding:40px 40px 32px;display:flex;flex-direction:column;gap:24px}
+.ft-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft-brand img{height:20px;width:auto;margin-bottom:10px}
+.ft-tag{font-size:14px;color:var(--muted)}
+.ft-nav{display:flex;gap:22px;flex-wrap:wrap;padding-top:4px}
+.ft-nav a{font-size:14px;color:var(--muted);transition:color .15s}
+.ft-nav a:hover{color:var(--text)}
+.ft-copy{border-top:1px solid var(--border);padding-top:20px;font-size:13px;color:var(--light)}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .page-hero{padding:48px 20px 40px}
+  .divider{margin:0 20px}
+  .sec{padding:40px 20px}
+  .ft{padding:32px 20px}
+}
+
+
+/* コンセプトセクション */
+.concept-block{max-width:680px}
+.concept-lead{font-size:20px;font-weight:700;line-height:1.6;margin-bottom:20px;color:var(--text)}
+.concept-body{font-size:17px;color:var(--muted);line-height:1.9}
+
+/* 3カラム特徴 */
+.features{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:8px}
+.feat-item{border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px}
+.feat-icon{font-size:28px;margin-bottom:12px}
+.feat-name{font-size:16px;font-weight:700;margin-bottom:8px}
+.feat-desc{font-size:14px;color:var(--muted);line-height:1.75}
+
+/* タイムライン */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border:none}
+.tl-year{font-size:14px;font-weight:700;color:var(--purple);padding-top:2px}
+.tl-content{}
+.tl-title{font-size:16px;font-weight:600;margin-bottom:4px}
+.tl-desc{font-size:14px;color:var(--muted);line-height:1.7}
+
+/* スポンサー */
+.sponsor-intro{background:var(--off);border-radius:var(--radius);padding:40px;text-align:center}
+.sponsor-intro-title{font-size:22px;font-weight:700;margin-bottom:12px}
+.sponsor-intro-desc{font-size:16px;color:var(--muted);line-height:1.85;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.sponsor-tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px;text-align:left}
+.tier-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px;background:var(--white)}
+.tier-name{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.tier-title{font-size:16px;font-weight:700;margin-bottom:8px}
+.tier-perks{list-style:none;display:flex;flex-direction:column;gap:4px}
+.tier-perks li{font-size:13px;color:var(--muted);padding-left:14px;position:relative}
+.tier-perks li::before{content:'✓';position:absolute;left:0;color:var(--purple);font-weight:700}
+.contact-btn{display:inline-block;background:var(--purple);color:#fff;font-size:15px;font-weight:500;padding:13px 32px;border-radius:99px;transition:opacity .2s}
+.contact-btn:hover{opacity:.85}
+
+/* チーム */
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.team-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center}
+.team-avatar{width:64px;height:64px;border-radius:50%;background:var(--purple-s);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px}
+.team-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.team-role{font-size:13px;color:var(--muted)}
+
+@media(max-width:768px){
+  .features{grid-template-columns:1fr}
+  .sponsor-tiers{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.team-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html"><img src="tack-logo.png" alt="TACK"></a>
+  <div class="nav-links">
+    <a href="news.html">News</a>
+      <a href="interview.html">Interview</a>
+      <a href="about.html" class="active">About</a>
+      <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
+  </div>
+  <button class="nav-ham" id="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mnav">
+  <a href="news.html">News</a>
+      <a href="interview.html">Interview</a>
+      <a href="about.html" class="active">About</a>
+      <a href="sailrank.html">SAIL RANK</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-eyebrow">About</div>
+  <h1 class="page-title">TACKについて</h1>
+  <p class="page-desc">学生セーリングのすべてを伝えるメディア。データ・分析・取材で、新しいセーリング報道を目指します。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- コンセプト -->
+<div class="sec">
+  <div class="sec-label">Concept</div>
+  <div class="sec-title">なぜTACKをつくるのか</div>
+  <div class="concept-block">
+    <div class="concept-lead">学生セーリングには、もっと光が当たるべきだ。</div>
+    <div class="concept-body">
+      毎年数百名の学生が、風と波と戦いながら関東・全国の大会に臨む。しかし大会結果が広く届くことは少なく、選手の努力や実力が適切に評価・記録されることも多くない。<br><br>
+      TACKは、レース結果を独自アルゴリズムでランキング化する「SAIL RANK」を核に、AI予測・インタビュー・ニュースを通じて、学生セーリングをより深く・広く伝えるメディアです。<br><br>
+      セーリングの「タック」は、風上に向かうための方向転換。私たちも、学生セーリング報道の在り方をTACKします。
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 特徴 -->
+<div class="sec">
+  <div class="sec-label">Features</div>
+  <div class="sec-title">TACKの3つの特徴</div>
+  <div class="features">
+    <div class="feat-item">
+      <div class="feat-icon">📊</div>
+      <div class="feat-name">独自ランキング「SAIL RANK」</div>
+      <div class="feat-desc">2016〜2023年度、30大会・1,624名のデータを独自アルゴリズムで集計。個人・大学・クラス別に年度比較が可能。</div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-name">AI大会予測</div>
+      <div class="feat-desc">過去の成績をもとにAIが次大会の優勝確率を算出。データが積み上がるほど精度が向上。将来的には係数も自動最適化。</div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">🎙️</div>
+      <div class="feat-name">インタビュー・取材</div>
+      <div class="feat-desc">トップ選手・コーチ・OBへのインタビューで、数字だけでは伝わらない学生セーリングの姿を伝える。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ヒストリー -->
+<div class="sec">
+  <div class="sec-label">History</div>
+  <div class="sec-title">TACKの歩み</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">TACK Sailing Media として始動</div>
+        <div class="tl-desc">SAIL RANKをコアに、ニュース・インタビューを加えた総合セーリングメディアとして再スタート。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">SAIL RANK β版 公開</div>
+        <div class="tl-desc">2016〜2023年度の関東学生ヨット大会データを収録。独自ランキング・AI予測機能を実装。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">データ収集・分析開始</div>
+        <div class="tl-desc">関東学生ヨット連盟の大会結果PDFを網羅的に収集・パース。1,600名超の選手データを構築。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- スポンサー -->
+<div class="sec">
+  <div class="sec-label">Sponsorship</div>
+  <div class="sec-title">スポンサーシップ</div>
+  <div class="sponsor-intro">
+    <div class="sponsor-intro-title">学生セーリング界への投資</div>
+    <div class="sponsor-intro-desc">全国1,600名超の学生セーリング選手・関係者に届くTACK / SAIL RANKでのスポンサーシップをご検討ください。</div>
+    <div class="sponsor-tiers">
+      <div class="tier-card">
+        <div class="tier-name">Title Sponsor</div>
+        <div class="tier-title">タイトルスポンサー</div>
+        <ul class="tier-perks">
+          <li>全ページ最上部ロゴ掲載</li>
+          <li>AI予測の冠スポンサー</li>
+          <li>インタビュー協賛</li>
+          <li>SNS定期告知</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Gold Sponsor</div>
+        <div class="tier-title">ゴールドスポンサー</div>
+        <ul class="tier-perks">
+          <li>トップページロゴ掲載</li>
+          <li>SAIL RANKページ掲載</li>
+          <li>SNS告知</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Official Partner</div>
+        <div class="tier-title">オフィシャルパートナー</div>
+        <ul class="tier-perks">
+          <li>スポンサーページ掲載</li>
+          <li>フッターロゴ掲載</li>
+        </ul>
+      </div>
+    </div>
+    <a href="mailto:info@tack-sailing.jp" class="contact-btn">スポンサーに申し込む</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- コンタクト -->
+<div class="sec">
+  <div class="sec-label">Contact</div>
+  <div class="sec-title">お問い合わせ</div>
+  <div style="max-width:560px">
+    <p style="font-size:17px;color:var(--muted);line-height:1.85;margin-bottom:24px">スポンサーシップ・取材・データ掲載・その他のご相談はメールにてお気軽にどうぞ。</p>
+    <a href="mailto:info@tack-sailing.jp" style="display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:var(--purple);border-bottom:2px solid var(--purple-s);padding-bottom:2px;transition:border-color .2s">
+      info@tack-sailing.jp
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="tack-logo.png" alt="TACK">
+        <div class="ft-tag">学生セーリングの、すべてを伝える。</div>
+      </div>
+      <nav class="ft-nav">
+        <a href="index.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="interview.html">Interview</a>
+        <a href="about.html">About</a>
+        <a href="sailrank.html">SAIL RANK</a>
+        <a href="mailto:info@tack-sailing.jp">Contact</a>
+      </nav>
+    </div>
+    <div class="ft-copy">© 2024 TACK Sailing Media</div>
+  </div>
+</footer>
+<script>
+const h=document.getElementById('ham'),m=document.getElementById('mnav');
+if(h)h.addEventListener('click',()=>m.classList.toggle('open'));
+</script>
+</body>
+</html>
