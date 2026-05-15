@@ -3,84 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SAIL RANK | TACK Sailing Media</title>
+<title>SAIL RANK | 学生セーリング総合メディア</title>
 <meta name="description" content="全国大学生セーリングの独自ランキング・AI大会予測・選手データベース。学生セーリングをもっと熱く。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<style>
-/* ── TACK サイト共通ナビ ── */
-:root {
-  --tack-purple: #7c3aed;
-  --tack-mono: 'DM Mono', monospace;
-}
-.tack-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  height: 44px;
-  background: #0a0a0a;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.tack-nav-logo img {
-  height: 18px;
-  width: auto;
-  display: block;
-  filter: invert(1) brightness(.85);
-}
-.tack-nav-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.tack-nav-links a {
-  font-family: var(--tack-mono);
-  font-size: 11px;
-  letter-spacing: .1em;
-  color: rgba(255,255,255,.4);
-  text-decoration: none;
-  transition: color .15s;
-}
-.tack-nav-links a:hover { color: rgba(255,255,255,.85); }
-.tack-nav-links a.active {
-  color: #fff;
-  font-weight: 500;
-}
-.tack-nav-badge {
-  font-family: var(--tack-mono);
-  font-size: 9px;
-  letter-spacing: .14em;
-  color: rgba(255,255,255,.3);
-  padding-left: 12px;
-  border-left: 1px solid rgba(255,255,255,.1);
-  text-transform: uppercase;
-}
-@media(max-width:600px){
-  .tack-nav { padding: 0 16px; }
-  .tack-nav-badge { display: none; }
-  .tack-nav-links { gap: 14px; }
-}
-</style>
 </head>
 <body>
-
-<!-- TACK サイトナビ（上部細帯） -->
-<div class="tack-nav">
-  <a href="index.html" class="tack-nav-logo">
-    <img src="tack-logo.png" alt="TACK Sailing Media">
+<div style="background:#111;padding:10px 24px;display:flex;align-items:center;gap:12px">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:13px;font-family:sans-serif;transition:color .15s;text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+    TACKトップへ
   </a>
-  <div class="tack-nav-links">
-    <a href="index.html">News</a>
-    <a href="#">Interview</a>
-    <a href="sailrank.html" class="active">SAIL RANK</a>
-    <a href="results.html">大会結果</a>
-  </div>
-  <div class="tack-nav-badge">Sailing Media</div>
+  <span style="color:rgba(255,255,255,.15);font-size:12px">|</span>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none">
+    <img src="tack-logo.png" alt="TACK" style="height:14px;filter:invert(1) brightness(.6)">
+  </a>
 </div>
 
-<!-- SAIL RANK ナビ（既存） -->
+
+<!-- ナビゲーション -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
@@ -127,13 +70,13 @@
     </div>
   </div>
   <div class="hero-mvp">
-    <div class="mvp-label">歴代個人総合首位</div>
-    <div class="mvp-name">池田 紅葉</div>
-    <div class="mvp-univ">日本大学 / Skipper / スナイプ級</div>
+    <div class="mvp-label">2024 現在の総合首位</div>
+    <div class="mvp-name">山田 太郎</div>
+    <div class="mvp-univ">早稲田大学 / Skipper / 470級</div>
     <div class="mvp-stats">
-      <div class="mvp-stat"><b>370</b><small>POINT</small></div>
+      <div class="mvp-stat"><b>412.5</b><small>POINT</small></div>
       <div class="mvp-stat"><b>5</b><small>大会</small></div>
-      <div class="mvp-stat"><b>3</b><small>TOP3</small></div>
+      <div class="mvp-stat"><b>4</b><small>TOP3</small></div>
     </div>
   </div>
 </section>
@@ -142,15 +85,15 @@
 <section class="kpi-bar">
   <div class="kpi-bar-inner">
     <div class="kpi-item">
-      <b>1,624</b><span>選手データ</span>
+      <b>29</b><span>参加大学</span>
     </div>
     <div class="kpi-divider"></div>
     <div class="kpi-item">
-      <b>30</b><span>対象大会</span>
+      <b>8</b><span>対象大会</span>
     </div>
     <div class="kpi-divider"></div>
     <div class="kpi-item">
-      <b>2016–2023</b><span>収録年度</span>
+      <b>370+</b><span>集計成績</span>
     </div>
     <div class="kpi-divider"></div>
     <div class="kpi-item">
@@ -166,40 +109,53 @@
       <div>
         <div class="section-label">OVERALL RANKING</div>
         <h2 class="section-title">個人総合ランキング</h2>
+        <p class="section-desc">主要決勝大会のみを対象に、独自アルゴリズムで算出。</p>
       </div>
-      <a href="ranking.html" class="section-link">全て見る →</a>
+      <a href="ranking.html" class="btn-link">全員を見る →</a>
     </div>
-    <div class="ranking-preview" id="rankingPreview"></div>
+
+    <div class="rank-table">
+      <div class="rank-header">
+        <span>順位</span>
+        <span>選手</span>
+        <span>大学</span>
+        <span>クラス</span>
+        <span class="text-right">年間Pt</span>
+      </div>
+      <!-- データはJSで動的に読み込み -->
+      <div id="rankList"></div>
+    </div>
   </div>
 </section>
 
-<!-- 機能セクション -->
+<!-- AI予測プレビュー -->
 <section class="section section-dark">
   <div class="container">
-    <div class="section-label">FEATURES</div>
-    <h2 class="section-title">SAIL RANKでできること</h2>
-    <div class="features-grid">
-      <a href="ranking.html" class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3 class="feature-title">独自ランキング</h3>
-        <p class="feature-desc">2016〜2023年度の30大会・1,624名のデータを独自アルゴリズムで集計。個人・大学・クラス別に閲覧可能。</p>
-      </a>
-      <a href="forecast.html" class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h3 class="feature-title">AI大会予測</h3>
-        <p class="feature-desc">過去の成績データをもとにAIが次大会の優勝確率を予測。データが積み上がるほど精度が向上。</p>
-      </a>
-      <a href="players.html" class="feature-card">
-        <div class="feature-icon">👤</div>
-        <h3 class="feature-title">選手データベース</h3>
-        <p class="feature-desc">1,624名の選手データを搭載。大会ごとの成績推移を折れ線グラフで確認できる。</p>
-      </a>
-      <a href="results.html" class="feature-card">
-        <div class="feature-icon">📄</div>
-        <h3 class="feature-title">大会結果PDF</h3>
-        <p class="feature-desc">2016〜2023年度の全大会成績PDFをアーカイブ。決勝・予選・女子レースを網羅。</p>
-      </a>
+    <div class="section-header">
+      <div>
+        <div class="section-label">AI FORECAST</div>
+        <h2 class="section-title">次回大会 AI予測</h2>
+        <p class="section-desc">過去の成績データをもとに、AIが大会前の順位を予測。</p>
+      </div>
+      <a href="forecast.html" class="btn-link">詳細を見る →</a>
     </div>
+
+    <div class="forecast-grid" id="forecastPreview"></div>
+  </div>
+</section>
+
+<!-- 大学ランキングプレビュー -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">UNIVERSITY RANKING</div>
+        <h2 class="section-title">大学ランキング</h2>
+        <p class="section-desc">団体成績の総合ポイントで大学の強さを可視化。</p>
+      </div>
+      <a href="ranking.html#university" class="btn-link">全大学を見る →</a>
+    </div>
+    <div class="univ-grid" id="univGrid"></div>
   </div>
 </section>
 
@@ -210,9 +166,9 @@
       <div>
         <div class="sponsor-eyebrow">Official Sponsors</div>
         <h2 class="sponsor-title">スポンサー</h2>
-        <p class="sponsor-sub">TACK / SAIL RANKは学生セーリング界への投資を検討する企業・ブランドのパートナーを募集しています。</p>
+        <p class="sponsor-sub">SAIL RANKは学生セーリング界への投資を検討する企業・ブランドのパートナーを募集しています。</p>
       </div>
-      <a href="mailto:info@tack-sailing.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
+      <a href="mailto:info@sailrank.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
     </div>
     <div class="sponsor-grid-top">
       <a class="s-card s-title" href="https://aegil-ag.jp" target="_blank" rel="noopener">
@@ -240,7 +196,7 @@
     <div class="sponsor-recruit">
       <div>
         <div class="recruit-title">スポンサーシップのご案内</div>
-        <div class="recruit-desc">全国1,624名の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
+        <div class="recruit-desc">全国1,000名超の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
         <div class="recruit-packages">
           <span class="pkg-badge pkg-title">Title</span>
           <span class="pkg-badge pkg-gold">Gold</span>
@@ -249,7 +205,7 @@
           <span class="pkg-badge pkg-partner">AI予測スポンサー</span>
         </div>
       </div>
-      <a href="mailto:info@tack-sailing.jp" class="recruit-contact">お問い合わせ</a>
+      <a href="mailto:info@sailrank.jp" class="recruit-contact">お問い合わせ</a>
     </div>
   </div>
 </section>
@@ -260,7 +216,6 @@
       <div class="footer-brand">
         <div class="logo">SAIL<span>RANK</span></div>
         <p>学生セーリングの熱量を、数字で伝える。</p>
-        <p style="margin-top:6px;font-size:12px;opacity:.5">Part of <a href="index.html" style="color:inherit;text-decoration:underline">TACK Sailing Media</a></p>
       </div>
       <div class="footer-links">
         <a href="ranking.html">ランキング</a>
@@ -270,40 +225,12 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <small>© 2024 TACK Sailing Media / SAIL RANK. データは公式大会結果をもとに独自算出。</small>
+      <small>© 2024 SAIL RANK. データは公式大会結果をもとに独自算出。</small>
     </div>
   </div>
 </footer>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const d = SITE_DATA.individualRanking;
-  if (!d) return;
-  const container = document.getElementById('rankingPreview');
-  if (!container) return;
-  container.innerHTML = d.slice(0, 5).map((p, i) => `
-    <div class="rank-item ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">
-      <div class="rank-pos">#${i+1}</div>
-      <div class="rank-info">
-        <div class="rank-name">${p.name}</div>
-        <div class="rank-meta">${p.univ} / ${p.cls==='470'?'470級':'スナイプ級'} / ${p.role}</div>
-      </div>
-      <div class="rank-score">${p.pt}<small>pt</small></div>
-    </div>
-  `).join('');
-});
-
-// ハンバーガー
-const hb = document.getElementById('hamburger');
-const mm = document.getElementById('mobileMenu');
-if (hb && mm) {
-  hb.addEventListener('click', () => {
-    hb.classList.toggle('active');
-    mm.classList.toggle('open');
-  });
-}
-</script>
 </body>
 </html>

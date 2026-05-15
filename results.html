@@ -178,41 +178,17 @@
   .result-table td:nth-child(4) { display: none; }
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root { --tack-purple: #7c3aed; }
-.tack-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px; height: 44px;
-  background: #0a0a0a; border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.tack-nav-logo img { height: 18px; width: auto; display: block; filter: invert(1) brightness(.85); }
-.tack-nav-links { display: flex; align-items: center; gap: 24px; }
-.tack-nav-links a {
-  font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .1em;
-  color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s;
-}
-.tack-nav-links a:hover { color: rgba(255,255,255,.85); }
-.tack-nav-badge {
-  font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .14em;
-  color: rgba(255,255,255,.3); padding-left: 12px;
-  border-left: 1px solid rgba(255,255,255,.1); text-transform: uppercase;
-}
-@media(max-width:600px){ .tack-nav{padding:0 16px;} .tack-nav-badge{display:none;} .tack-nav-links{gap:14px;} }
-</style>
 </head>
 <body>
-<div class="tack-nav">
-  <a href="index.html" class="tack-nav-logo">
-    <img src="tack-logo.png" alt="TACK Sailing Media">
+<div style="background:#111;padding:10px 24px;display:flex;align-items:center;gap:12px">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:13px;font-family:sans-serif;transition:color .15s;text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+    TACKトップへ
   </a>
-  <div class="tack-nav-links">
-    <a href="index.html">News</a>
-    <a href="#">Interview</a>
-    <a href="sailrank.html">SAIL RANK</a>
-    <a href="results.html">大会結果</a>
-  </div>
-  <div class="tack-nav-badge">Sailing Media</div>
+  <span style="color:rgba(255,255,255,.15);font-size:12px">|</span>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none">
+    <img src="tack-logo.png" alt="TACK" style="height:14px;filter:invert(1) brightness(.6)">
+  </a>
 </div>
 
 

@@ -6,801 +6,264 @@
 <title>TACK — Sailing Media</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black:   #0a0a0a;
-  --white:   #f8f8f6;
-  --purple:  #7c3aed;
-  --purple-light: #ede9fe;
-  --gray:    #f1f0ee;
-  --gray-mid:#c8c6c2;
-  --muted:   #888680;
-  --border:  rgba(10,10,10,.1);
-  --font-disp: 'Bebas Neue', sans-serif;
-  --font-body: 'Noto Sans JP', sans-serif;
-  --font-mono: 'DM Mono', monospace;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font-body);
-  background: var(--white);
-  color: var(--black);
-  font-size: 14px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-a { text-decoration: none; color: inherit; }
-
-/* ── NAV ── */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  height: 58px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-logo img {
-  height: 28px;
-  width: auto;
-  display: block;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.nav-links a {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--muted);
-  letter-spacing: .04em;
-  transition: color .15s;
-}
-.nav-links a:hover { color: var(--black); }
-
-.nav-sailrank {
-  background: var(--purple) !important;
-  color: #fff !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 6px 14px;
-  border-radius: 3px;
-  letter-spacing: .06em;
-  transition: opacity .15s !important;
-}
-.nav-sailrank:hover { opacity: .85; }
-
-/* ── HERO ── */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  gap: 0;
-  padding: 36px 32px 32px;
-  border-bottom: 1px solid var(--border);
-  align-items: stretch;
-}
-
-.hero-text {}
-
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .18em;
-  color: var(--purple);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
-.hero-title {
-  font-family: var(--font-disp);
-  font-size: 42px;
-  letter-spacing: .04em;
-  color: var(--black);
-  line-height: 1.05;
-  margin-bottom: 10px;
-}
-
-.hero-sub {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.65;
-  max-width: 420px;
-}
-
-.hero-ad {
-  margin-left: 32px;
-  border: 1px dashed var(--gray-mid);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: var(--gray);
-  min-height: 100px;
-}
-
-.hero-ad-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .14em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.hero-ad-sub {
-  font-size: 11px;
-  color: var(--gray-mid);
-}
-
-/* ── MAIN BODY ── */
-.main {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-}
-
-/* ── LEFT: NEWS ── */
-.news-col {
-  border-right: 1px solid var(--border);
-  padding: 24px 32px;
-}
-
-.col-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.col-head-title {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .16em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.col-head-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* featured article */
-.news-featured {
-  padding-bottom: 20px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid var(--border);
-}
-
-.news-cat {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .12em;
-  color: var(--purple);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-.news-featured-title {
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--black);
-  line-height: 1.4;
-  margin-bottom: 6px;
-  transition: color .15s;
-  cursor: pointer;
-}
-.news-featured-title:hover { color: var(--purple); }
-
-.news-featured-desc {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 8px;
-}
-
-.news-date {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--gray-mid);
-  letter-spacing: .06em;
-}
-
-/* sub articles */
-.news-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.news-item {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 14px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-}
-.news-item:last-child { border-bottom: none; }
-.news-item:hover .news-item-title { color: var(--purple); }
-
-.news-item-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--gray-mid);
-  padding-top: 2px;
-  min-width: 20px;
-}
-
-.news-item-title {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.45;
-  transition: color .15s;
-}
-
-.news-item-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 3px;
-}
-
-.news-item-cat {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .1em;
-  color: var(--purple);
-  text-transform: uppercase;
-}
-
-.news-item-date {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--gray-mid);
-}
-
-/* ── RIGHT: RANK + AD ── */
-.rank-col {
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* SAIL RANK */
-.rank-block {}
-
-.rank-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.rank-title {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .16em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.rank-link {
-  font-size: 11px;
-  color: var(--purple);
-  font-weight: 500;
-  transition: opacity .15s;
-}
-.rank-link:hover { opacity: .7; }
-
-.rank-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.rank-row {
-  display: grid;
-  grid-template-columns: 22px 1fr auto;
-  gap: 8px;
-  align-items: center;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--border);
-}
-.rank-row:last-child { border-bottom: none; }
-
-.rank-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--gray-mid);
-}
-.rank-num.top { color: #b45309; }
-
-.rank-name {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.3;
-}
-
-.rank-univ {
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 1px;
-}
-
-.rank-pt {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--purple);
-}
-
-/* AI予測ブロック */
-.ai-block {
-  border-top: 1px solid var(--border);
-  padding-top: 20px;
-}
-
-.ai-event {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--black);
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-
-.ai-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.ai-row {
-  display: grid;
-  grid-template-columns: 16px 1fr 34px;
-  gap: 6px;
-  align-items: center;
-}
-
-.ai-rank {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--muted);
-}
-
-.ai-bar-wrap {
-  height: 3px;
-  background: var(--gray);
-  border-radius: 99px;
-  overflow: hidden;
-}
-
-.ai-bar {
-  height: 100%;
-  background: var(--purple);
-  border-radius: 99px;
-}
-
-.ai-pct {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--purple);
-  text-align: right;
-}
-
-/* ad in rank col */
-.rank-ad {
-  border: 1px dashed var(--gray-mid);
-  border-radius: 4px;
-  background: var(--gray);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 20px 12px;
-  min-height: 90px;
-}
-
-/* ── BOTTOM STRIP ── */
-.bottom-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--border);
-}
-
-.strip-item {
-  padding: 20px 24px;
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  transition: background .15s;
-}
-.strip-item:last-child { border-right: none; }
-.strip-item:hover { background: var(--gray); }
-
-.strip-cat {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .12em;
-  color: var(--purple);
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-
-.strip-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--black);
-  line-height: 1.4;
-}
-
-.strip-date {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--gray-mid);
-  margin-top: 5px;
-}
-
-/* ── SPONSOR BAR ── */
-.sponsor-bar {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-  align-items: stretch;
-}
-
-.sponsor-label {
-  padding: 16px 20px;
-  border-right: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  background: var(--black);
-}
-
-.sponsor-label span {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.5);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.sponsor-slot {
-  border-right: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 16px;
-  transition: background .15s;
-  cursor: pointer;
-  min-height: 56px;
-}
-.sponsor-slot:last-child { border-right: none; }
-.sponsor-slot:hover { background: var(--gray); }
-
-.sponsor-slot.filled img {
-  height: 22px;
-  width: auto;
-  filter: grayscale(100%) opacity(.7);
-  transition: filter .2s;
-}
-.sponsor-slot.filled:hover img { filter: none; }
-
-.sponsor-slot-empty {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .1em;
-  color: var(--gray-mid);
-  text-transform: uppercase;
-}
-
-/* ── FOOTER ── */
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 32px;
-  background: var(--black);
-}
-
-.footer-logo img {
-  height: 20px;
-  width: auto;
-  filter: invert(1) brightness(.7);
-}
-
-.footer-nav {
-  display: flex;
-  gap: 20px;
-}
-
-.footer-nav a {
-  font-size: 12px;
-  color: rgba(255,255,255,.4);
-  transition: color .15s;
-}
-.footer-nav a:hover { color: rgba(255,255,255,.8); }
-
-.footer-copy {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(255,255,255,.25);
-  letter-spacing: .06em;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-ad { margin-left: 0; margin-top: 16px; min-height: 70px; }
-  .main { grid-template-columns: 1fr; }
-  .rank-col { border-top: 1px solid var(--border); }
-  .news-col { border-right: none; padding: 20px 20px; }
-  .hero { padding: 24px 20px; }
-  .bottom-strip { grid-template-columns: 1fr; }
-  .strip-item { border-right: none; border-bottom: 1px solid var(--border); }
-  .sponsor-bar { grid-template-columns: 1fr 1fr; }
-  .sponsor-label { display: none; }
-  .nav { padding: 0 20px; }
-  .hero-title { font-size: 32px; }
+:root{
+  --black:#111;--white:#fff;--off:#f7f6f3;
+  --purple:#6d28d9;--purple-s:#ede9fe;
+  --text:#1a1a1a;--muted:#71717a;--light:#a1a1aa;
+  --border:#e4e4e7;--radius:12px;
+  --font:'DM Sans','Noto Sans JP',sans-serif;
+  --serif:'Noto Serif JP',serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--white);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav img{height:24px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:15px;color:var(--muted);transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-sr{background:var(--purple)!important;color:#fff!important;font-size:14px!important;font-weight:500!important;padding:9px 20px;border-radius:99px;transition:opacity .2s!important}
+.nav-sr:hover{opacity:.85}
+
+.hero{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:center;max-width:960px;margin:0 auto;padding:80px 40px 64px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--purple);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--purple);border-radius:2px}
+.hero-title{font-family:var(--serif);font-size:clamp(34px,4.5vw,50px);font-weight:700;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:20px}
+.hero-title em{color:var(--purple);font-style:normal}
+.hero-desc{font-size:17px;color:var(--muted);line-height:1.85;margin-bottom:32px;max-width:480px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{background:var(--purple);color:#fff;font-size:15px;font-weight:500;padding:12px 26px;border-radius:99px;transition:opacity .2s}
+.btn-p:hover{opacity:.85}
+.btn-g{border:1.5px solid var(--border);color:var(--text);font-size:15px;font-weight:500;padding:11px 26px;border-radius:99px;transition:all .2s}
+.btn-g:hover{border-color:var(--purple);color:var(--purple)}
+.hero-ad{border:1.5px dashed var(--border);border-radius:var(--radius);background:var(--off);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:160px;padding:20px}
+.ad-label{font-size:11px;font-weight:600;color:var(--light);letter-spacing:.12em;text-transform:uppercase}
+.ad-sub{font-size:13px;color:var(--light)}
+
+.divider{height:1px;background:var(--border);margin:0 40px}
+
+.sec{padding:56px 40px;max-width:960px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;gap:16px}
+.sec-label{font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.sec-title{font-family:var(--serif);font-size:26px;font-weight:700}
+.sec-more{font-size:14px;font-weight:500;color:var(--purple);transition:opacity .2s}
+.sec-more:hover{opacity:.7}
+
+.news-feat{border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin-bottom:16px;cursor:pointer;transition:border-color .2s}
+.news-feat:hover{border-color:var(--purple)}
+.cat{display:inline-block;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-s);padding:3px 10px;border-radius:99px;letter-spacing:.06em;margin-bottom:12px}
+.feat-title{font-family:var(--serif);font-size:22px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.feat-desc{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+.date{font-size:13px;color:var(--light)}
+
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ncard{border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;cursor:pointer;transition:border-color .2s}
+.ncard:hover{border-color:var(--purple)}
+.ncard-title{font-size:16px;font-weight:600;line-height:1.45;margin:10px 0}
+.ncard-meta{display:flex;gap:10px;align-items:center}
+
+.two-col{display:grid;grid-template-columns:1fr 260px;gap:0;max-width:960px;margin:0 auto;padding:56px 40px}
+.rk-h{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.rk-list{display:flex;flex-direction:column}
+.rk-row{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.rk-row:last-child{border:none}
+.rk-n{font-size:14px;font-weight:600;color:var(--light)}
+.rk-n.g{color:#d97706}
+.rk-name{font-size:15px;font-weight:500}
+.rk-univ{font-size:12px;color:var(--muted);margin-top:1px}
+.rk-pt{font-size:15px;font-weight:600;color:var(--purple)}
+.rk-btn{display:block;text-align:center;border:1.5px solid var(--border);border-radius:99px;padding:10px;font-size:14px;font-weight:500;color:var(--purple);margin-top:16px;transition:all .2s}
+.rk-btn:hover{background:var(--purple-s);border-color:var(--purple)}
+
+.side{padding-left:40px;border-left:1px solid var(--border)}
+.ai-event{font-size:14px;font-weight:600;margin-bottom:16px;line-height:1.4}
+.ai-rows{display:flex;flex-direction:column;gap:11px}
+.ai-row{display:grid;grid-template-columns:18px 1fr auto;gap:8px;align-items:center}
+.ai-n{font-size:12px;font-weight:500;color:var(--light)}
+.ai-u{font-size:13px;margin-bottom:4px}
+.ai-bw{height:4px;background:var(--off);border-radius:99px;overflow:hidden}
+.ai-b{height:100%;background:var(--purple);border-radius:99px}
+.ai-p{font-size:13px;font-weight:600;color:var(--purple)}
+
+.spon{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 40px}
+.spon-in{max-width:960px;margin:0 auto}
+.spon-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.spon-ey{font-size:12px;font-weight:600;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.spon-h{font-family:var(--serif);font-size:22px;font-weight:700}
+.spon-btn{background:var(--purple);color:#fff;font-size:14px;font-weight:500;padding:10px 22px;border-radius:99px;white-space:nowrap;transition:opacity .2s}
+.spon-btn:hover{opacity:.85}
+.spon-g{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.sc{border:1.5px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:96px;background:var(--white);transition:border-color .2s}
+.sc:hover{border-color:var(--purple)}
+.sc img{max-height:26px;width:auto;filter:grayscale(30%)}
+.sc-l{font-size:11px;font-weight:600;color:var(--light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.sc-e{font-size:13px;color:var(--light)}
+.spon-p{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sp{border:1.5px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;padding:18px;min-height:70px}
+.sp-e{font-size:12px;color:var(--light);text-align:center;line-height:1.5}
+
+footer{border-top:1px solid var(--border)}
+.ft{max-width:960px;margin:0 auto;padding:40px 40px 32px;display:flex;flex-direction:column;gap:24px}
+.ft-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft-brand img{height:20px;width:auto;margin-bottom:10px}
+.ft-tag{font-size:14px;color:var(--muted)}
+.ft-nav{display:flex;gap:22px;flex-wrap:wrap;padding-top:4px}
+.ft-nav a{font-size:14px;color:var(--muted);transition:color .15s}
+.ft-nav a:hover{color:var(--text)}
+.ft-copy{border-top:1px solid var(--border);padding-top:20px;font-size:13px;color:var(--light)}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}.nav-links a:not(.nav-sr){display:none}
+  .hero{grid-template-columns:1fr;gap:20px;padding:48px 20px 40px}.hero-ad{height:90px}
+  .divider{margin:0 20px}
+  .sec{padding:40px 20px}
+  .news-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr;padding:40px 20px;gap:0}
+  .side{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:32px;margin-top:32px}
+  .spon{padding:40px 20px}.spon-g{grid-template-columns:1fr 1fr}.spon-p{grid-template-columns:1fr 1fr}
+  .ft{padding:32px 20px}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
-  <a href="/" class="nav-logo">
-    <img src="tack-logo.png" alt="TACK Sailing Media">
-  </a>
+  <a href="index.html"><img src="tack-logo.png" alt="TACK"></a>
   <div class="nav-links">
     <a href="index.html">News</a>
     <a href="#">Interview</a>
     <a href="#">About</a>
-    <a href="ranking.html" class="nav-sailrank">SAIL RANK</a>
+    <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-text">
+  <div>
     <div class="hero-eyebrow">Sailing Media</div>
-    <div class="hero-title">学生セーリングの、<br>すべてを伝える。</div>
-    <div class="hero-sub">レース結果・独自ランキング・AI予測・インタビューを一ヶ所で。<br>データと熱量で、学生セーリングを深く伝える。</div>
+    <h1 class="hero-title">学生セーリングの、<br><em>すべてを伝える。</em></h1>
+    <p class="hero-desc">レース結果・独自ランキング・AI予測・インタビューを一ヶ所で。データと熱量で、学生セーリングを深く伝える。</p>
+    <div class="hero-btns">
+      <a href="sailrank.html" class="btn-p">SAIL RANKを見る</a>
+      <a href="#news" class="btn-g">最新ニュース</a>
+    </div>
   </div>
   <div class="hero-ad">
-    <div class="hero-ad-label">Sponsor AD</div>
-    <div class="hero-ad-sub">広告掲載のご相談</div>
+    <div class="ad-label">Sponsor Ad</div>
+    <div class="ad-sub">広告掲載のご相談</div>
   </div>
 </div>
 
-<!-- MAIN: LEFT NEWS + RIGHT RANK -->
-<div class="main">
+<div class="divider"></div>
 
-  <!-- NEWS LEFT -->
-  <div class="news-col">
-    <div class="col-head">
-      <div class="col-head-title">Latest News</div>
-      <div class="col-head-line"></div>
-    </div>
-
-    <!-- featured -->
-    <div class="news-featured">
-      <div class="news-cat">レース結果</div>
-      <div class="news-featured-title">第90回 関東学生ヨット選手権大会 決勝 — 早稲田大学が3年連続総合優勝</div>
-      <div class="news-featured-desc">2023年10月14〜15日に江ノ島で開催。早稲田が470・スナイプ両クラスで安定した成績を収め、総合17点で制した。2位は日大（49点）、3位は慶應（82点）と続いた。</div>
-      <div class="news-date">2023.10.15</div>
-    </div>
-
-    <!-- sub list -->
-    <div class="news-list">
-      <div class="news-item">
-        <div class="news-item-num">02</div>
-        <div>
-          <div class="news-item-title">【AI予測】全日本学生ヨット選手権 — 早稲田28.5%・日大23.2%・慶應21.8%の三つ巴</div>
-          <div class="news-item-meta">
-            <span class="news-item-cat">AI予測</span>
-            <span class="news-item-date">2023.10.10</span>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-item-num">03</div>
-        <div>
-          <div class="news-item-title">「勝ちにこだわる理由」— 早稲田大学ヨット部主将・飯田澪インタビュー</div>
-          <div class="news-item-meta">
-            <span class="news-item-cat">インタビュー</span>
-            <span class="news-item-date">2023.10.05</span>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-item-num">04</div>
-        <div>
-          <div class="news-item-title">2023年度 関東学生ヨット個人選手権大会 — スナイプ級・磯村麟之介（慶應）が制す</div>
-          <div class="news-item-meta">
-            <span class="news-item-cat">レース結果</span>
-            <span class="news-item-date">2023.06.11</span>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-item-num">05</div>
-        <div>
-          <div class="news-item-title">2023年度 関東学生ヨット春季選手権大会 決勝 — 早稲田が総合17点で圧勝</div>
-          <div class="news-item-meta">
-            <span class="news-item-cat">レース結果</span>
-            <span class="news-item-date">2023.05.07</span>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="sec" id="news">
+  <div class="sec-hd">
+    <div><div class="sec-label">Latest News</div><div class="sec-title">最新ニュース</div></div>
+    <a href="#" class="sec-more">すべて見る →</a>
   </div>
-
-  <!-- RANK RIGHT -->
-  <div class="rank-col">
-
-    <div class="rank-block">
-      <div class="rank-header">
-        <div class="rank-title">SAIL RANK — 歴代TOP5</div>
-        <a href="ranking.html" class="rank-link">全て見る →</a>
-      </div>
-      <div class="rank-list">
-        <div class="rank-row">
-          <div class="rank-num top">1</div>
-          <div><div class="rank-name">池田 紅葉</div><div class="rank-univ">日本大学</div></div>
-          <div class="rank-pt">370pt</div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">2</div>
-          <div><div class="rank-name">三宅 功輔</div><div class="rank-univ">早稲田大学</div></div>
-          <div class="rank-pt">317pt</div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">3</div>
-          <div><div class="rank-name">中山 由紀美</div><div class="rank-univ">日本大学</div></div>
-          <div class="rank-pt">317pt</div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">4</div>
-          <div><div class="rank-name">佐藤 海志</div><div class="rank-univ">日本大学</div></div>
-          <div class="rank-pt">299pt</div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">5</div>
-          <div><div class="rank-name">入江 裕太</div><div class="rank-univ">早稲田大学</div></div>
-          <div class="rank-pt">283pt</div>
-        </div>
-      </div>
+  <div class="news-feat">
+    <span class="cat">レース結果</span>
+    <div class="feat-title">第90回 関東学生ヨット選手権大会 決勝 — 早稲田大学が3年連続総合優勝</div>
+    <div class="feat-desc">2023年10月14〜15日、江ノ島にて開催。早稲田が470・スナイプ両クラスで安定した成績を収め、総合17点で制した。2位は日本大学（49点）、3位は慶應義塾大学（82点）。</div>
+    <div class="date">2023年10月15日</div>
+  </div>
+  <div class="news-grid">
+    <div class="ncard">
+      <span class="cat">AI予測</span>
+      <div class="ncard-title">【AI予測】全日本学生ヨット選手権 — 早稲田28.5%・日大23.2%・慶應21.8%の三つ巴</div>
+      <div class="ncard-meta"><div class="date">2023年10月10日</div></div>
     </div>
-
-    <div class="ai-block">
-      <div class="rank-title" style="margin-bottom:10px">AI予測 — 次回大会</div>
-      <div class="ai-event">2024年度 春季関東選手権 決勝</div>
-      <div class="ai-rows">
-        <div class="ai-row">
-          <div class="ai-rank">1</div>
-          <div>
-            <div style="font-size:11px;color:var(--black);margin-bottom:3px">早稲田大学</div>
-            <div class="ai-bar-wrap"><div class="ai-bar" style="width:100%"></div></div>
-          </div>
-          <div class="ai-pct">28.5%</div>
-        </div>
-        <div class="ai-row">
-          <div class="ai-rank">2</div>
-          <div>
-            <div style="font-size:11px;color:var(--black);margin-bottom:3px">日本大学</div>
-            <div class="ai-bar-wrap"><div class="ai-bar" style="width:81%"></div></div>
-          </div>
-          <div class="ai-pct">23.2%</div>
-        </div>
-        <div class="ai-row">
-          <div class="ai-rank">3</div>
-          <div>
-            <div style="font-size:11px;color:var(--black);margin-bottom:3px">慶應義塾大学</div>
-            <div class="ai-bar-wrap"><div class="ai-bar" style="width:76%"></div></div>
-          </div>
-          <div class="ai-pct">21.8%</div>
-        </div>
-        <div class="ai-row">
-          <div class="ai-rank">4</div>
-          <div>
-            <div style="font-size:11px;color:var(--black);margin-bottom:3px">明海大学</div>
-            <div class="ai-bar-wrap"><div class="ai-bar" style="width:37%"></div></div>
-          </div>
-          <div class="ai-pct">10.5%</div>
-        </div>
-        <div class="ai-row">
-          <div class="ai-rank">5</div>
-          <div>
-            <div style="font-size:11px;color:var(--black);margin-bottom:3px">中央大学</div>
-            <div class="ai-bar-wrap"><div class="ai-bar" style="width:29%"></div></div>
-          </div>
-          <div class="ai-pct">8.2%</div>
-        </div>
-      </div>
+    <div class="ncard">
+      <span class="cat">インタビュー</span>
+      <div class="ncard-title">「勝ちにこだわる理由」— 早稲田大学ヨット部主将・飯田澪インタビュー</div>
+      <div class="ncard-meta"><div class="date">2023年10月5日</div></div>
     </div>
-
-    <div class="rank-ad">
-      <div class="hero-ad-label">Sponsor AD</div>
-      <div class="hero-ad-sub">広告掲載のご相談</div>
+    <div class="ncard">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">2023年度 関東学生ヨット個人選手権 スナイプ級 — 磯村麟之介（慶應）が制す</div>
+      <div class="ncard-meta"><div class="date">2023年6月11日</div></div>
     </div>
-
+    <div class="ncard">
+      <span class="cat">レース結果</span>
+      <div class="ncard-title">2023年度 春季関東学生ヨット選手権大会 決勝 — 早稲田が総合17点で圧勝</div>
+      <div class="ncard-meta"><div class="date">2023年5月7日</div></div>
+    </div>
   </div>
 </div>
 
-<!-- BOTTOM 3-COLUMN STRIP -->
-<div class="bottom-strip">
-  <div class="strip-item">
-    <div class="strip-cat">インタビュー</div>
-    <div class="strip-title">「データが変える戦略」— 慶應義塾大学コーチ</div>
-    <div class="strip-date">2023.09.20</div>
+<div class="divider"></div>
+
+<div class="two-col">
+  <div>
+    <div class="sec-label">SAIL RANK</div>
+    <div class="sec-title" style="margin-bottom:24px;font-family:var(--serif)">歴代個人ランキング TOP5</div>
+    <div class="rk-list">
+      <div class="rk-row"><div class="rk-n g">1</div><div><div class="rk-name">池田 紅葉</div><div class="rk-univ">日本大学 / スナイプ / Skipper</div></div><div class="rk-pt">370pt</div></div>
+      <div class="rk-row"><div class="rk-n">2</div><div><div class="rk-name">三宅 功輔</div><div class="rk-univ">早稲田大学 / スナイプ / Crew</div></div><div class="rk-pt">317pt</div></div>
+      <div class="rk-row"><div class="rk-n">3</div><div><div class="rk-name">中山 由紀美</div><div class="rk-univ">日本大学 / 470 / Skipper</div></div><div class="rk-pt">317pt</div></div>
+      <div class="rk-row"><div class="rk-n">4</div><div><div class="rk-name">佐藤 海志</div><div class="rk-univ">日本大学 / スナイプ / Skipper</div></div><div class="rk-pt">299pt</div></div>
+      <div class="rk-row"><div class="rk-n">5</div><div><div class="rk-name">入江 裕太</div><div class="rk-univ">早稲田大学 / スナイプ / Skipper</div></div><div class="rk-pt">283pt</div></div>
+    </div>
+    <a href="sailrank.html" class="rk-btn">SAIL RANKをすべて見る →</a>
   </div>
-  <div class="strip-item">
-    <div class="strip-cat">レース結果</div>
-    <div class="strip-title">2023年 関東学生女子ヨット秋季選手権 — 東海大学が優勝</div>
-    <div class="strip-date">2023.09.10</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-cat">大会情報</div>
-    <div class="strip-title">第91回 関東学生ヨット選手権大会 — 開催要項・日程</div>
-    <div class="strip-date">2024.01.15</div>
+  <div class="side">
+    <div class="rk-h">AI予測 — 次回大会</div>
+    <div class="ai-event">2024年度 春季関東学生ヨット選手権大会 決勝</div>
+    <div class="ai-rows">
+      <div class="ai-row"><div class="ai-n">1</div><div><div class="ai-u">早稲田大学</div><div class="ai-bw"><div class="ai-b" style="width:100%"></div></div></div><div class="ai-p">28.5%</div></div>
+      <div class="ai-row"><div class="ai-n">2</div><div><div class="ai-u">日本大学</div><div class="ai-bw"><div class="ai-b" style="width:81%"></div></div></div><div class="ai-p">23.2%</div></div>
+      <div class="ai-row"><div class="ai-n">3</div><div><div class="ai-u">慶應義塾大学</div><div class="ai-bw"><div class="ai-b" style="width:76%"></div></div></div><div class="ai-p">21.8%</div></div>
+      <div class="ai-row"><div class="ai-n">4</div><div><div class="ai-u">明海大学</div><div class="ai-bw"><div class="ai-b" style="width:37%"></div></div></div><div class="ai-p">10.5%</div></div>
+      <div class="ai-row"><div class="ai-n">5</div><div><div class="ai-u">中央大学</div><div class="ai-bw"><div class="ai-b" style="width:29%"></div></div></div><div class="ai-p">8.2%</div></div>
+    </div>
+    <a href="sailrank.html" class="rk-btn" style="margin-top:20px">AI予測の詳細を見る →</a>
   </div>
 </div>
 
-<!-- SPONSOR BAR -->
-<div class="sponsor-bar">
-  <div class="sponsor-label"><span>Sponsors</span></div>
-  <div class="sponsor-slot filled">
-    <img src="aegil-logo-black.png" alt="Aegil">
-  </div>
-  <div class="sponsor-slot">
-    <span class="sponsor-slot-empty">Gold Sponsor</span>
-  </div>
-  <div class="sponsor-slot">
-    <span class="sponsor-slot-empty">Gold Sponsor</span>
-  </div>
-  <div class="sponsor-slot">
-    <span class="sponsor-slot-empty">Partner</span>
+<div class="divider"></div>
+
+<div class="spon">
+  <div class="spon-in">
+    <div class="spon-top">
+      <div><div class="spon-ey">Sponsors</div><div class="spon-h">スポンサー</div></div>
+      <a href="mailto:info@tack-sailing.jp" class="spon-btn">掲載のご相談</a>
+    </div>
+    <div class="spon-g">
+      <div class="sc"><div class="sc-l">Title Sponsor</div><img src="aegil-logo-black.png" alt="Aegil"></div>
+      <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e">募集中</div></div>
+      <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e">募集中</div></div>
+    </div>
+    <div class="spon-p">
+      <div class="sp"><div class="sp-e">Official<br>Partner</div></div>
+      <div class="sp"><div class="sp-e">Official<br>Partner</div></div>
+      <div class="sp"><div class="sp-e">Official<br>Partner</div></div>
+      <div class="sp"><div class="sp-e">Official<br>Partner</div></div>
+    </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-logo">
-    <img src="tack-logo.png" alt="TACK">
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="tack-logo.png" alt="TACK">
+        <div class="ft-tag">学生セーリングの、すべてを伝える。</div>
+      </div>
+      <nav class="ft-nav">
+        <a href="index.html">News</a>
+        <a href="#">Interview</a>
+        <a href="sailrank.html">SAIL RANK</a>
+        <a href="results.html">大会結果</a>
+        <a href="#">About</a>
+        <a href="mailto:info@tack-sailing.jp">Contact</a>
+      </nav>
+    </div>
+    <div class="ft-copy">© 2024 TACK Sailing Media</div>
   </div>
-  <nav class="footer-nav">
-    <a href="index.html">News</a>
-    <a href="#">Interview</a>
-    <a href="ranking.html">SAIL RANK</a>
-    <a href="results.html">大会結果</a>
-    <a href="#">About</a>
-    <a href="mailto:info@tack-sailing.jp">Contact</a>
-  </nav>
-  <div class="footer-copy">© 2024 TACK Sailing Media</div>
 </footer>
 
 </body>
