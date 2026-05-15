@@ -81,31 +81,24 @@ canvas{width:100%!important}
 @media(max-width:600px){ .tack-nav{padding:0 16px;} .tack-nav-badge{display:none;} .tack-nav-links{gap:14px;} }
 </style>
 <style>
-.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:background .2s;white-space:nowrap}
-.tack-back-btn:hover{background:rgba(255,255,255,.2)}
+.tack-back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(109,40,217,.2);
+  color:#c4b5fd;
+  font-size:12px;font-weight:500;
+  padding:5px 14px;border-radius:99px;
+  border:1px solid rgba(109,40,217,.35);
+  text-decoration:none;transition:all .2s;white-space:nowrap;
+  font-family:'Noto Sans JP',sans-serif;
+}
+.tack-back-btn:hover{
+  background:rgba(109,40,217,.45);
+  color:#fff;border-color:rgba(109,40,217,.65);
+}
 </style>
 </head>
 <body>
-<div style="background:#0a0a0a;padding:11px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
-    <img src="tack-logo.png" alt="TACK" style="height:16px;filter:invert(1)">
-  </a>
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:#fff;font-size:13px;font-family:'Noto Sans JP',sans-serif;font-weight:500;padding:6px 16px;border-radius:99px;text-decoration:none;border:1px solid rgba(255,255,255,.18);transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-    TACKトップへ戻る
-  </a>
-</div>
 
-<div style="background:#111;padding:10px 24px;display:flex;align-items:center;gap:12px">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:13px;font-family:sans-serif;transition:color .15s;text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-    TACKトップへ
-  </a>
-  <span style="color:rgba(255,255,255,.15);font-size:12px">|</span>
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none">
-    <img src="tack-logo.png" alt="TACK" style="height:14px;filter:invert(1) brightness(.6)">
-  </a>
-</div>
 
 <div class="tack-nav">
   <a href="index.html" class="tack-nav-logo">
@@ -116,6 +109,10 @@ canvas{width:100%!important}
     <a href="#">Interview</a>
     <a href="sailrank.html">SAIL RANK</a>
     <a href="results.html">大会結果</a>
+      <a href="index.html" class="tack-back-btn">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        TACK
+      </a>
   </div>
   <div class="tack-nav-badge">Sailing Media</div>
 </div>
@@ -129,10 +126,10 @@ canvas{width:100%!important}
       <a href="players.html" style="color:#fff">選手DB</a>
       <a href="results.html">大会結果</a>
       <a href="index.html" class="tack-back-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
         TACK
       </a>
-    </div>
+          </div>
     <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
