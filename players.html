@@ -80,6 +80,10 @@ canvas{width:100%!important}
 }
 @media(max-width:600px){ .tack-nav{padding:0 16px;} .tack-nav-badge{display:none;} .tack-nav-links{gap:14px;} }
 </style>
+<style>
+.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:background .2s;white-space:nowrap}
+.tack-back-btn:hover{background:rgba(255,255,255,.2)}
+</style>
 </head>
 <body>
 <div style="background:#0a0a0a;padding:11px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)">
@@ -124,12 +128,17 @@ canvas{width:100%!important}
       <a href="forecast.html">AI予測</a>
       <a href="players.html" style="color:#fff">選手DB</a>
       <a href="results.html">大会結果</a>
+      <a href="index.html" class="tack-back-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        TACK
+      </a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a><a href="results.html">大会結果</a>
+      <a href="index.html">← TACKトップへ</a>
   </div>
 </nav>
 <div class="page-hero">
