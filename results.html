@@ -177,11 +177,16 @@
   .result-table th:nth-child(4),
   .result-table td:nth-child(4) { display: none; }
 }
-.event-date{font-size:12px;color:var(--muted2);margin-bottom:8px}
 </style>
+
 <style>
-.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:background .2s;white-space:nowrap}
-.tack-back-btn:hover{background:rgba(255,255,255,.2)}
+.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(109,40,217,.25);color:#c4b5fd;font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(109,40,217,.4);text-decoration:none;transition:all .2s;white-space:nowrap}
+.tack-back-btn:hover{background:rgba(109,40,217,.5);color:#fff;border-color:rgba(109,40,217,.7)}
+</style>
+
+<style>
+.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--muted2);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
+.pdf-dl-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.06)}
 </style>
 </head>
 <body>
@@ -194,10 +199,7 @@
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html" style="color:#fff">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
+      <a href="index.html" class="tack-back-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>TACK</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
       <span></span><span></span><span></span>
@@ -208,7 +210,7 @@
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
-      <a href="index.html">← TACKトップへ</a>
+    <a href="index.html">← TACKトップへ</a>
   </div>
 </nav>
 
@@ -459,134 +461,272 @@
 </div>
 
 
-<!-- ======== 2023（大会日順） ======== -->
+<!-- 2023 -->
 <div class="year-content active" id="year-2023">
   <h2 class="year-heading">2023</h2>
-  <div class="event-section">
-    <div class="event-section-title">2023年度 関東学生ヨット春季選手権大会 女子レース</div>
-    <div class="event-date">2023年4月29日・30日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_spring_women_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_spring_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2023/2023_spring_women_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2023-spring-w">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-spring-w')">
+      <div class="event-card-left">
+        <div class="event-name">2023年度 関東学生ヨット春季選手権大会 女子レース</div>
+        <div class="event-meta"><span>📅 2023年4月29日・30日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <p style="margin-bottom:12px;font-size:13px;color:var(--muted2)">PDFでご確認ください</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_spring_women_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_spring_women_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2023/2023_spring_women_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">2023年 関東学生ヨット春季選手権大会 予選</div>
-    <div class="event-date">2023年5月3日・4日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_spring_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_spring_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+
+  <div class="event-card" id="ev-2023-spring-q">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-spring-q')">
+      <div class="event-card-left">
+        <div class="event-name">2023年 関東学生ヨット春季選手権大会 予選</div>
+        <div class="event-meta"><span>📅 2023年5月3日・4日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_spring_qualifying_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_spring_qualifying_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">2023年 関東学生ヨット春季選手権大会 決勝</div>
-    <div class="event-date">2023年5月6日・7日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_spring_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_spring_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2023/2023_spring_final_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2023-spring">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-spring')">
+      <div class="event-card-left">
+        <div class="event-name">2023年 関東学生ヨット春季選手権大会 決勝</div>
+        <div class="event-meta"><span>📅 2023年5月6日・7日</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="event-winner"><small>優勝</small>早稲田大学</div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">6</td><td class="right">11</td><td class="pt-cell right">17</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">慶應義塾大学</td><td class="right">25</td><td class="right">24</td><td class="pt-cell right">49</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">中央大学</td><td class="right">46</td><td class="right">36</td><td class="pt-cell right">82</td></tr>
+          <tr><td class="rank-cell">#4</td><td class="univ-cell">横浜国立大学</td><td class="right">67</td><td class="right">31</td><td class="right">98</td></tr>
+          <tr><td class="rank-cell">#5</td><td class="univ-cell">日本大学</td><td class="right">56</td><td class="right">48</td><td class="right">104</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2023/2023_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">2023年度 関東学生ヨット個人選手権大会</div>
-    <div class="event-date">2023年6月10日〜18日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_individual_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
+
+  <div class="event-card" id="ev-2023-indiv">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-indiv')">
+      <div class="event-card-left">
+        <div class="event-name">2023年度 関東学生ヨット個人選手権大会</div>
+        <div class="event-meta"><span>📅 2023年6月10日〜18日</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_individual_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_individual_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">2023年 日建レンタコムカップ 全日本女子関東水域選考会</div>
-    <div class="event-date">2023年6月17日・18日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_allJapan_women_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_allJapan_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
+
+  <div class="event-card" id="ev-2023-allj">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-allj')">
+      <div class="event-card-left">
+        <div class="event-name">2023年 日建レンタコムカップ 全日本女子関東水域選考会</div>
+        <div class="event-meta"><span>📅 2023年6月17日・18日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_allJapan_women_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_allJapan_women_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">第90回 関東学生ヨット選手権大会 女子レース</div>
-    <div class="event-date">2023年9月9日・10日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2023/2023_autumn_women_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2023/2023_autumn_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2023/2023_autumn_women_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2023-autumn-w">
+    <div class="event-card-header" onclick="toggleCard('ev-2023-autumn-w')">
+      <div class="event-card-left">
+        <div class="event-name">第90回 関東学生ヨット選手権大会 女子レース</div>
+        <div class="event-meta"><span>📅 2023年9月9日・10日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2023/2023_autumn_women_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2023/2023_autumn_women_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2023/2023_autumn_women_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ======== 2022（データ未入手） ======== -->
+<!-- 2022 -->
 <div class="year-content" id="year-2022">
   <h2 class="year-heading">2022</h2>
-  <div style="padding:60px 24px;text-align:center;color:var(--muted)">
-    <div style="font-size:48px;margin-bottom:16px">📋</div>
-    <div style="font-size:18px;margin-bottom:8px">データ準備中</div>
+  <div style="padding:60px 0;text-align:center;color:var(--muted)">
+    <div style="font-size:40px;margin-bottom:16px">📋</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px;color:var(--muted2)">データ準備中</div>
     <div style="font-size:14px">2022年度のデータは順次追加予定です。</div>
   </div>
 </div>
 
-<!-- ======== 2021（大会日順） ======== -->
+<!-- 2021 -->
 <div class="year-content" id="year-2021">
   <h2 class="year-heading">2021</h2>
-  <div class="event-section">
-    <div class="event-section-title">2021年度 関東学生ヨット個人選手権大会</div>
-    <div class="event-date">2021年10月2日・3日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2021/2021_individual_470.pdf" target="_blank">📄 470級</a>
+
+  <div class="event-card" id="ev-2021-indiv">
+    <div class="event-card-header" onclick="toggleCard('ev-2021-indiv')">
+      <div class="event-card-left">
+        <div class="event-name">第88回 関東学生ヨット選手権大会 予選</div>
+        <div class="event-meta"><span>📅 2021年10月2日・3日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2021/2021_individual_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">第88回 関東学生ヨット選手権大会 女子レース</div>
-    <div class="event-date">2021年10月4日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2021/2021_autumn_women_470.pdf" target="_blank">📄 470級</a>
+
+  <div class="event-card" id="ev-2021-women">
+    <div class="event-card-header" onclick="toggleCard('ev-2021-women')">
+      <div class="event-card-left">
+        <div class="event-name">第88回 関東学生ヨット選手権大会 女子レース</div>
+        <div class="event-meta"><span>📅 2021年10月4日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2021/2021_autumn_women_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">第88回 関東学生ヨット選手権大会 決勝</div>
-    <div class="event-date">2021年10月8日・9日・10日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2021/2021_autumn_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2021/2021_autumn_final_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2021-autumn">
+    <div class="event-card-header" onclick="toggleCard('ev-2021-autumn')">
+      <div class="event-card-left">
+        <div class="event-name">第88回 関東学生ヨット選手権大会 決勝</div>
+        <div class="event-meta"><span>📅 2021年10月8日・9日・10日</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="event-winner"><small>優勝</small>日本大学</div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">103</td><td class="right">221</td><td class="pt-cell right">324</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">早稲田大学</td><td class="right">173</td><td class="right">191</td><td class="pt-cell right">364</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">177</td><td class="right">245</td><td class="pt-cell right">422</td></tr>
+          <tr><td class="rank-cell">#4</td><td class="univ-cell">中央大学</td><td class="right">308</td><td class="right">377</td><td class="right">685</td></tr>
+          <tr><td class="rank-cell">#5</td><td class="univ-cell">明海大学</td><td class="right">416</td><td class="right">317</td><td class="right">733</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2021/2021_autumn_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2021/2021_autumn_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ======== 2020（大会日順） ======== -->
+<!-- 2020 -->
 <div class="year-content" id="year-2020">
   <h2 class="year-heading">2020</h2>
-  <div class="event-section">
-    <div class="event-section-title">2020年度 全日本学生ヨット個人選手権大会 関東水域予選会</div>
-    <div class="event-date">2020年9月19日〜22日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2020/2020_allJapan_individual_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2020/2020_allJapan_individual_snipe.pdf" target="_blank">📄 スナイプ級</a>
+
+  <div class="event-card" id="ev-2020-allj">
+    <div class="event-card-header" onclick="toggleCard('ev-2020-allj')">
+      <div class="event-card-left">
+        <div class="event-name">2020年度 全日本学生ヨット個人選手権大会 関東水域予選会</div>
+        <div class="event-meta"><span>📅 2020年9月19日〜22日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2020/2020_allJapan_individual_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2020/2020_allJapan_individual_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">2020年 関東学生女子ヨット秋季選手権大会</div>
-    <div class="event-date">2020年9月26日・27日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2020/2020_autumn_women_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2020/2020_autumn_women_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2020/2020_autumn_women_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2020-women">
+    <div class="event-card-header" onclick="toggleCard('ev-2020-women')">
+      <div class="event-card-left">
+        <div class="event-name">2020年 関東学生女子ヨット秋季選手権大会</div>
+        <div class="event-meta"><span>📅 2020年9月26日・27日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2020/2020_autumn_women_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2020/2020_autumn_women_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2020/2020_autumn_women_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">第87回 関東学生ヨット選手権大会 予選</div>
-    <div class="event-date">2020年10月3日・4日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2020/2020_autumn_qualifying_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2020/2020_autumn_qualifying_snipe.pdf" target="_blank">📄 スナイプ級</a>
+
+  <div class="event-card" id="ev-2020-q">
+    <div class="event-card-header" onclick="toggleCard('ev-2020-q')">
+      <div class="event-card-left">
+        <div class="event-name">第87回 関東学生ヨット選手権大会 予選</div>
+        <div class="event-meta"><span>📅 2020年10月3日・4日</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2020/2020_autumn_qualifying_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2020/2020_autumn_qualifying_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+      </div>
     </div>
   </div>
-  <div class="event-section">
-    <div class="event-section-title">第87回 関東学生ヨット選手権大会 決勝</div>
-    <div class="event-date">2020年10月9日・10日・11日・17日</div>
-    <div class="pdf-grid">
-      <a class="pdf-link" href="pdf/2020/2020_autumn_final_470.pdf" target="_blank">📄 470級</a>
-      <a class="pdf-link" href="pdf/2020/2020_autumn_final_snipe.pdf" target="_blank">📄 スナイプ級</a>
-      <a class="pdf-link" href="pdf/2020/2020_autumn_final_total.pdf" target="_blank">📄 総合</a>
+
+  <div class="event-card" id="ev-2020-autumn">
+    <div class="event-card-header" onclick="toggleCard('ev-2020-autumn')">
+      <div class="event-card-left">
+        <div class="event-name">第87回 関東学生ヨット選手権大会 決勝</div>
+        <div class="event-meta"><span>📅 2020年10月9日・10日・11日・17日</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="event-winner"><small>優勝</small>早稲田大学</div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">30</td><td class="right">28</td><td class="pt-cell right">58</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">日本大学</td><td class="right">23</td><td class="right">74</td><td class="pt-cell right">97</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">95</td><td class="right">112</td><td class="pt-cell right">207</td></tr>
+          <tr><td class="rank-cell">#4</td><td class="univ-cell">中央大学</td><td class="right">103</td><td class="right">128</td><td class="right">231</td></tr>
+          <tr><td class="rank-cell">#5</td><td class="univ-cell">明治大学</td><td class="right">60</td><td class="right">186</td><td class="right">246</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <a href="pdf/2020/2020_autumn_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2020/2020_autumn_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2020/2020_autumn_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
+      </div>
     </div>
   </div>
 </div>
@@ -606,7 +746,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <small>© 2024 SAIL RANK. データは公式大会結果をもとに作成。</small>
+      <small>© 2024 SAIL RANK / TACK Sailing Media. データは公式大会結果をもとに作成。</small>
     </div>
   </div>
 </footer>
@@ -614,11 +754,11 @@
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
-function switchYear(year) {
+function switchYear(year, btn) {
   document.querySelectorAll('.year-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.year-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('year-' + year).classList.add('active');
-  event.target.classList.add('active');
+  if(btn) btn.classList.add('active'); else event.target.classList.add('active');
 }
 
 function toggleCard(id) {
