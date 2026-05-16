@@ -41,7 +41,7 @@ img{display:block;max-width:100%}
 .btn-p:hover{opacity:.85}
 .btn-g{border:1.5px solid var(--border);color:var(--text);font-size:15px;font-weight:500;padding:11px 26px;border-radius:99px;transition:all .2s}
 .btn-g:hover{border-color:var(--purple);color:var(--purple)}
-.hero-ad{height:160px;}
+.hero-ad{height:auto;}
 .ad-label{font-size:11px;font-weight:600;color:var(--light);letter-spacing:.12em;text-transform:uppercase}
 .ad-sub{font-size:13px;color:var(--light)}
 
@@ -188,18 +188,35 @@ footer{border-top:1px solid var(--border)}
   <div>
     <div class="hero-eyebrow">Sailing Media</div>
     <h1 class="hero-title">セーリングレースを、<br><em>もっと深く。</em></h1>
-    <p class="hero-desc">独自AI予測・ランキング・インタビューで、セーリングレースの熱量を伝える。</p>
+    <p class="hero-desc">独自ランキング・AI予測・インタビューで、学生セーリングの熱量を伝える。</p>
     <div class="hero-btns">
       <a href="sailrank.html" class="btn-p">SAIL RANKを見る</a>
       <a href="#news" class="btn-g">最新ニュース</a>
     </div>
   </div>
-  <a href="https://aegil-ag.jp" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;border:1px solid #d4d4d4;border-radius:14px;text-decoration:none;background:#000;overflow:hidden;transition:border-color .25s;gap:0;padding:0" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='#d4d4d4'">
-    <div style="width:100%;text-align:center;padding:6px 0;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);border-bottom:1px solid #222">TITLE SPONSOR</div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px 24px">
-      <img src="aegil-logo-white.png" alt="Aegil" style="width:110px;height:auto;display:block">
+  <div style="display:flex;flex-direction:column;gap:0;border:1px solid #e4e4e7;border-radius:14px;overflow:hidden;background:#fff">
+    <!-- PRラベル -->
+    <div style="padding:6px 12px;background:#f7f6f3;border-bottom:1px solid #e4e4e7">
+      <span style="font-size:10px;font-weight:700;color:#888;letter-spacing:.08em">PR</span>
     </div>
-  </a>
+    <!-- PRカード: Aegil -->
+    <a href="https://aegil-ag.jp" target="_blank" rel="noopener" style="display:flex;flex-direction:column;text-decoration:none;padding:16px;gap:10px;transition:background .15s;border-bottom:1px solid #e4e4e7" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background='transparent'">
+      <div style="height:90px;background:#000;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <img src="aegil-logo-white.png" alt="Aegil" style="width:90px;height:auto;display:block">
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.45;margin-bottom:4px">学生セーラーのための高機能ウェア。Aegilで差をつける。</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+          <span style="font-size:10px;font-weight:700;background:#e4e4e7;color:#71717a;padding:2px 6px;border-radius:3px">PR</span>
+          <span style="font-size:11px;color:#a1a1aa">Aegil</span>
+        </div>
+      </div>
+    </a>
+    <!-- 2枠目: 空き -->
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:center;min-height:60px">
+      <span style="font-size:12px;color:#a1a1aa">案件記事・PR枠 <a href="mailto:info@tack-sailing.jp" style="color:#6d28d9;text-decoration:none">お問い合わせ</a></span>
+    </div>
+  </div>
 </div>
 
 <div class="divider"></div>
