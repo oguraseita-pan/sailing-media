@@ -22,8 +22,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--t
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
-.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.nav img{height:24px;width:auto}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 16px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav img{height:56px;width:auto}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{font-size:15px;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif;font-weight:400}
 .nav-links a:hover{color:var(--text)}
@@ -128,6 +128,41 @@ footer{border-top:1px solid var(--border)}
   .spon{padding:40px 20px}.spon-g{grid-template-columns:1fr 1fr}.spon-p{grid-template-columns:1fr 1fr}
   .ft{padding:32px 20px}
 }
+
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;margin-left:8px}
+.nav-ham span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block;transition:all .2s}
+.mobile-menu{display:none;flex-direction:column;background:var(--white);border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:16px 24px;font-size:16px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;transition:background .15s}
+.mobile-menu a:hover{background:var(--off)}
+.mm-sr{background:var(--purple);color:#fff!important;font-size:16px;font-weight:700;text-align:center;margin:12px 16px 16px;border-radius:99px;border:none!important;display:block;padding:14px 24px!important}
+.mm-sr:hover{background:#5b21b6!important}
+@media(max-width:768px){
+  .nav{padding:0 12px 0 12px}
+  .nav img{height:52px}
+  .nav-links a:not(.nav-sr){display:none}
+  .nav-sr{font-size:12px!important;padding:6px 12px!important}
+  .nav-ham{display:flex}
+  .hero{grid-template-columns:1fr;gap:20px;padding:36px 20px 32px}
+  .hero-ad{height:120px!important;width:100%}
+  .hero-title{font-size:30px!important}
+  .hero-desc{font-size:15px}
+  .divider{margin:0 16px}
+  .sec{padding:32px 20px}
+  .news-feat{padding:20px}
+  .ncard{padding:18px}
+  .news-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr;padding:32px 20px;gap:0}
+  .side{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:24px;margin-top:24px}
+  .spon{padding:32px 20px}
+  .spon-g{grid-template-columns:1fr!important}
+  .spon-p{grid-template-columns:1fr 1fr}
+  .ft{padding:28px 20px}
+  .ft-top{flex-direction:column;gap:20px}
+}
+@media(max-width:480px){
+  .spon-p{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -139,8 +174,15 @@ footer{border-top:1px solid var(--border)}
     <a href="interview.html">Interview</a>
     <a href="about.html">About</a>
     <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
+    <button class="nav-ham" id="navHam" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="news.html">News</a>
+  <a href="interview.html">Interview</a>
+  <a href="about.html">About</a>
+  <a href="sailrank.html" class="mm-sr">SAIL RANK</a>
+</div>
 
 <div class="hero">
   <div>
@@ -152,10 +194,10 @@ footer{border-top:1px solid var(--border)}
       <a href="#news" class="btn-g">最新ニュース</a>
     </div>
   </div>
-  <a href="https://aegil-ag.jp" target="_blank" rel="noopener" class="hero-ad" style="border:2px solid var(--border);border-radius:14px;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;transition:border-color .2s;overflow:hidden;background:var(--white)" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='var(--border)'">
-    <div style="width:100%;background:var(--off);text-align:center;padding:7px 0;border-bottom:2px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Title Sponsor</div>
+  <a href="https://aegil-ag.jp" target="_blank" rel="noopener" class="hero-ad" style="border:2px solid var(--border);border-radius:14px;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;transition:border-color .2s;overflow:hidden;background:#0a0a0a" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='var(--border)'">
+    <div style="width:100%;background:#1a1a1a;text-align:center;padding:7px 0;border-bottom:2px solid #333;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)">Title Sponsor</div>
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:10px">
-      <img src="aegil-logo-black.png" alt="Aegil" style="width:130px;height:auto;display:block">
+      <img src="aegil-logo-white.png" alt="Aegil" style="width:130px;height:auto;display:block">
       <div style="font-size:11px;color:var(--light);letter-spacing:.04em">高機能セーリングウェア</div>
     </div>
   </a>
@@ -237,10 +279,10 @@ footer{border-top:1px solid var(--border)}
     </div>
     <div class="spon-g">
       <a href="https://aegil-ag.jp" target="_blank" rel="noopener" class="sc" style="border:2px solid var(--border);text-decoration:none;transition:border-color .2s;overflow:hidden;padding:0;flex-direction:column;align-items:stretch" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="background:var(--off);text-align:center;padding:7px 0;border-bottom:2px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Title Sponsor</div>
+        <div style="background:#1a1a1a;text-align:center;padding:7px 0;border-bottom:2px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Title Sponsor</div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;gap:10px">
-          <img src="aegil-logo-black.png" alt="Aegil" style="width:140px;height:auto;display:block">
-          <div style="font-size:11px;color:var(--light);letter-spacing:.04em">高機能セーリングウェア</div>
+          <img src="aegil-logo-white.png" alt="Aegil" style="width:140px;height:auto;display:block">
+          <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em">高機能セーリングウェア</div>
         </div>
       </a>
       <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e">募集中</div></div>
@@ -277,7 +319,7 @@ footer{border-top:1px solid var(--border)}
 
 <script>
 const nh=document.getElementById('navHam'),mm=document.getElementById('mobileMenu');
-if(nh&&mm)nh.addEventListener('click',()=>mm.classList.toggle('open'));
+if(nh&&mm){nh.addEventListener('click',()=>{mm.classList.toggle('open');});}
 </script>
 </body>
 </html>
