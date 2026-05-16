@@ -22,8 +22,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--t
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
-.nav{display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 16px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.nav img{height:40px;width:auto}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;position:relative}
+.nav img{height:46px;width:auto}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{font-size:15px;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif;font-weight:400}
 .nav-links a:hover{color:var(--text)}
@@ -118,34 +118,14 @@ footer{border-top:1px solid var(--border)}
 .ft-copy{border-top:1px solid var(--border);padding-top:20px;font-size:13px;color:var(--light);font-family:'Noto Sans JP',sans-serif}
 
 @media(max-width:768px){
-  .nav{padding:0 20px}.nav-links a:not(.nav-sr){display:none}
-  .hero{grid-template-columns:1fr;gap:20px;padding:48px 20px 40px}.hero-ad{height:90px}
-  .divider{margin:0 20px}
-  .sec{padding:40px 20px}
-  .news-grid{grid-template-columns:1fr}
-  .two-col{grid-template-columns:1fr;padding:40px 20px;gap:0}
-  .side{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:32px;margin-top:32px}
-  .spon{padding:40px 20px}.spon-g{grid-template-columns:1fr 1fr}.spon-p{grid-template-columns:1fr 1fr}
-  .ft{padding:32px 20px}
-}
-
-.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;margin-left:8px}
-.nav-ham span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block;transition:all .2s}
-.mobile-menu{display:none;flex-direction:column;background:var(--white);border-bottom:1px solid var(--border)}
-.mobile-menu.open{display:flex}
-.mobile-menu a{padding:16px 24px;font-size:16px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;transition:background .15s}
-.mobile-menu a:hover{background:var(--off)}
-.mm-sr{background:var(--purple);color:#fff!important;font-size:16px;font-weight:700;text-align:center;margin:12px 16px 16px;border-radius:99px;border:none!important;display:block;padding:14px 24px!important}
-.mm-sr:hover{background:#5b21b6!important}
-@media(max-width:768px){
-  .nav{padding:0 12px 0 12px}
-  .nav img{height:52px}
-  .nav-links a:not(.nav-sr){display:none}
-  .nav-sr{font-size:12px!important;padding:6px 12px!important}
+  .nav{padding:0 12px}
+  .nav-center-logo img{height:34px}
+  .nav-left{display:none}
+  .nav-sr{display:none!important}
   .nav-ham{display:flex}
   .hero{grid-template-columns:1fr;gap:20px;padding:36px 20px 32px}
   .hero-ad{height:auto!important;width:100%}
-  .hero-title{font-size:30px!important}
+  .hero-title{font-size:30px}
   .hero-desc{font-size:15px}
   .divider{margin:0 16px}
   .sec{padding:32px 20px}
@@ -163,16 +143,26 @@ footer{border-top:1px solid var(--border)}
 @media(max-width:480px){
   .spon-p{grid-template-columns:1fr}
 }
+}
+
+.nav-left{display:flex;align-items:center;gap:28px}
+.nav-left a{font-size:15px;font-weight:400;color:var(--muted);transition:color .15s;font-family:'Noto Sans JP',sans-serif;text-decoration:none}
+.nav-left a:hover{color:var(--text)}
+.nav-center-logo{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center}
+.nav-center-logo img{height:46px;width:auto;display:block}
+.nav-right{display:flex;align-items:center;gap:12px}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html"><img src="tack-logo.png" alt="TACK"></a>
-  <div class="nav-links">
+  <div class="nav-left">
     <a href="news.html">News</a>
     <a href="interview.html">Interview</a>
     <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-center-logo"><img src="tack-logo.png" alt="TACK"></a>
+  <div class="nav-right">
     <a href="sailrank.html" class="nav-sr">SAIL RANK</a>
     <button class="nav-ham" id="navHam" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
@@ -201,8 +191,8 @@ footer{border-top:1px solid var(--border)}
     </div>
     <!-- PRカード: Aegil -->
     <a href="https://aegil-ag.jp" target="_blank" rel="noopener" style="display:flex;flex-direction:column;text-decoration:none;padding:16px;gap:10px;transition:background .15s;border-bottom:1px solid #e4e4e7" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background='transparent'">
-      <div style="height:90px;background:#000;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
-        <img src="aegil-logo-white.png" alt="Aegil" style="width:150px;height:auto;display:block;image-rendering:-webkit-optimize-contrast">
+      <div style="height:90px;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <img src="aegil-logo-black.png" alt="Aegil" style="width:150px;height:auto;display:block">
       </div>
       <div>
         <div style="font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.45;margin-bottom:4px">学生セーラーのための高機能ウェア。Aegilで差をつける。</div>
@@ -295,10 +285,10 @@ footer{border-top:1px solid var(--border)}
     </div>
     <div class="spon-g">
       <a href="https://aegil-ag.jp" target="_blank" rel="noopener" class="sc" style="border:2px solid var(--border);text-decoration:none;transition:border-color .2s;overflow:hidden;padding:0;flex-direction:column;align-items:stretch" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="background:#1a1a1a;text-align:center;padding:7px 0;border-bottom:2px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Title Sponsor</div>
+        <div style="background:#f5f5f5;text-align:center;padding:7px 0;border-bottom:2px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Title Sponsor</div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;gap:10px">
-          <img src="aegil-logo-white.png" alt="Aegil" style="width:180px;height:auto;display:block;image-rendering:-webkit-optimize-contrast">
-          <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em">高機能セーリングウェア</div>
+          <img src="aegil-logo-black.png" alt="Aegil" style="width:160px;height:auto;display:block">
+          <div style="font-size:11px;color:#aaa;letter-spacing:.04em">高機能セーリングウェア</div>
         </div>
       </a>
       <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e">募集中</div></div>
