@@ -121,7 +121,7 @@ footer{border-top:1px solid var(--border)}
   .nav{display:flex;justify-content:space-between;padding:0 16px;height:56px}
   .nav-logo img{height:30px}
   .nav-left{display:none}.nav-right a:not(button){display:none}
-  .nav-ham{display:flex}
+  .nav-ham{display:none}
   .hero{grid-template-columns:1fr;gap:20px;padding:36px 20px 32px}
   .hero-ad{height:auto!important;width:100%}
   .hero-title{font-size:30px}
@@ -421,8 +421,15 @@ footer{border-top:1px solid var(--border)}
 </footer>
 
 <script>
-const nh=document.getElementById('navHam'),mm=document.getElementById('mobileMenu');
-if(nh&&mm)nh.addEventListener('click',()=>mm.classList.toggle('open'));
+(function(){
+  var btn=document.getElementById('navHam');
+  var menu=document.getElementById('mobileMenu');
+  if(btn&&menu){
+    btn.addEventListener('click',function(){
+      menu.classList.toggle('open');
+    });
+  }
+})();
 </script>
 </body>
 </html>
