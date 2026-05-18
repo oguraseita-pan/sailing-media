@@ -141,7 +141,7 @@ footer{border-top:1px solid #e4e4e7}
 .spon-btn{background:#6d28d9;color:#fff;font-size:14px;font-weight:500;padding:10px 22px;border-radius:99px;white-space:nowrap;text-decoration:none;transition:opacity .2s}
 .spon-btn:hover{opacity:.85}
 .spon-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.sc{border:1.5px solid #e4e4e7;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:96px;background:#fff;transition:border-color .2s}
+.sc{border:1.5px solid #e4e4e7;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:96px;background:#fff;transition:border-color .2s;overflow:hidden}
 .sc:hover{border-color:#6d28d9}
 .sc-l{font-size:11px;font-weight:600;color:#a1a1aa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
 .sc-e{font-size:13px;color:#a1a1aa}
@@ -325,9 +325,26 @@ footer{border-top:1px solid #e4e4e7}
       <a href="mailto:info@tack-sailing.jp" class="spon-btn">掲載のご相談</a>
     </div>
     <div class="spon-g">
-      <div class="sc"><div class="sc-l">Title Sponsor</div><div class="sc-e" style="font-size:15px;font-weight:600;color:#a1a1aa">募集中</div><div style="font-size:12px;color:#c4c4c4;margin-top:4px">お問い合わせください</div></div>
-      <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e" style="font-size:15px;font-weight:600;color:#a1a1aa">募集中</div><div style="font-size:12px;color:#c4c4c4;margin-top:4px">お問い合わせください</div></div>
-      <div class="sc"><div class="sc-l">Gold Sponsor</div><div class="sc-e" style="font-size:15px;font-weight:600;color:#a1a1aa">募集中</div><div style="font-size:12px;color:#c4c4c4;margin-top:4px">お問い合わせください</div></div>
+      <!-- Title Sponsor: 募集中 -->
+      <div class="sc">
+        <div class="sc-l">Title Sponsor</div>
+        <div class="sc-e" style="font-size:15px;font-weight:600;color:#a1a1aa">募集中</div>
+        <div style="font-size:12px;color:#c4c4c4;margin-top:4px">お問い合わせください</div>
+      </div>
+      <!-- Gold Sponsor: スマートWEB -->
+      <a href="#" target="_blank" rel="noopener" class="sc" style="text-decoration:none;padding:0;overflow:hidden;border:1.5px solid #e4e4e7;transition:border-color .2s;flex-direction:column;align-items:stretch" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='#e4e4e7'">
+        <div style="background:#f8f8f8;text-align:center;padding:5px 0;border-bottom:1px solid #eee;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa">Gold Sponsor</div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px 12px">
+          <img src="smartweb-logo.png" alt="スマートWEB" style="width:100%;max-width:140px;height:auto;display:block">
+        </div>
+      </a>
+      <!-- Gold Sponsor: Aegil -->
+      <a href="https://aegil-ag.jp" target="_blank" rel="noopener" class="sc" style="text-decoration:none;padding:0;overflow:hidden;border:1.5px solid #e4e4e7;transition:border-color .2s;flex-direction:column;align-items:stretch" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='#e4e4e7'">
+        <div style="background:#f8f8f8;text-align:center;padding:5px 0;border-bottom:1px solid #eee;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa">Gold Sponsor</div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px 12px">
+          <img src="aegil-logo-black.png" alt="Aegil" style="width:100%;max-width:120px;height:auto;display:block">
+        </div>
+      </a>
     </div>
     <div class="spon-p">
       <div class="sp"><div class="sp-e">Official<br>Partner</div></div>
