@@ -1,238 +1,310 @@
-/* ============================================================
-   SAIL RANK — css/style.css
-   sailrank.html のCSSを完全移植。文字サイズはやや大きく調整。
-   ============================================================ */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans JP',sans-serif;background:#f8faff;color:#0f172a;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8faff;color:#0f172a;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
-/* ── TACKボタン ── */
-.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.1);color:#4338ca;font-size:13px;font-weight:600;padding:5px 14px;border-radius:99px;border:1px solid rgba(99,102,241,.2);transition:all .2s;white-space:nowrap}
+.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.1);color:#4338ca;font-size:12px;font-weight:600;padding:5px 14px;border-radius:99px;border:1px solid rgba(99,102,241,.2);transition:all .2s;white-space:nowrap}
 .tack-back-btn:hover{background:rgba(99,102,241,.2);color:#3730a3}
 .tack-back-btn svg{flex-shrink:0}
 
-/* ── ナビ ── */
 .nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:#0f172a}
 .logo span{color:#6366f1}
 .nav-links{display:flex;align-items:center;gap:4px}
-.nav-links a{font-size:14px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:6px;transition:all .15s}
+.nav-links a{font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:6px;transition:all .15s}
 .nav-links a:hover{color:#0f172a;background:#f1f5f9}
 .nav-links .tack-back-btn{margin-left:8px}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
-.hamburger span{width:20px;height:2px;background:#0f172a;border-radius:2px;display:block;transition:all .2s}
-.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.hamburger.active span:nth-child(2){opacity:0}
-.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.hamburger span{width:20px;height:2px;background:#0f172a;border-radius:2px;display:block}
 .mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #e2e8f0}
 .mobile-menu.open{display:flex}
-.mobile-menu a{padding:13px 24px;font-size:15px;font-weight:500;color:#0f172a;border-bottom:1px solid #f1f5f9;transition:background .15s}
+.mobile-menu a{padding:13px 24px;font-size:14px;font-weight:500;color:#0f172a;border-bottom:1px solid #f1f5f9;transition:background .15s}
 .mobile-menu a:hover{background:#f8faff}
 .mobile-menu a:last-child{border:none}
 
-/* ── セクション共通 ── */
+.hero{background:#fff;border-bottom:1px solid #e2e8f0;padding:56px 24px 48px}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:14px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.hero-title{font-size:clamp(28px,4vw,44px);font-weight:900;color:#0f172a;line-height:1.2;margin-bottom:14px}
+.hero-title em{color:#6366f1;font-style:normal}
+.hero-desc{font-size:16px;color:#64748b;line-height:1.85;max-width:520px;margin-bottom:28px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn-primary{background:#6366f1;color:#fff;font-size:14px;font-weight:700;padding:11px 24px;border-radius:8px;transition:background .2s}
+.btn-primary:hover{background:#4f46e5}
+.btn-ghost{border:1.5px solid #e2e8f0;color:#0f172a;font-size:14px;font-weight:500;padding:10px 24px;border-radius:8px;transition:all .2s}
+.btn-ghost:hover{border-color:#6366f1;color:#6366f1}
+.hero-mvp{background:#f8faff;border:1.5px solid #e0e7ff;border-radius:16px;padding:24px 28px;min-width:200px}
+.mvp-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:#6366f1;text-transform:uppercase;margin-bottom:10px}
+.mvp-name{font-size:20px;font-weight:900;color:#0f172a;margin-bottom:3px}
+.mvp-univ{font-size:12px;color:#64748b;margin-bottom:14px}
+.mvp-stats{display:flex;gap:16px}
+.mvp-stat{display:flex;flex-direction:column}
+.mvp-stat b{font-size:18px;font-weight:900;color:#6366f1;line-height:1}
+.mvp-stat small{font-size:10px;color:#94a3b8;margin-top:2px;letter-spacing:.06em}
+
+.kpi-bar{background:#6366f1;border-bottom:1px solid #4f46e5}
+.kpi-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;padding:0 24px}
+.kpi-item{display:flex;align-items:center;gap:8px;padding:14px 0;flex:1;justify-content:center}
+.kpi-item b{font-size:18px;font-weight:900;color:#fff}
+.kpi-item span{font-size:12px;color:rgba(255,255,255,.7)}
+.kpi-divider{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
+
 .section{padding:52px 24px}
 .section.section-gray{background:#f8faff}
 .container{max-width:1200px;margin:0 auto}
 .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
-.section-label{font-size:12px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
-.section-title{font-size:24px;font-weight:900;color:#0f172a;margin-bottom:4px}
-.section-desc{font-size:14px;color:#64748b}
-.btn-link{font-size:14px;font-weight:600;color:#6366f1;border:1.5px solid #e0e7ff;padding:8px 18px;border-radius:8px;white-space:nowrap;transition:all .2s}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
+.section-title{font-size:22px;font-weight:900;color:#0f172a;margin-bottom:4px}
+.section-desc{font-size:13px;color:#64748b}
+.btn-link{font-size:13px;font-weight:600;color:#6366f1;border:1.5px solid #e0e7ff;padding:8px 18px;border-radius:8px;white-space:nowrap;transition:all .2s}
 .btn-link:hover{background:#e0e7ff}
 
-/* ── ページヒーロー（サブページ共通） ── */
-.page-hero{padding:72px 24px 52px;background:#fff;border-bottom:1px solid #e2e8f0}
-.page-hero-inner{max-width:1200px;margin:auto}
-.page-title{font-size:clamp(40px,6vw,64px);font-weight:900;color:#0f172a;line-height:1.1;margin-bottom:10px;letter-spacing:-.01em}
-.page-desc{font-size:17px;color:#64748b;line-height:1.75}
-
-/* ── ランクテーブル ── */
 .rank-table{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
-.rank-header{display:grid;padding:12px 20px;background:#f8faff;border-bottom:1px solid #e2e8f0;font-size:12px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase}
-.rank-row{display:grid;padding:14px 20px;border-bottom:1px solid #f1f5f9;align-items:center;transition:background .15s;cursor:pointer}
+.rank-header{display:grid;grid-template-columns:56px 1fr 160px 80px 80px;padding:11px 20px;background:#f8faff;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase}
+.rank-row{display:grid;grid-template-columns:56px 1fr 160px 80px 80px;padding:13px 20px;border-bottom:1px solid #f1f5f9;align-items:center;transition:background .15s;cursor:pointer}
 .rank-row:last-child{border:none}
 .rank-row:hover{background:#f8faff}
-.rank-pos{font-size:20px;font-weight:900;color:#cbd5e1}
-.rank-pos.p1,.top1 .rank-num{color:#f59e0b}
-.rank-pos.p2,.top2 .rank-num{color:#94a3b8}
-.rank-pos.p3,.top3 .rank-num{color:#b45309}
-.rank-num{font-size:20px;font-weight:900;color:#cbd5e1}
-.rank-name{font-size:16px;font-weight:700;color:#0f172a}
-.rank-meta,.rank-sub{font-size:13px;color:#94a3b8;margin-top:2px}
-.rank-univ{font-size:15px;color:#475569}
-.rank-cls{font-size:13px;color:#94a3b8}
-.rank-role{font-size:13px;font-weight:700}
+.rank-pos{font-size:18px;font-weight:900;color:#cbd5e1}
+.rank-pos.p1{color:#f59e0b}
+.rank-pos.p2{color:#94a3b8}
+.rank-pos.p3{color:#b45309}
+.rank-name{font-size:14px;font-weight:700;color:#0f172a}
+.rank-meta{font-size:11px;color:#94a3b8;margin-top:1px}
+.rank-univ{font-size:13px;color:#475569}
+.rank-cls{font-size:12px;color:#94a3b8}
+.rank-role{font-size:12px;font-weight:700}
 .role-sk{color:#6366f1}
 .role-cr{color:#f59e0b}
-.rank-score,.rank-pt{text-align:right;font-size:17px;font-weight:900;color:#6366f1}
+.rank-score{text-align:right;font-size:16px;font-weight:900;color:#6366f1}
 .text-right{text-align:right}
-.empty{padding:40px;text-align:center;color:#94a3b8;font-size:15px}
 
-/* ── forecast カード（トップ流用） ── */
+.forecast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .forecast-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;transition:border-color .2s;cursor:pointer}
 .forecast-card:hover{border-color:#6366f1}
-.fc-rank{font-size:12px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;margin-bottom:6px}
-.fc-univ,.fc-name{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px}
+.fc-rank{font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;margin-bottom:6px}
+.fc-univ{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:10px}
 .fc-bar-wrap{height:5px;background:#e0e7ff;border-radius:99px;overflow:hidden;margin-bottom:6px}
-.fc-bar,.fc-bar-fill{height:100%;background:#6366f1;border-radius:99px}
-.fc-pct{font-size:16px;font-weight:900;color:#6366f1}
-.fc-meta{font-size:12px;color:#94a3b8;margin-top:2px}
+.fc-bar{height:100%;background:#6366f1;border-radius:99px}
+.fc-pct{font-size:15px;font-weight:900;color:#6366f1}
+.fc-meta{font-size:11px;color:#94a3b8;margin-top:2px}
 
-/* forecast subpage 行 */
-.fc-row{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;display:grid;grid-template-columns:56px 1fr 110px;align-items:center;gap:16px;transition:border-color .2s}
-.fc-row:hover{border-color:#6366f1}
-.fc-row.rank1{border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.03)}
-.fc-rank-num{font-size:32px;font-weight:900;color:#cbd5e1;text-align:center}
-.fc-row.rank1 .fc-rank-num{color:#f59e0b}
-.fc-pct-big{text-align:right;font-size:34px;font-weight:900;color:#6366f1}
-.fc-pct-big small{font-size:16px}
-
-/* forecast sideカード */
-.side-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:16px}
-.side-card h3{font-size:18px;font-weight:900;color:#0f172a;margin-bottom:12px}
-.side-card p{font-size:15px;color:#64748b;line-height:1.75}
-.ai-disclaimer{font-size:13px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:12px;line-height:1.7}
-
-/* ── 大学カード ── */
+.univ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
 .univ-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;transition:border-color .2s;cursor:pointer}
 .univ-card:hover{border-color:#6366f1}
-.uc-rank{font-size:18px;font-weight:900;color:#cbd5e1}
+.uc-rank{font-size:16px;font-weight:900;color:#cbd5e1}
 .uc-rank.u1{color:#f59e0b}
-.uc-name{font-size:15px;font-weight:700;color:#0f172a}
-.uc-detail{font-size:13px;color:#94a3b8;margin-top:1px}
-.uc-pt{font-size:16px;font-weight:900;color:#6366f1}
+.uc-name{font-size:13px;font-weight:700;color:#0f172a}
+.uc-detail{font-size:11px;color:#94a3b8;margin-top:1px}
+.uc-pt{font-size:14px;font-weight:900;color:#6366f1}
 
-/* ── 選手カード ── */
-.player-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;cursor:pointer;transition:all .2s}
-.player-card:hover{border-color:#6366f1;transform:translateY(-2px);box-shadow:0 4px 16px rgba(99,102,241,.1)}
-.pc-name{font-size:17px;font-weight:700;color:#0f172a;margin-bottom:4px}
-.pc-univ{font-size:14px;color:#64748b}
-.pc-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.pc-tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
-.tag-sk{background:#e0e7ff;color:#4338ca;border:1px solid #c7d2fe}
-.tag-cr{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
-.tag-470{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
-.tag-snipe{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
-.pc-pt{font-size:22px;font-weight:900;color:#6366f1;margin-top:8px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.feature-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;transition:border-color .2s;cursor:pointer;display:block}
+.feature-card:hover{border-color:#6366f1}
+.feature-icon{font-size:26px;margin-bottom:12px}
+.feature-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.feature-desc{font-size:13px;color:#64748b;line-height:1.65}
 
-/* モーダル */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;align-items:center;justify-content:center;padding:24px}
-.modal-overlay.open{display:flex}
-.modal{background:#fff;border:1px solid #e2e8f0;border-radius:16px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.12)}
-.modal-close{float:right;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;line-height:1}
-.modal-name{font-size:44px;font-weight:900;color:#0f172a;margin-bottom:4px;letter-spacing:-.02em}
-.modal-univ{font-size:16px;color:#64748b;margin-bottom:16px}
-.modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
-.stat-card{background:#f8faff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center}
-.stat-val{font-size:28px;font-weight:900;color:#6366f1}
-.stat-label{font-size:12px;color:#94a3b8;font-weight:700;letter-spacing:.08em;margin-top:2px;text-transform:uppercase}
-.chart-title{font-size:13px;font-weight:700;color:#64748b;margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase}
-.chart-wrap{background:#f8faff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:20px}
-canvas{width:100%!important}
-.record-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
-.record-table th{text-align:left;padding:9px 10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;border-bottom:1px solid #e2e8f0}
-.record-table td{padding:11px 10px;border-bottom:1px solid #f1f5f9;color:#475569}
-.record-table tr:last-child td{border-bottom:none}
-.record-rank{font-size:18px;font-weight:900;color:#6366f1}
-
-/* 検索 */
-.search-input{width:100%;padding:14px 20px;background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;color:#0f172a;font-size:16px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .2s}
-.search-input::placeholder{color:#94a3b8}
-.search-input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
-
-/* ── ランキングタブ ── */
-.year-btn{padding:8px 20px;border:1.5px solid #e2e8f0;border-radius:99px;background:transparent;color:#64748b;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
-.year-btn:hover{border-color:#6366f1;color:#6366f1}
-.year-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
-.cat-group-label{font-size:12px;font-weight:700;letter-spacing:.12em;color:#94a3b8;text-transform:uppercase;margin-bottom:8px}
-.cat-btn{padding:6px 14px;border:1.5px solid #e2e8f0;border-radius:99px;background:transparent;color:#64748b;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
-.cat-btn:hover{border-color:#6366f1;color:#6366f1}
-.cat-btn.active{background:#e0e7ff;border-color:#6366f1;color:#4338ca}
-.panel-title{font-size:22px;font-weight:900;color:#0f172a}
-
-/* ── 大会結果 ── */
-.event-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden}
-.event-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;transition:background .15s;gap:16px}
-.event-card-header:hover{background:#f8faff}
-.event-name{font-size:17px;font-weight:700;color:#0f172a;margin-bottom:4px}
-.event-meta{font-size:14px;color:#64748b}
-.event-winner{font-size:22px;font-weight:900;color:#f59e0b}
-.event-winner small{font-size:12px;font-weight:500;color:#94a3b8;display:block;letter-spacing:.1em;font-family:'Noto Sans JP',sans-serif}
-.player-cell{font-size:15px;font-weight:700;color:#0f172a}
-.crew-cell{color:#64748b;font-size:14px}
-.rank-cell{font-size:18px;font-weight:900;color:#94a3b8}
-.rank-1{color:#f59e0b}
-.rank-2{color:#94a3b8}
-.rank-3{color:#b45309}
-.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
-.pdf-dl-btn:hover{border-color:#6366f1;color:#6366f1}
-.event-date-note{font-size:13px;color:#64748b;margin-bottom:10px}
-
-/* ── スポンサー ── */
 .sponsor-section{background:#fff;border-top:1px solid #e2e8f0;padding:52px 24px}
 .sponsor-inner{max-width:1200px;margin:0 auto}
 .sponsor-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
-.sponsor-eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
-.sponsor-title{font-size:24px;font-weight:900;color:#0f172a;margin-bottom:4px}
-.sponsor-sub{font-size:14px;color:#64748b;max-width:440px}
-.sponsor-cta-link{font-size:14px;font-weight:600;color:#6366f1;white-space:nowrap;padding-top:4px}
+.sponsor-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
+.sponsor-title{font-size:22px;font-weight:900;color:#0f172a;margin-bottom:4px}
+.sponsor-sub{font-size:13px;color:#64748b;max-width:440px}
+.sponsor-cta-link{font-size:13px;font-weight:600;color:#6366f1;white-space:nowrap;padding-top:4px}
 .sponsor-cta-link:hover{text-decoration:underline}
 .sponsor-grid-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:12px}
 .s-card{border:1.5px solid #e2e8f0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:100px;background:#fff;transition:border-color .2s}
 .s-card:hover{border-color:#6366f1}
 .s-title{border-color:#e0e7ff;background:#f8faff}
-.s-title-badge{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;margin-bottom:8px}
-.s-gold-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:8px}
+.s-title-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;margin-bottom:8px}
+.s-gold-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:8px}
 .s-open-name{font-size:14px;font-weight:600;color:#cbd5e1}
 .s-open-plus{font-size:20px;color:#e2e8f0;margin-top:4px}
-.s-title-desc{font-size:12px;color:#94a3b8;margin-top:6px}
+.s-title-desc{font-size:11px;color:#94a3b8;margin-top:6px}
 .sponsor-grid-sm{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
 .s-partner{border:1px dashed #e2e8f0;border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px}
-.s-partner-label{font-size:11px;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.s-partner-label{font-size:10px;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
 .s-partner-name{font-size:13px;font-weight:600;color:#cbd5e1}
 .sponsor-recruit{background:#f8faff;border:1px solid #e0e7ff;border-radius:12px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.recruit-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:6px}
-.recruit-desc{font-size:14px;color:#64748b;margin-bottom:12px;line-height:1.65}
+.recruit-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.recruit-desc{font-size:13px;color:#64748b;margin-bottom:12px;line-height:1.65}
 .recruit-packages{display:flex;gap:6px;flex-wrap:wrap}
-.pkg-badge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
+.pkg-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px}
 .pkg-title{background:#e0e7ff;color:#4338ca}
 .pkg-gold{background:#fef3c7;color:#92400e}
 .pkg-partner{background:#f1f5f9;color:#475569}
 .recruit-contact{background:#6366f1;color:#fff;font-size:14px;font-weight:700;padding:12px 24px;border-radius:8px;white-space:nowrap;transition:background .2s;flex-shrink:0}
 .recruit-contact:hover{background:#4f46e5}
 
-/* ── フッター ── */
 .footer{background:#0f172a;padding:40px 24px 28px}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
 .footer-brand .logo{color:#fff;margin-bottom:8px}
 .footer-brand .logo span{color:#818cf8}
-.footer-brand p{font-size:14px;color:#64748b}
+.footer-brand p{font-size:13px;color:#64748b}
 .footer-brand p a{color:#818cf8}
 .footer-links{display:flex;gap:20px;flex-wrap:wrap;padding-top:4px}
-.footer-links a{font-size:14px;color:#64748b;transition:color .15s}
+.footer-links a{font-size:13px;color:#64748b;transition:color .15s}
 .footer-links a:hover{color:#fff}
 .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid #1e293b;padding-top:20px}
-.footer-bottom small{font-size:13px;color:#475569}
+.footer-bottom small{font-size:12px;color:#475569}
 
-/* ── レスポンシブ ── */
 @media(max-width:900px){
+  .rank-header,.rank-row{grid-template-columns:44px 1fr 80px 80px}
+  .rank-header span:nth-child(3),.rank-row .rank-univ{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-mvp{display:none}
   .sponsor-grid-top{grid-template-columns:1fr 1fr}
   .sponsor-grid-sm{grid-template-columns:1fr 1fr}
-  .footer-inner{flex-direction:column;gap:20px}
 }
 @media(max-width:600px){
   .nav-links a:not(.tack-back-btn){display:none}
   .hamburger{display:flex}
-  .page-hero{padding:48px 16px 36px}
-  .page-title{font-size:clamp(36px,10vw,56px)}
-  body{font-size:15px}
+  .hero{padding:36px 16px 32px}
+  .kpi-item span{display:none}
   .section{padding:36px 16px}
+  .rank-header,.rank-row{grid-template-columns:40px 1fr 72px}
   .sponsor-grid-top{grid-template-columns:1fr}
   .sponsor-grid-sm{grid-template-columns:1fr 1fr}
   .sponsor-recruit{flex-direction:column}
+  .features-grid{grid-template-columns:1fr}
 }
+
+
+/* ── サブページ共通 ── */
+.page-hero{padding:72px 24px 52px;background:#fff;border-bottom:1px solid #e2e8f0}
+.page-hero-inner{max-width:1200px;margin:auto}
+.page-title{font-size:clamp(36px,5vw,56px);font-weight:900;color:#0f172a;line-height:1.1;margin-bottom:10px;letter-spacing:-.01em}
+.page-desc{font-size:16px;color:#64748b;line-height:1.75}
+
+/* ── ランキングページ ── */
+.tab-wrap{max-width:1200px;margin:0 auto;padding:32px 24px 0}
+.year-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.year-btn{padding:7px 18px;border:1.5px solid #e2e8f0;border-radius:99px;background:transparent;color:#64748b;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.year-btn:hover{border-color:#6366f1;color:#6366f1}
+.year-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
+.cat-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:#94a3b8;text-transform:uppercase;margin-bottom:8px;margin-top:4px}
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.cat-btn{padding:6px 14px;border:1.5px solid #e2e8f0;border-radius:99px;background:transparent;color:#64748b;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Noto Sans JP',sans-serif}
+.cat-btn:hover{border-color:#6366f1;color:#6366f1}
+.cat-btn.active{background:#e0e7ff;border-color:#c7d2fe;color:#4338ca}
+.tab-panels{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.panel-title{font-size:20px;font-weight:900;color:#0f172a}
+.rank-table{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
+.rank-header{display:grid;padding:11px 20px;background:#f8faff;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase}
+.h6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.r6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.h-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.r-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.rank-row{display:grid;padding:13px 20px;border-bottom:1px solid #f1f5f9;align-items:center;transition:background .15s;cursor:pointer}
+.rank-row:last-child{border-bottom:none}
+.rank-row:hover{background:#f8faff}
+.rank-num{font-size:18px;font-weight:900;color:#cbd5e1}
+.top1 .rank-num{color:#f59e0b}
+.top2 .rank-num{color:#94a3b8}
+.top3 .rank-num{color:#b45309}
+.rank-name{font-size:15px;font-weight:700;color:#0f172a}
+.rank-sub{font-size:12px;color:#94a3b8;margin-top:1px}
+.rank-univ{font-size:13px;color:#475569}
+.rank-cls{font-size:12px;color:#94a3b8}
+.rank-role{font-size:12px;font-weight:700}
+.role-sk{color:#6366f1}
+.role-cr{color:#f59e0b}
+.rank-pt{text-align:right;font-size:16px;font-weight:900;color:#6366f1}
+.text-right{text-align:right}
+.empty{padding:40px;text-align:center;color:#94a3b8}
+@media(max-width:700px){
+  .h6,.r6{grid-template-columns:44px 1fr 70px}
+  .h6>*:nth-child(n+4),.r6>*:nth-child(n+4){display:none}
+  .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
+  .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
+}
+
+/* ── 選手DBページ ── */
+.search-bar{max-width:1200px;margin:32px auto 0;padding:0 24px}
+.search-input{width:100%;padding:14px 20px;background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;color:#0f172a;font-size:15px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .2s}
+.search-input::placeholder{color:#94a3b8}
+.search-input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.player-grid{max-width:1200px;margin:24px auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.player-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;cursor:pointer;transition:all .2s}
+.player-card:hover{border-color:#6366f1;transform:translateY(-2px);box-shadow:0 4px 16px rgba(99,102,241,.08)}
+.pc-name{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:4px}
+.pc-univ{font-size:13px;color:#64748b}
+.pc-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.pc-tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+.tag-sk{background:#e0e7ff;border:1px solid #c7d2fe;color:#4338ca}
+.tag-cr{background:#fef3c7;border:1px solid #fde68a;color:#92400e}
+.tag-470{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+.tag-snipe{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+.pc-pt{font-size:20px;font-weight:900;color:#6366f1;margin-top:6px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:200;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border:1px solid #e2e8f0;border-radius:16px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.1)}
+.modal-close{float:right;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;line-height:1}
+.modal-name{font-size:38px;font-weight:900;color:#0f172a;margin-bottom:4px;letter-spacing:-.02em}
+.modal-univ{font-size:14px;color:#64748b;margin-bottom:16px}
+.modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.stat-card{background:#f8faff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center}
+.stat-val{font-size:26px;font-weight:900;color:#6366f1}
+.stat-label{font-size:11px;color:#94a3b8;font-weight:700;letter-spacing:.08em;margin-top:2px;text-transform:uppercase}
+.chart-title{font-size:12px;font-weight:700;color:#64748b;margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase}
+.chart-wrap{background:#f8faff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:20px}
+canvas{width:100%!important}
+.record-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.record-table th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;border-bottom:1px solid #e2e8f0}
+.record-table td{padding:10px;border-bottom:1px solid #f1f5f9;color:#475569}
+.record-table tr:last-child td{border-bottom:none}
+.record-rank{font-size:16px;font-weight:900;color:#6366f1}
+
+/* ── AI予測ページ ── */
+.forecast-page-grid{display:grid;grid-template-columns:1fr 320px;gap:24px;max-width:1200px;margin:0 auto;padding:48px 24px 80px}
+.forecast-list{display:flex;flex-direction:column;gap:12px}
+.fc-row{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 24px;display:grid;grid-template-columns:48px 1fr 90px;align-items:center;gap:16px;transition:border-color .2s}
+.fc-row:hover{border-color:#6366f1}
+.fc-row.rank1{border-color:#fde68a;background:#fffbeb}
+.fc-rank{font-size:28px;font-weight:900;color:#cbd5e1;text-align:center}
+.fc-row.rank1 .fc-rank{color:#f59e0b}
+.fc-name{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px}
+.fc-bar{height:5px;background:#e0e7ff;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.fc-bar-fill{height:100%;background:linear-gradient(90deg,#4f46e5,#6366f1);border-radius:99px}
+.fc-meta{font-size:12px;color:#94a3b8}
+.fc-pct{text-align:right;font-size:28px;font-weight:900;color:#6366f1}
+.fc-pct small{font-size:14px}
+.event-badge{display:inline-flex;align-items:center;gap:8px;background:#e0e7ff;border:1px solid #c7d2fe;border-radius:99px;padding:7px 16px;font-size:13px;font-weight:700;color:#4338ca;margin-bottom:20px}
+.side-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:16px}
+.side-card h3{font-size:16px;font-weight:900;color:#0f172a;margin-bottom:12px}
+.side-card p{font-size:13px;color:#64748b;line-height:1.75}
+.side-card ul{font-size:13px;color:#64748b;line-height:2;margin-top:8px;padding-left:1em}
+.ai-disclaimer{font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:12px;line-height:1.7}
+@media(max-width:900px){.forecast-page-grid{grid-template-columns:1fr}}
+
+/* ── 大会結果ページ ── */
+.year-nav{max-width:1200px;margin:32px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap}
+.year-content{display:none;padding:32px 24px 80px;max-width:1200px;margin:auto}
+.year-content.active{display:block}
+.year-heading{font-size:36px;font-weight:900;color:#6366f1;letter-spacing:-.01em;margin-bottom:24px;border-bottom:1px solid #e2e8f0;padding-bottom:12px}
+.event-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden}
+.event-card-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;cursor:pointer;transition:background .15s;gap:16px}
+.event-card-header:hover{background:#f8faff}
+.event-name{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:3px}
+.event-meta{font-size:12px;color:#64748b}
+.event-winner{font-size:18px;font-weight:900;color:#f59e0b}
+.event-winner small{font-size:11px;font-weight:500;color:#94a3b8;display:block;letter-spacing:.1em}
+.event-body{border-top:1px solid #f1f5f9;padding:20px 24px}
+.event-date-note{font-size:12px;color:#64748b;margin-bottom:10px}
+.result-table{width:100%;border-collapse:collapse;font-size:13px}
+.result-table th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;border-bottom:1px solid #e2e8f0}
+.result-table td{padding:10px;border-bottom:1px solid #f1f5f9;color:#475569}
+.result-table tr:last-child td{border-bottom:none}
+.rank-cell{font-size:16px;font-weight:900;color:#94a3b8}
+.rank-1{color:#f59e0b}
+.rank-2{color:#94a3b8}
+.rank-3{color:#b45309}
+.player-cell{font-size:14px;font-weight:700;color:#0f172a}
+.crew-cell{color:#64748b;font-size:13px}
+.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
+.pdf-dl-btn:hover{border-color:#6366f1;color:#6366f1}
