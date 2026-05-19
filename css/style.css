@@ -10,12 +10,14 @@ img{display:block;max-width:100%}
 .tack-back-btn svg{flex-shrink:0}
 
 .nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
+.nav.scrolled{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:#0f172a}
 .logo span{color:#6366f1}
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-links a{font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:6px;transition:all .15s}
 .nav-links a:hover{color:#0f172a;background:#f1f5f9}
+.nav-active{color:#0f172a!important;font-weight:700!important}
 .nav-links .tack-back-btn{margin-left:8px}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
 .hamburger span{width:20px;height:2px;background:#0f172a;border-radius:2px;display:block}
@@ -308,3 +310,19 @@ canvas{width:100%!important}
 .crew-cell{color:#64748b;font-size:13px}
 .pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
 .pdf-dl-btn:hover{border-color:#6366f1;color:#6366f1}
+
+/* ── サブページ レスポンシブ ── */
+@media(max-width:768px){
+  .nav-links a:not(.tack-back-btn){display:none}
+  .hamburger{display:flex!important}
+  .page-title{font-size:clamp(32px,8vw,48px)}
+  .tab-wrap{padding:20px 16px 0}
+  .tab-panels{padding:16px 16px 60px}
+  .year-btn{font-size:13px;padding:6px 14px}
+  .cat-btn{font-size:11px;padding:5px 10px}
+  .player-grid{grid-template-columns:1fr;padding:0 16px 60px}
+  .search-bar{padding:0 16px}
+  .forecast-page-grid{grid-template-columns:1fr;padding:24px 16px 60px}
+  .year-nav{padding:0 16px}
+  .year-content{padding:20px 16px 60px}
+}
