@@ -3,32 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SAIL RANK | 学生セーリング総合メディア</title>
-<meta name="description" content="全国大学生セーリングの独自ランキング・AI大会予測・選手データベース。学生セーリングをもっと熱く。">
+<title>SAIL RANK | TACK Sailing Media</title>
+<meta name="description" content="全国大学生セーリングの独自ランキング・AI大会予測・選手データベース。学生セーリングをもっと面白く。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-.tack-back-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(109,40,217,.2);
-  color:#c4b5fd;
-  font-size:12px;font-weight:500;
-  padding:5px 14px;border-radius:99px;
-  border:1px solid rgba(109,40,217,.35);
-  text-decoration:none;transition:all .2s;white-space:nowrap;
-  font-family:'Noto Sans JP',sans-serif;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8faff;color:#0f172a;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.1);color:#4338ca;font-size:12px;font-weight:600;padding:5px 14px;border-radius:99px;border:1px solid rgba(99,102,241,.2);transition:all .2s;white-space:nowrap}
+.tack-back-btn:hover{background:rgba(99,102,241,.2);color:#3730a3}
+.tack-back-btn svg{flex-shrink:0}
+
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:#0f172a}
+.logo span{color:#6366f1}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:6px;transition:all .15s}
+.nav-links a:hover{color:#0f172a;background:#f1f5f9}
+.nav-links .tack-back-btn{margin-left:8px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{width:20px;height:2px;background:#0f172a;border-radius:2px;display:block}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #e2e8f0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:13px 24px;font-size:14px;font-weight:500;color:#0f172a;border-bottom:1px solid #f1f5f9;transition:background .15s}
+.mobile-menu a:hover{background:#f8faff}
+.mobile-menu a:last-child{border:none}
+
+.hero{background:#fff;border-bottom:1px solid #e2e8f0;padding:56px 24px 48px}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:14px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.hero-title{font-size:clamp(28px,4vw,44px);font-weight:900;color:#0f172a;line-height:1.2;margin-bottom:14px}
+.hero-title em{color:#6366f1;font-style:normal}
+.hero-desc{font-size:16px;color:#64748b;line-height:1.85;max-width:520px;margin-bottom:28px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn-primary{background:#6366f1;color:#fff;font-size:14px;font-weight:700;padding:11px 24px;border-radius:8px;transition:background .2s}
+.btn-primary:hover{background:#4f46e5}
+.btn-ghost{border:1.5px solid #e2e8f0;color:#0f172a;font-size:14px;font-weight:500;padding:10px 24px;border-radius:8px;transition:all .2s}
+.btn-ghost:hover{border-color:#6366f1;color:#6366f1}
+.hero-mvp{background:#f8faff;border:1.5px solid #e0e7ff;border-radius:16px;padding:24px 28px;min-width:200px}
+.mvp-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:#6366f1;text-transform:uppercase;margin-bottom:10px}
+.mvp-name{font-size:20px;font-weight:900;color:#0f172a;margin-bottom:3px}
+.mvp-univ{font-size:12px;color:#64748b;margin-bottom:14px}
+.mvp-stats{display:flex;gap:16px}
+.mvp-stat{display:flex;flex-direction:column}
+.mvp-stat b{font-size:18px;font-weight:900;color:#6366f1;line-height:1}
+.mvp-stat small{font-size:10px;color:#94a3b8;margin-top:2px;letter-spacing:.06em}
+
+.kpi-bar{background:#6366f1;border-bottom:1px solid #4f46e5}
+.kpi-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;padding:0 24px}
+.kpi-item{display:flex;align-items:center;gap:8px;padding:14px 0;flex:1;justify-content:center}
+.kpi-item b{font-size:18px;font-weight:900;color:#fff}
+.kpi-item span{font-size:12px;color:rgba(255,255,255,.7)}
+.kpi-divider{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
+
+.section{padding:52px 24px}
+.section.section-gray{background:#f8faff}
+.container{max-width:1200px;margin:0 auto}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
+.section-title{font-size:22px;font-weight:900;color:#0f172a;margin-bottom:4px}
+.section-desc{font-size:13px;color:#64748b}
+.btn-link{font-size:13px;font-weight:600;color:#6366f1;border:1.5px solid #e0e7ff;padding:8px 18px;border-radius:8px;white-space:nowrap;transition:all .2s}
+.btn-link:hover{background:#e0e7ff}
+
+.rank-table{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
+.rank-header{display:grid;grid-template-columns:56px 1fr 160px 80px 80px;padding:11px 20px;background:#f8faff;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase}
+.rank-row{display:grid;grid-template-columns:56px 1fr 160px 80px 80px;padding:13px 20px;border-bottom:1px solid #f1f5f9;align-items:center;transition:background .15s;cursor:pointer}
+.rank-row:last-child{border:none}
+.rank-row:hover{background:#f8faff}
+.rank-pos{font-size:18px;font-weight:900;color:#cbd5e1}
+.rank-pos.p1{color:#f59e0b}
+.rank-pos.p2{color:#94a3b8}
+.rank-pos.p3{color:#b45309}
+.rank-name{font-size:14px;font-weight:700;color:#0f172a}
+.rank-meta{font-size:11px;color:#94a3b8;margin-top:1px}
+.rank-univ{font-size:13px;color:#475569}
+.rank-cls{font-size:12px;color:#94a3b8}
+.rank-role{font-size:12px;font-weight:700}
+.role-sk{color:#6366f1}
+.role-cr{color:#f59e0b}
+.rank-score{text-align:right;font-size:16px;font-weight:900;color:#6366f1}
+.text-right{text-align:right}
+
+.forecast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.forecast-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;transition:border-color .2s;cursor:pointer}
+.forecast-card:hover{border-color:#6366f1}
+.fc-rank{font-size:11px;font-weight:700;letter-spacing:.1em;color:#94a3b8;text-transform:uppercase;margin-bottom:6px}
+.fc-univ{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:10px}
+.fc-bar-wrap{height:5px;background:#e0e7ff;border-radius:99px;overflow:hidden;margin-bottom:6px}
+.fc-bar{height:100%;background:#6366f1;border-radius:99px}
+.fc-pct{font-size:15px;font-weight:900;color:#6366f1}
+.fc-meta{font-size:11px;color:#94a3b8;margin-top:2px}
+
+.univ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.univ-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;transition:border-color .2s;cursor:pointer}
+.univ-card:hover{border-color:#6366f1}
+.uc-rank{font-size:16px;font-weight:900;color:#cbd5e1}
+.uc-rank.u1{color:#f59e0b}
+.uc-name{font-size:13px;font-weight:700;color:#0f172a}
+.uc-detail{font-size:11px;color:#94a3b8;margin-top:1px}
+.uc-pt{font-size:14px;font-weight:900;color:#6366f1}
+
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.feature-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;transition:border-color .2s;cursor:pointer;display:block}
+.feature-card:hover{border-color:#6366f1}
+.feature-icon{font-size:26px;margin-bottom:12px}
+.feature-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.feature-desc{font-size:13px;color:#64748b;line-height:1.65}
+
+.sponsor-section{background:#fff;border-top:1px solid #e2e8f0;padding:52px 24px}
+.sponsor-inner{max-width:1200px;margin:0 auto}
+.sponsor-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.sponsor-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
+.sponsor-title{font-size:22px;font-weight:900;color:#0f172a;margin-bottom:4px}
+.sponsor-sub{font-size:13px;color:#64748b;max-width:440px}
+.sponsor-cta-link{font-size:13px;font-weight:600;color:#6366f1;white-space:nowrap;padding-top:4px}
+.sponsor-cta-link:hover{text-decoration:underline}
+.sponsor-grid-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.s-card{border:1.5px solid #e2e8f0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:100px;background:#fff;transition:border-color .2s}
+.s-card:hover{border-color:#6366f1}
+.s-title{border-color:#e0e7ff;background:#f8faff}
+.s-title-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;margin-bottom:8px}
+.s-gold-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:8px}
+.s-open-name{font-size:14px;font-weight:600;color:#cbd5e1}
+.s-open-plus{font-size:20px;color:#e2e8f0;margin-top:4px}
+.s-title-desc{font-size:11px;color:#94a3b8;margin-top:6px}
+.sponsor-grid-sm{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.s-partner{border:1px dashed #e2e8f0;border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px}
+.s-partner-label{font-size:10px;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.s-partner-name{font-size:13px;font-weight:600;color:#cbd5e1}
+.sponsor-recruit{background:#f8faff;border:1px solid #e0e7ff;border-radius:12px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.recruit-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.recruit-desc{font-size:13px;color:#64748b;margin-bottom:12px;line-height:1.65}
+.recruit-packages{display:flex;gap:6px;flex-wrap:wrap}
+.pkg-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px}
+.pkg-title{background:#e0e7ff;color:#4338ca}
+.pkg-gold{background:#fef3c7;color:#92400e}
+.pkg-partner{background:#f1f5f9;color:#475569}
+.recruit-contact{background:#6366f1;color:#fff;font-size:14px;font-weight:700;padding:12px 24px;border-radius:8px;white-space:nowrap;transition:background .2s;flex-shrink:0}
+.recruit-contact:hover{background:#4f46e5}
+
+.footer{background:#0f172a;padding:40px 24px 28px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.footer-brand .logo{color:#fff;margin-bottom:8px}
+.footer-brand .logo span{color:#818cf8}
+.footer-brand p{font-size:13px;color:#64748b}
+.footer-brand p a{color:#818cf8}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;padding-top:4px}
+.footer-links a{font-size:13px;color:#64748b;transition:color .15s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid #1e293b;padding-top:20px}
+.footer-bottom small{font-size:12px;color:#475569}
+
+@media(max-width:900px){
+  .rank-header,.rank-row{grid-template-columns:44px 1fr 80px 80px}
+  .rank-header span:nth-child(3),.rank-row .rank-univ{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-mvp{display:none}
+  .sponsor-grid-top{grid-template-columns:1fr 1fr}
+  .sponsor-grid-sm{grid-template-columns:1fr 1fr}
 }
-.tack-back-btn:hover{
-  background:rgba(109,40,217,.45);
-  color:#fff;border-color:rgba(109,40,217,.65);
+@media(max-width:600px){
+  .nav-links a:not(.tack-back-btn){display:none}
+  .hamburger{display:flex}
+  .hero{padding:36px 16px 32px}
+  .kpi-item span{display:none}
+  .section{padding:36px 16px}
+  .rank-header,.rank-row{grid-template-columns:40px 1fr 72px}
+  .sponsor-grid-top{grid-template-columns:1fr}
+  .sponsor-grid-sm{grid-template-columns:1fr 1fr}
+  .sponsor-recruit{flex-direction:column}
+  .features-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- ナビゲーション -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
@@ -38,141 +195,121 @@
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
       <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
         TACK
       </a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="ranking.html">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
+    <a href="index.html">← TACKトップへ</a>
   </div>
 </nav>
 
-<!-- ヒーロー -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="live-dot"></span>
-      2024 シーズン進行中
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="live-dot"></span>2024 シーズン進行中</div>
+      <h1 class="hero-title">セーリングレースを、<br><em>データで熱く。</em></h1>
+      <p class="hero-desc">レースデータを独自アルゴリズムで集計・分析。AIによる大会予測、選手ランキングで、セーリングをもっと面白く。</p>
+      <div class="hero-cta">
+        <a href="ranking.html" class="btn-primary">ランキングを見る</a>
+        <a href="forecast.html" class="btn-ghost">AI予測を見る</a>
+      </div>
     </div>
-    <h1 class="hero-title">
-      学生セーリングを、<br>
-      <em>データで熱く。</em>
-    </h1>
-    <p class="hero-desc">
-      全国大学生ヨット大会の成績を独自アルゴリズムで集計・分析。<br>
-      AIによる大会予測、選手ランキングで、学生セーリングをもっと面白く。
-    </p>
-    <div class="hero-cta">
-      <a href="ranking.html" class="btn-primary">ランキングを見る</a>
-      <a href="forecast.html" class="btn-ghost">AI予測を見る</a>
-    </div>
-  </div>
-  <div class="hero-mvp">
-    <div class="mvp-label">2024 現在の総合首位</div>
-    <div class="mvp-name">山田 太郎</div>
-    <div class="mvp-univ">早稲田大学 / Skipper / 470級</div>
-    <div class="mvp-stats">
-      <div class="mvp-stat"><b>412.5</b><small>POINT</small></div>
-      <div class="mvp-stat"><b>5</b><small>大会</small></div>
-      <div class="mvp-stat"><b>4</b><small>TOP3</small></div>
+    <div class="hero-mvp">
+      <div class="mvp-label">歴代個人総合首位</div>
+      <div class="mvp-name">池田 紅葉</div>
+      <div class="mvp-univ">日本大学 / Skipper / スナイプ級</div>
+      <div class="mvp-stats">
+        <div class="mvp-stat"><b>370</b><small>POINT</small></div>
+        <div class="mvp-stat"><b>5</b><small>大会</small></div>
+        <div class="mvp-stat"><b>3</b><small>TOP3</small></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- KPI バー -->
 <section class="kpi-bar">
   <div class="kpi-bar-inner">
-    <div class="kpi-item">
-      <b>29</b><span>参加大学</span>
-    </div>
+    <div class="kpi-item"><b>1,624</b><span>選手データ</span></div>
     <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>8</b><span>対象大会</span>
-    </div>
+    <div class="kpi-item"><b>30</b><span>対象大会</span></div>
     <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>370+</b><span>集計成績</span>
-    </div>
+    <div class="kpi-item"><b>2016–2023</b><span>収録年度</span></div>
     <div class="kpi-divider"></div>
-    <div class="kpi-item">
-      <b>AI</b><span>予測搭載</span>
-    </div>
+    <div class="kpi-item"><b>AI</b><span>予測搭載</span></div>
   </div>
 </section>
 
-<!-- ランキングプレビュー -->
 <section class="section">
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">OVERALL RANKING</div>
+        <div class="section-label">Overall Ranking</div>
         <h2 class="section-title">個人総合ランキング</h2>
-        <p class="section-desc">主要決勝大会のみを対象に、独自アルゴリズムで算出。</p>
+        <p class="section-desc">主要決勝大会を独自アルゴリズムで集計・算出。</p>
       </div>
       <a href="ranking.html" class="btn-link">全員を見る →</a>
     </div>
-
     <div class="rank-table">
       <div class="rank-header">
-        <span>順位</span>
-        <span>選手</span>
-        <span>大学</span>
-        <span>クラス</span>
-        <span class="text-right">年間Pt</span>
+        <span>順位</span><span>選手</span><span>大学</span><span>役割</span><span class="text-right">累計Pt</span>
       </div>
-      <!-- データはJSで動的に読み込み -->
       <div id="rankList"></div>
     </div>
   </div>
 </section>
 
-<!-- AI予測プレビュー -->
-<section class="section section-dark">
+<section class="section section-gray">
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">AI FORECAST</div>
+        <div class="section-label">AI Forecast</div>
         <h2 class="section-title">次回大会 AI予測</h2>
-        <p class="section-desc">過去の成績データをもとに、AIが大会前の順位を予測。</p>
+        <p class="section-desc">過去の成績データをもとにAIが大会前の優勝確率を予測。</p>
       </div>
       <a href="forecast.html" class="btn-link">詳細を見る →</a>
     </div>
-
     <div class="forecast-grid" id="forecastPreview"></div>
   </div>
 </section>
 
-<!-- 大学ランキングプレビュー -->
 <section class="section">
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">UNIVERSITY RANKING</div>
+        <div class="section-label">University Ranking</div>
         <h2 class="section-title">大学ランキング</h2>
         <p class="section-desc">団体成績の総合ポイントで大学の強さを可視化。</p>
       </div>
-      <a href="ranking.html#university" class="btn-link">全大学を見る →</a>
+      <a href="ranking.html" class="btn-link">全大学を見る →</a>
     </div>
     <div class="univ-grid" id="univGrid"></div>
   </div>
 </section>
 
-<!-- スポンサー -->
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Features</div>
+        <h2 class="section-title">SAIL RANKでできること</h2>
+      </div>
+    </div>
+    <div class="features-grid">
+      <a href="ranking.html" class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">独自ランキング</div><div class="feature-desc">2016〜2023年度の30大会・1,624名のデータを独自アルゴリズムで集計。個人・大学・クラス別に閲覧可能。</div></a>
+      <a href="forecast.html" class="feature-card"><div class="feature-icon">🤖</div><div class="feature-title">AI大会予測</div><div class="feature-desc">過去の成績データをもとにAIが次大会の優勝確率を予測。データが積み上がるほど精度が向上。</div></a>
+      <a href="players.html" class="feature-card"><div class="feature-icon">👤</div><div class="feature-title">選手データベース</div><div class="feature-desc">1,624名の選手データを搭載。大会ごとの成績推移をグラフで確認できる。</div></a>
+      <a href="results.html" class="feature-card"><div class="feature-icon">📄</div><div class="feature-title">大会結果PDF</div><div class="feature-desc">2016〜2023年度の全大会成績PDFをアーカイブ。決勝・予選・女子レースを網羅。</div></a>
+    </div>
+  </div>
+</section>
+
 <section class="sponsor-section">
   <div class="sponsor-inner">
     <div class="sponsor-header">
@@ -181,24 +318,23 @@
         <h2 class="sponsor-title">スポンサー</h2>
         <p class="sponsor-sub">SAIL RANKは学生セーリング界への投資を検討する企業・ブランドのパートナーを募集しています。</p>
       </div>
-      <a href="mailto:info@sailrank.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
+      <a href="mailto:info@tack-sailing.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
     </div>
     <div class="sponsor-grid-top">
-      <a class="s-card s-title" href="https://aegil-ag.jp" target="_blank" rel="noopener">
+      <div class="s-card s-title">
         <div class="s-title-badge">Title Sponsor</div>
-        <img class="s-title-logo" src="aegil-logo-white.png" alt="Aegil">
-        <div class="s-title-desc">高機能セーリングウェアブランド</div>
+        <div class="s-open-name" style="color:#6366f1;font-size:15px;font-weight:700">募集中</div>
+        <div class="s-title-desc">お問い合わせください</div>
+      </div>
+      <a class="s-card" href="https://aegil-ag.jp" target="_blank" rel="noopener" style="border-color:#fde68a">
+        <div class="s-gold-label">Gold Sponsor</div>
+        <img src="aegil-logo-black.png" alt="Aegil" style="max-height:28px;width:auto;margin:4px 0">
+        <div class="s-title-desc">高機能セーリングウェア</div>
       </a>
-      <div class="s-card s-gold">
+      <a class="s-card" href="https://smartweb-snowy.vercel.app/#" target="_blank" rel="noopener" style="border-color:#fde68a">
         <div class="s-gold-label">Gold Sponsor</div>
-        <div class="s-open-name">募集中</div>
-        <div class="s-open-plus">+</div>
-      </div>
-      <div class="s-card s-gold">
-        <div class="s-gold-label">Gold Sponsor</div>
-        <div class="s-open-name">募集中</div>
-        <div class="s-open-plus">+</div>
-      </div>
+        <img src="smartweb-logo.png" alt="スマートWEB" style="max-height:38px;width:auto;margin:4px 0">
+      </a>
     </div>
     <div class="sponsor-grid-sm">
       <div class="s-partner"><div class="s-partner-label">Official Partner</div><div class="s-partner-name">募集中</div></div>
@@ -209,7 +345,7 @@
     <div class="sponsor-recruit">
       <div>
         <div class="recruit-title">スポンサーシップのご案内</div>
-        <div class="recruit-desc">全国1,000名超の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
+        <div class="recruit-desc">全国1,624名の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
         <div class="recruit-packages">
           <span class="pkg-badge pkg-title">Title</span>
           <span class="pkg-badge pkg-gold">Gold</span>
@@ -218,36 +354,71 @@
           <span class="pkg-badge pkg-partner">AI予測スポンサー</span>
         </div>
       </div>
-      <a href="mailto:info@sailrank.jp" class="recruit-contact">お問い合わせ</a>
+      <a href="mailto:info@tack-sailing.jp" class="recruit-contact">お問い合わせ</a>
     </div>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo">SAIL<span>RANK</span></div>
-        <p>学生セーリングの熱量を、数字で伝える。</p>
-      </div>
-      <div class="footer-links">
-        <a href="ranking.html">ランキング</a>
-        <a href="forecast.html">AI予測</a>
-        <a href="players.html">選手DB</a>
-        <a href="results.html">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">SAIL<span>RANK</span></div>
+      <p>学生セーリングの熱量を、数字で伝える。</p>
+      <p style="margin-top:6px">Part of <a href="index.html">TACK Sailing Media</a></p>
     </div>
-    <div class="footer-bottom">
-      <small>© 2024 SAIL RANK. データは公式大会結果をもとに独自算出。</small>
+    <div class="footer-links">
+      <a href="ranking.html">ランキング</a>
+      <a href="forecast.html">AI予測</a>
+      <a href="players.html">選手DB</a>
+      <a href="results.html">大会結果</a>
+      <a href="index.html">← TACK</a>
     </div>
+  </div>
+  <div class="footer-bottom">
+    <small>© 2024 SAIL RANK / TACK Sailing Media. データは公式大会結果をもとに独自算出。</small>
   </div>
 </footer>
 
 <script src="js/data.js"></script>
-<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const rank=SITE_DATA.individualRanking||[];
+  const pc=i=>i===0?'p1':i===1?'p2':i===2?'p3':'';
+  document.getElementById('rankList').innerHTML=rank.slice(0,5).map((p,i)=>`
+    <div class="rank-row" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
+      <div class="rank-pos ${pc(i)}">#${i+1}</div>
+      <div><div class="rank-name">${p.name}</div><div class="rank-meta">${p.cls==='470'?'470級':'スナイプ級'} / ${p.events}大会</div></div>
+      <div class="rank-univ">${p.univ}</div>
+      <div class="rank-role ${p.role==='Skipper'?'role-sk':'role-cr'}">${p.role}</div>
+      <div class="rank-score">${p.pt}</div>
+    </div>`).join('');
+
+  const fc=SITE_DATA.forecasts||[];
+  if(fc.length){
+    document.getElementById('forecastPreview').innerHTML=fc.slice(0,5).map((f,i)=>`
+      <div class="forecast-card">
+        <div class="fc-rank">#${i+1}</div>
+        <div class="fc-univ">${f.name}</div>
+        <div class="fc-bar-wrap"><div class="fc-bar" style="width:${Math.round(f.pct/fc[0].pct*100)}%"></div></div>
+        <div class="fc-pct">${f.pct}%</div>
+        <div class="fc-meta">${f.meta||''}</div>
+      </div>`).join('');
+  }
+
+  const univ=SITE_DATA.universityRanking||[];
+  document.getElementById('univGrid').innerHTML=univ.slice(0,6).map((u,i)=>`
+    <div class="univ-card">
+      <div class="uc-rank ${i===0?'u1':''}">#${u.rank}</div>
+      <div><div class="uc-name">${u.name}</div><div class="uc-detail">TOP3:${u.top3}回 / 平均${u.avgRank}位</div></div>
+      <div class="uc-pt">${u.pt}pt</div>
+    </div>`).join('');
+});
+
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('open');});
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+});
+</script>
 </body>
 </html>
