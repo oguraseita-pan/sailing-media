@@ -132,9 +132,9 @@ img{display:block;max-width:100%}
 .s-title{border-color:#e0e7ff;background:#f8faff}
 .s-title-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;margin-bottom:8px}
 .s-gold-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d97706;margin-bottom:8px}
-.s-open-name{font-size:14px;font-weight:600;color:#cbd5e1}
+.s-open-name{font-size:15px;font-weight:600;color:#cbd5e1}
 .s-open-plus{font-size:20px;color:#e2e8f0;margin-top:4px}
-.s-title-desc{font-size:11px;color:#94a3b8;margin-top:6px}
+.s-title-desc{font-size:12px;color:#94a3b8;margin-top:4px}
 .sponsor-grid-sm{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
 .s-partner{border:1px dashed #e2e8f0;border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px}
 .s-partner-label{font-size:10px;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
@@ -326,14 +326,17 @@ img{display:block;max-width:100%}
         <div class="s-open-name" style="color:#6366f1;font-size:15px;font-weight:700">募集中</div>
         <div class="s-title-desc">お問い合わせください</div>
       </div>
-      <a class="s-card" href="https://aegil-ag.jp" target="_blank" rel="noopener" style="border-color:#fde68a">
-        <div class="s-gold-label">Gold Sponsor</div>
-        <img src="aegil-logo-black.png" alt="Aegil" style="max-height:28px;width:auto;margin:4px 0">
-        <div class="s-title-desc">高機能セーリングウェア</div>
+      <a class="s-card" href="https://aegil-ag.jp" target="_blank" rel="noopener" style="border-color:#fde68a;text-decoration:none;padding:0;overflow:hidden;flex-direction:column;align-items:stretch">
+        <div style="background:#f8f8f8;text-align:center;padding:5px 0;border-bottom:1px solid #eee;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa">Gold Sponsor</div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px 12px">
+          <img src="aegil-logo-black.png" alt="Aegil" style="width:100%;max-width:120px;height:auto;display:block">
+        </div>
       </a>
-      <a class="s-card" href="https://smartweb-snowy.vercel.app/#" target="_blank" rel="noopener" style="border-color:#fde68a">
-        <div class="s-gold-label">Gold Sponsor</div>
-        <img src="smartweb-logo.png" alt="スマートWEB" style="max-height:38px;width:auto;margin:4px 0">
+      <a class="s-card" href="https://smartweb-snowy.vercel.app/#" target="_blank" rel="noopener" style="border-color:#fde68a;text-decoration:none;padding:0;overflow:hidden;flex-direction:column;align-items:stretch">
+        <div style="background:#f8f8f8;text-align:center;padding:5px 0;border-bottom:1px solid #eee;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa">Gold Sponsor</div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px 12px">
+          <img src="smartweb-logo.png" alt="スマートWEB" style="width:100%;max-width:140px;height:auto;display:block">
+        </div>
       </a>
     </div>
     <div class="sponsor-grid-sm">
@@ -417,7 +420,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
 if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('open');});
 window.addEventListener('scroll',()=>{
-  document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+  // scroll shadow removed
 });
 </script>
 </body>
