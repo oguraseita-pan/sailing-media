@@ -182,8 +182,7 @@ img{display:block;max-width:100%}
   .player-grid{grid-template-columns:1fr;padding:0 16px 60px}
   .search-bar{padding:0 16px}
   .forecast-page-grid{grid-template-columns:1fr;padding:20px 16px 60px}
-  .year-nav{padding:0 16px}
-  .year-content{padding:16px 16px 60px}
+    .year-content{padding:16px 16px 60px}
 }
 
 /* ── サブページ共通 ── */
