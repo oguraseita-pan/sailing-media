@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,7 +16,7 @@
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
     <div class="nav-links">
-      <a href="ranking.html" class="nav-active">ランキング</a>
+      <a href="ranking.html">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
@@ -27,7 +28,7 @@
     <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="ranking.html" class="nav-active">ランキング</a>
+    <a href="ranking.html">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
@@ -87,7 +88,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p><p style="margin-top:6px;font-size:12px;opacity:.5">Part of <a href="index.html" style="color:inherit;text-decoration:underline">TACK Sailing Media</a></p></div>
-      <div class="footer-links"><a href="ranking.html" class="nav-active">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
+      <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
     </div>
     <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 独自アルゴリズムで算出。</small></div>
   </div>
@@ -169,9 +170,34 @@ document.querySelectorAll('[data-cat]').forEach(btn=>{
 document.addEventListener('DOMContentLoaded',render);
 const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
 if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('open');});
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
-});
+/* scroll handled by nav script */;
+</script>
+<script>
+(function(){
+  // hamburger
+  var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+  if(hb&&mm){
+    hb.addEventListener('click',function(e){
+      e.stopPropagation();
+      hb.classList.toggle('active');
+      mm.classList.toggle('open');
+    });
+    document.addEventListener('click',function(e){
+      if(!hb.contains(e.target)&&!mm.contains(e.target)){
+        mm.classList.remove('open');
+        hb.classList.remove('active');
+      }
+    });
+  }
+  // scroll: 白背景を維持しつつシャドウ
+  var nav=document.getElementById('nav');
+  if(nav){
+    window.addEventListener('scroll',function(){
+      nav.style.background='#fff';
+      nav.style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+    },{passive:true});
+  }
+})();
 </script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -127,16 +128,29 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script>
 (function(){
+  // hamburger
   var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
   if(hb&&mm){
-    hb.addEventListener('click',function(){
+    hb.addEventListener('click',function(e){
+      e.stopPropagation();
       hb.classList.toggle('active');
       mm.classList.toggle('open');
     });
+    document.addEventListener('click',function(e){
+      if(!hb.contains(e.target)&&!mm.contains(e.target)){
+        mm.classList.remove('open');
+        hb.classList.remove('active');
+      }
+    });
   }
-  window.addEventListener('scroll',function(){
-    document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
-  });
+  // scroll: 白背景を維持しつつシャドウ
+  var nav=document.getElementById('nav');
+  if(nav){
+    window.addEventListener('scroll',function(){
+      nav.style.background='#fff';
+      nav.style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+    },{passive:true});
+  }
 })();
 </script>
 </body>
