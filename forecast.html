@@ -23,23 +23,18 @@
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
       <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
         TACK
       </a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="ranking.html">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
+    <a href="index.html">← TACKトップへ</a>
   </div>
 </nav>
 
@@ -128,24 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-(function(){
-  var hb = document.getElementById('hamburger');
-  var mm = document.getElementById('mobileMenu');
-  var nav = document.getElementById('nav');
-  if (hb && mm) {
-    hb.addEventListener('click', function(e) {
-      e.stopPropagation();
-      mm.classList.toggle('open');
-      hb.classList.toggle('active');
-    });
-  }
-  if (nav) {
-    window.addEventListener('scroll', function() {
-      nav.style.background = '#fff';
-      nav.style.boxShadow = window.scrollY > 10 ? '0 2px 12px rgba(0,0,0,.06)' : '';
-    }, { passive: true });
-  }
-})();
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('open');});
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+});
 </script>
 </body>
 </html>

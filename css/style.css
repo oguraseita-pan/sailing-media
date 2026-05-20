@@ -1,7 +1,7 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans JP',sans-serif;background:#f8faff;color:#0f172a;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;padding-top:60px}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8faff;color:#0f172a;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
@@ -9,8 +9,7 @@ img{display:block;max-width:100%}
 .tack-back-btn:hover{background:rgba(99,102,241,.2);color:#3730a3}
 .tack-back-btn svg{flex-shrink:0}
 
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
-.nav.scrolled{background:#fff!important;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:#0f172a}
 .logo span{color:#6366f1}
@@ -18,9 +17,9 @@ img{display:block;max-width:100%}
 .nav-links a{font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:6px;transition:all .15s}
 .nav-links a:hover{color:#0f172a;background:#f1f5f9}
 .nav-links .tack-back-btn{margin-left:8px}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;position:relative;z-index:210}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
 .hamburger span{width:20px;height:2px;background:#0f172a;border-radius:2px;display:block}
-.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #e2e8f0;position:fixed;top:60px;left:0;right:0;z-index:199;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #e2e8f0}
 .mobile-menu.open{display:flex}
 .mobile-menu a{padding:13px 24px;font-size:14px;font-weight:500;color:#0f172a;border-bottom:1px solid #f1f5f9;transition:background .15s}
 .mobile-menu a:hover{background:#f8faff}
@@ -161,10 +160,8 @@ img{display:block;max-width:100%}
   .sponsor-grid-top{grid-template-columns:1fr 1fr}
   .sponsor-grid-sm{grid-template-columns:1fr 1fr}
 }
-@media(max-width:600px){
-  /* スマホ: navリンクとTACKボタンを非表示、ハンバーガー表示 */
-  .nav-links a{display:none!important}
-  .nav{position:fixed!important;top:0;left:0;right:0;z-index:100}
+
+  .nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;transition:box-shadow .2s}
   body{padding-top:60px}
   .hero{padding:36px 16px 32px}
   .kpi-item span{display:none}
@@ -333,8 +330,7 @@ canvas{width:100%!important}
 
 
   .nav-links .tack-back-btn{display:none!important}
-  .hamburger{display:flex!important;position:relative;z-index:210}
-
+  
   /* ページヒーロー */
   .page-hero{padding:40px 16px 32px}
   .page-title{font-size:clamp(28px,7vw,44px)}
@@ -358,18 +354,6 @@ canvas{width:100%!important}
   .year-content{padding:16px 16px 60px}
 }
 
-/* ================================================================
-   モバイル共通 — 全SAILRANKページ
-   ================================================================ */
-@media (max-width: 768px) {
-  /* nav: 固定・白背景（念のため上書き） */
-  .nav {
-    position: fixed !important;
-    top: 0; left: 0; right: 0;
-    background: #fff !important;
-    z-index: 200;
-  }
-
   /* デスクトップリンクを隠す */
   .nav-links a { display: none !important; }
 
@@ -377,12 +361,7 @@ canvas{width:100%!important}
   .tack-back-btn { display: none !important; }
 
   /* ハンバーガーを表示 */
-  .hamburger {
-    display: flex !important;
-    position: relative;
-    z-index: 210;
-  }
-
+  
   /* mobile-menu: navの直下に固定 */
   .mobile-menu {
     position: fixed !important;
@@ -412,4 +391,56 @@ canvas{width:100%!important}
   /* 大会結果 */
   .year-nav     { padding: 0 16px; }
   .year-content { padding: 16px 16px 60px; }
+}
+
+
+  .tack-back-btn{display:none!important}
+    .hero{padding:36px 16px 32px}
+  .kpi-item span{display:none}
+  .section{padding:36px 16px}
+  .rank-header,.rank-row{grid-template-columns:40px 1fr 72px}
+  .sponsor-grid-top{grid-template-columns:1fr}
+  .sponsor-grid-sm{grid-template-columns:1fr 1fr}
+  .sponsor-recruit{flex-direction:column}
+  .features-grid{grid-template-columns:1fr}
+  /* サブページ */
+  .page-hero{padding:40px 16px 32px}
+  .page-title{font-size:clamp(28px,7vw,44px)}
+  .tab-wrap{padding:16px 16px 0}
+  .tab-panels{padding:16px 16px 60px}
+  .year-btn{font-size:13px;padding:6px 12px}
+  .cat-btn{font-size:11px;padding:5px 10px}
+  .player-grid{grid-template-columns:1fr;padding:0 16px 60px}
+  .search-bar{padding:0 16px}
+  .forecast-page-grid{grid-template-columns:1fr;padding:20px 16px 60px}
+  .year-nav{padding:0 16px}
+  .year-content{padding:16px 16px 60px}
+}
+
+/* ── モバイル（sailrank.html準拠 + サブページ共通） ── */
+@media(max-width:600px){
+  .nav-links a{display:none!important}
+  .tack-back-btn{display:none!important}
+  .hamburger{display:flex}
+  .mobile-menu.open{display:flex}
+  /* sailrankトップ */
+  .hero{padding:36px 16px 32px}
+  .kpi-item span{display:none}
+  .section{padding:36px 16px}
+  .sponsor-grid-top{grid-template-columns:1fr}
+  .sponsor-grid-sm{grid-template-columns:1fr 1fr}
+  .sponsor-recruit{flex-direction:column}
+  .features-grid{grid-template-columns:1fr}
+  /* サブページ共通 */
+  .page-hero{padding:40px 16px 32px}
+  .page-title{font-size:clamp(28px,7vw,44px)}
+  .tab-wrap{padding:16px 16px 0}
+  .tab-panels{padding:16px 16px 60px}
+  .year-btn{font-size:13px;padding:6px 12px}
+  .cat-btn{font-size:11px;padding:5px 10px}
+  .player-grid{grid-template-columns:1fr;padding:0 16px 60px}
+  .search-bar{padding:0 16px}
+  .forecast-page-grid{grid-template-columns:1fr;padding:20px 16px 60px}
+  .year-nav{padding:0 16px}
+  .year-content{padding:16px 16px 60px}
 }

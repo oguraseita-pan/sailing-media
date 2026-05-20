@@ -16,7 +16,7 @@
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
     <div class="nav-links">
-      <a href="ranking.html">ランキング</a>
+      <a href="ranking.html" class="nav-active">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
@@ -174,24 +174,11 @@ if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.clas
 </script>
 
 <script>
-(function(){
-  var hb = document.getElementById('hamburger');
-  var mm = document.getElementById('mobileMenu');
-  var nav = document.getElementById('nav');
-  if (hb && mm) {
-    hb.addEventListener('click', function(e) {
-      e.stopPropagation();
-      mm.classList.toggle('open');
-      hb.classList.toggle('active');
-    });
-  }
-  if (nav) {
-    window.addEventListener('scroll', function() {
-      nav.style.background = '#fff';
-      nav.style.boxShadow = window.scrollY > 10 ? '0 2px 12px rgba(0,0,0,.06)' : '';
-    }, { passive: true });
-  }
-})();
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+if(hb&&mm)hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('open');});
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
+});
 </script>
 </body>
 </html>
