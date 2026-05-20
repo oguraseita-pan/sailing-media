@@ -734,30 +734,24 @@ function toggleCard(id) {
   card.classList.toggle('open');
 }
 </script>
+
 <script>
 (function(){
-  // hamburger
-  var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
-  if(hb&&mm){
-    hb.addEventListener('click',function(e){
+  var hb = document.getElementById('hamburger');
+  var mm = document.getElementById('mobileMenu');
+  var nav = document.getElementById('nav');
+  if (hb && mm) {
+    hb.addEventListener('click', function(e) {
       e.stopPropagation();
-      hb.classList.toggle('active');
       mm.classList.toggle('open');
-    });
-    document.addEventListener('click',function(e){
-      if(!hb.contains(e.target)&&!mm.contains(e.target)){
-        mm.classList.remove('open');
-        hb.classList.remove('active');
-      }
+      hb.classList.toggle('active');
     });
   }
-  // scroll: 白背景を維持しつつシャドウ
-  var nav=document.getElementById('nav');
-  if(nav){
-    window.addEventListener('scroll',function(){
-      nav.style.background='#fff';
-      nav.style.boxShadow=window.scrollY>10?'0 2px 12px rgba(0,0,0,.06)':'';
-    },{passive:true});
+  if (nav) {
+    window.addEventListener('scroll', function() {
+      nav.style.background = '#fff';
+      nav.style.boxShadow = window.scrollY > 10 ? '0 2px 12px rgba(0,0,0,.06)' : '';
+    }, { passive: true });
   }
 })();
 </script>

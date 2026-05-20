@@ -331,10 +331,7 @@ canvas{width:100%!important}
   .forecast-page-grid{grid-template-columns:1fr}
 }
 
-/* ── モバイル共通（全ページ） ── */
-@media(max-width:768px){
-  /* ナビ: ハンバーガー表示、リンク非表示 */
-  .nav-links a:not(.hamburger){display:none}
+
   .nav-links .tack-back-btn{display:none!important}
   .hamburger{display:flex!important;position:relative;z-index:210}
 
@@ -359,4 +356,60 @@ canvas{width:100%!important}
   /* 大会結果 */
   .year-nav{padding:0 16px}
   .year-content{padding:16px 16px 60px}
+}
+
+/* ================================================================
+   モバイル共通 — 全SAILRANKページ
+   ================================================================ */
+@media (max-width: 768px) {
+  /* nav: 固定・白背景（念のため上書き） */
+  .nav {
+    position: fixed !important;
+    top: 0; left: 0; right: 0;
+    background: #fff !important;
+    z-index: 200;
+  }
+
+  /* デスクトップリンクを隠す */
+  .nav-links a { display: none !important; }
+
+  /* TACKボタンも隠す */
+  .tack-back-btn { display: none !important; }
+
+  /* ハンバーガーを表示 */
+  .hamburger {
+    display: flex !important;
+    position: relative;
+    z-index: 210;
+  }
+
+  /* mobile-menu: navの直下に固定 */
+  .mobile-menu {
+    position: fixed !important;
+    top: 60px; left: 0; right: 0;
+    z-index: 199;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  }
+
+  /* ページヒーロー */
+  .page-hero { padding: 40px 16px 32px; }
+  .page-title { font-size: clamp(28px, 7vw, 44px); }
+
+  /* ランキング */
+  .tab-wrap  { padding: 16px 16px 0; }
+  .tab-panels { padding: 16px 16px 60px; }
+  .year-btn  { font-size: 13px; padding: 6px 12px; }
+  .cat-btn   { font-size: 11px; padding: 5px 10px; }
+
+  /* 選手DB */
+  .player-grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
+  .search-bar  { padding: 0 16px; }
+
+  /* AI予測 */
+  .forecast-page-grid { grid-template-columns: 1fr; padding: 20px 16px 60px; }
+
+  /* 大会結果 */
+  .year-nav     { padding: 0 16px; }
+  .year-content { padding: 16px 16px 60px; }
 }
