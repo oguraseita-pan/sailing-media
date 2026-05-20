@@ -1,19 +1,12 @@
 // main.js ― データをHTMLに描画する
 
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if (hamburger) {
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-}
-
+// ―― nav scroll: 白背景を維持しつつシャドウのみ ――
 const nav = document.getElementById('nav');
 if (nav) {
   window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 40
-      ? 'rgba(3,8,15,0.98)'
-      : 'rgba(3,8,15,0.85)';
+    nav.style.boxShadow = window.scrollY > 10
+      ? '0 2px 12px rgba(0,0,0,.06)'
+      : '';
   });
 }
 
