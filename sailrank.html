@@ -36,9 +36,9 @@ img{display:block;max-width:100%}
 .mobile-menu a:hover{background:#f8faff}
 .mobile-menu a:last-child{border:none}
 
-.hero{background:#fff;border-bottom:1px solid #e2e8f0;padding:56px 24px 48px}
+.hero{background:#fff;border-bottom:1px solid #e2e8f0;padding:72px 24px 64px}
 .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:14px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#6366f1;text-transform:uppercase;margin-bottom:20px}
 .live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
 .hero-title{font-size:clamp(28px,4vw,44px);font-weight:900;color:#0f172a;line-height:1.2;margin-bottom:14px}
 .hero-title em{color:#6366f1;font-style:normal}
@@ -113,9 +113,9 @@ img{display:block;max-width:100%}
 .uc-pt{font-size:14px;font-weight:900;color:#6366f1}
 
 .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.feature-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;transition:border-color .2s;cursor:pointer;display:block}
+.feature-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px;transition:border-color .2s;cursor:pointer;display:block}
 .feature-card:hover{border-color:#6366f1}
-.feature-icon{font-size:26px;margin-bottom:12px}
+.feature-icon{margin-bottom:16px;display:flex;align-items:center}
 .feature-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px}
 .feature-desc{font-size:13px;color:#64748b;line-height:1.65}
 
@@ -215,16 +215,16 @@ img{display:block;max-width:100%}
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow"><span class="live-dot"></span>2024 シーズン進行中</div>
-      <h1 class="hero-title">セーリングレースを、<br><em>データで熱く。</em></h1>
-      <p class="hero-desc">レースデータを独自アルゴリズムで集計・分析。AIによる大会予測、選手ランキングで、セーリングをもっと面白く。</p>
+      <div class="hero-eyebrow"><span class="live-dot"></span>2026 シーズン進行中</div>
+      <h1 class="hero-title">セーリングの戦いを、<br><em>データで熱く。</em></h1>
+      <p class="hero-desc">関東学生ヨット連盟の公式成績を集計し、独自ポイントで選手・大学をランキング。AIが次の大会を予測する。</p>
       <div class="hero-cta">
         <a href="ranking.html" class="btn-primary">ランキングを見る</a>
         <a href="forecast.html" class="btn-ghost">AI予測を見る</a>
       </div>
     </div>
     <div class="hero-mvp">
-      <div class="mvp-label">歴代個人総合首位</div>
+      <div class="mvp-label">歴代トップ選手</div>
       <div class="mvp-name">池田 紅葉</div>
       <div class="mvp-univ">日本大学 / Skipper / スナイプ級</div>
       <div class="mvp-stats">
@@ -238,11 +238,11 @@ img{display:block;max-width:100%}
 
 <section class="kpi-bar">
   <div class="kpi-bar-inner">
-    <div class="kpi-item"><b>1,624</b><span>選手データ</span></div>
+    <div class="kpi-item"><b>1,624</b><span>登録選手</span></div>
     <div class="kpi-divider"></div>
-    <div class="kpi-item"><b>30</b><span>対象大会</span></div>
+    <div class="kpi-item"><b>30</b><span>収録大会</span></div>
     <div class="kpi-divider"></div>
-    <div class="kpi-item"><b>2016–2023</b><span>収録年度</span></div>
+    <div class="kpi-item"><b>2016–2023</b><span>データ期間</span></div>
     <div class="kpi-divider"></div>
     <div class="kpi-item"><b>AI</b><span>予測搭載</span></div>
   </div>
@@ -252,9 +252,9 @@ img{display:block;max-width:100%}
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">Overall Ranking</div>
+        <div class="section-label">個人成績</div>
         <h2 class="section-title">個人総合ランキング</h2>
-        <p class="section-desc">主要決勝大会を独自アルゴリズムで集計・算出。</p>
+        <p class="section-desc">2016〜2023年度の主要決勝大会をもとに算出。</p>
       </div>
       <a href="ranking.html" class="btn-link">全員を見る →</a>
     </div>
@@ -271,9 +271,9 @@ img{display:block;max-width:100%}
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">AI Forecast</div>
+        <div class="section-label">大会予測</div>
         <h2 class="section-title">次回大会 AI予測</h2>
-        <p class="section-desc">過去の成績データをもとにAIが大会前の優勝確率を予測。</p>
+        <p class="section-desc">過去の成績をもとに、次回大会の優勝校を予測。</p>
       </div>
       <a href="forecast.html" class="btn-link">詳細を見る →</a>
     </div>
@@ -285,9 +285,9 @@ img{display:block;max-width:100%}
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">University Ranking</div>
+        <div class="section-label">大学別成績</div>
         <h2 class="section-title">大学ランキング</h2>
-        <p class="section-desc">団体成績の総合ポイントで大学の強さを可視化。</p>
+        <p class="section-desc">団体戦の累計ポイントで各大学の強さを比較。</p>
       </div>
       <a href="ranking.html" class="btn-link">全大学を見る →</a>
     </div>
@@ -299,15 +299,15 @@ img{display:block;max-width:100%}
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-label">Features</div>
+        <div class="section-label">できること</div>
         <h2 class="section-title">SAIL RANKでできること</h2>
       </div>
     </div>
     <div class="features-grid">
-      <a href="ranking.html" class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">独自ランキング</div><div class="feature-desc">2016〜2023年度の30大会・1,624名のデータを独自アルゴリズムで集計。個人・大学・クラス別に閲覧可能。</div></a>
-      <a href="forecast.html" class="feature-card"><div class="feature-icon">🤖</div><div class="feature-title">AI大会予測</div><div class="feature-desc">過去の成績データをもとにAIが次大会の優勝確率を予測。データが積み上がるほど精度が向上。</div></a>
-      <a href="players.html" class="feature-card"><div class="feature-icon">👤</div><div class="feature-title">選手データベース</div><div class="feature-desc">1,624名の選手データを搭載。大会ごとの成績推移をグラフで確認できる。</div></a>
-      <a href="results.html" class="feature-card"><div class="feature-icon">📄</div><div class="feature-title">大会結果PDF</div><div class="feature-desc">2016〜2023年度の全大会成績PDFをアーカイブ。決勝・予選・女子レースを網羅。</div></a>
+      <a href="ranking.html" class="feature-card"><div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></div><div class="feature-title">独自ランキング</div><div class="feature-desc">30大会・1,624名のデータから、個人・大学・クラスごとの順位を確認できる。</div></a>
+      <a href="forecast.html" class="feature-card"><div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="1"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="3" y1="12" x2="1" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div><div class="feature-title">AI大会予測</div><div class="feature-desc">過去の成績パターンから次回大会の展開を予測。大会前に注目校を確認しておこう。</div></a>
+      <a href="players.html" class="feature-card"><div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7" r="3"/><path d="M2 21v-2a5 5 0 0 1 10 0v2"/><circle cx="17" cy="9" r="2.5"/><path d="M14 21v-1.5a4 4 0 0 1 6 0V21"/></svg></div><div class="feature-title">選手データベース</div><div class="feature-desc">1,624名の全出場選手を収録。名前で検索して成績グラフをチェックできる。</div></a>
+      <a href="results.html" class="feature-card"><div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><div class="feature-title">大会結果PDF</div><div class="feature-desc">2016〜2023年度の全大会PDFを収録。決勝・予選・女子レースすべて揃っている。</div></a>
     </div>
   </div>
 </section>
@@ -316,9 +316,9 @@ img{display:block;max-width:100%}
   <div class="sponsor-inner">
     <div class="sponsor-header">
       <div>
-        <div class="sponsor-eyebrow">Official Sponsors</div>
+        <div class="sponsor-eyebrow">サポーター</div>
         <h2 class="sponsor-title">スポンサー</h2>
-        <p class="sponsor-sub">SAIL RANKは学生セーリング界への投資を検討する企業・ブランドのパートナーを募集しています。</p>
+        <p class="sponsor-sub">学生セーリングを支援する企業・ブランドを募集しています。</p>
       </div>
       <a href="mailto:info@tack-sailing.jp" class="sponsor-cta-link">スポンサーに問い合わせる →</a>
     </div>
@@ -350,7 +350,7 @@ img{display:block;max-width:100%}
     <div class="sponsor-recruit">
       <div>
         <div class="recruit-title">スポンサーシップのご案内</div>
-        <div class="recruit-desc">全国1,624名の学生セーリング選手・関係者にリーチ。ランキング・AI予測・大会結果ページでのロゴ掲載、MVP冠スポンサーなど柔軟にご対応します。</div>
+        <div class="recruit-desc">1,600名超の選手・関係者に届くSAIL RANKで、ロゴ掲載や冠スポンサーとして関わることができます。</div>
         <div class="recruit-packages">
           <span class="pkg-badge pkg-title">Title</span>
           <span class="pkg-badge pkg-gold">Gold</span>
@@ -368,7 +368,7 @@ img{display:block;max-width:100%}
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="logo">SAIL<span>RANK</span></div>
-      <p>学生セーリングの熱量を、数字で伝える。</p>
+      <p>学生セーリングの戦いを、数字で残す。</p>
       <p style="margin-top:6px">Part of <a href="index.html">TACK Sailing Media</a></p>
     </div>
     <div class="footer-links">
