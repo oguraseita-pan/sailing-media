@@ -175,7 +175,7 @@
   <div class="page-hero-inner">
     <div class="section-label">AI FORECAST</div>
     <h1 class="page-title">AI大会予測</h1>
-    <p class="page-desc">2016〜2026年の全大会成績をもとにAIが次回大会の優勝確率を算出。</p>
+    <p class="page-desc">2016〜2026年の決勝大会成績をもとにAIが次回大会の優勝確率を算出。</p>
   </div>
 </div>
 
@@ -188,12 +188,12 @@
   <div class="forecast-side">
     <div class="side-card">
       <h3>予測の仕組み</h3>
-      <p>秋季・春季決勝大会の成績を使用。予選や女子限定レースは除外し、公平な比較を実現しています。</p>
+      <p>主要決勝大会の成績のみを学習データとして使用。予選や女子限定レースは含めず、公平な比較を実現しています。</p>
       <ul style="font-size:13px;color:var(--muted2);line-height:2;margin-top:8px;padding-left:1em">
-        <li>直近年度ほど高い重み（2026年=3.0倍）</li>
-        <li>秋季決勝を主軸、春季決勝を補助的に加算</li>
-        <li>470・スナイプ両クラスの合算スコア</li>
-        <li>全大会の正規化された優勝確率を算出</li>
+        <li>過去成績の重み付き平均</li>
+        <li>直近大会の成績を優先</li>
+        <li>フィールドサイズによる正規化</li>
+        <li>決勝・個人戦への補正係数</li>
       </ul>
       <p class="ai-disclaimer">※ この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。</p>
     </div>
