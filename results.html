@@ -223,10 +223,10 @@
 </div>
 
 <div class="year-nav">
-  <button class="year-btn active" onclick="switchYear('2026',this)">2026</button>
+  <button class="year-btn" onclick="switchYear('2026',this)">2026</button>
   <button class="year-btn" onclick="switchYear('2025',this)">2025</button>
   <button class="year-btn" onclick="switchYear('2024',this)">2024</button>
-  <button class="year-btn" onclick="switchYear('2023',this)">2023</button>
+  <button class="year-btn active" onclick="switchYear('2023',this)">2023</button>
   <button class="year-btn" onclick="switchYear('2022',this)">2022</button>
   <button class="year-btn" onclick="switchYear('2021',this)">2021</button>
   <button class="year-btn" onclick="switchYear('2020',this)">2020</button>
@@ -239,6 +239,105 @@
 <!-- ================================================================
   2019年度
 ================================================================ -->
+<!-- 2026 -->
+<div class="year-content" id="year-2026">
+  <h2 class="year-heading">2026</h2>
+  <div class="event-card" id="ev-2026-spring">
+    <div class="event-card-header" onclick="toggleCard('ev-2026-spring')">
+      <div class="event-card-left">
+        <div class="event-name">2026年 関東学生ヨット春季選手権大会 決勝</div>
+        <div class="event-meta"><span>📅 2026年5月</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="event-winner"><small>優勝</small>日本大学</div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">3</td><td class="right">3</td><td class="pt-cell right">6</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">法政大学</td><td class="right">15</td><td class="right">15</td><td class="pt-cell right">30</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">明海大学</td><td class="right">21</td><td class="right">21</td><td class="pt-cell right">42</td></tr>
+          <tr><td class="rank-cell ">#4</td><td class="univ-cell">慶應義塾大学</td><td class="right">27</td><td class="right">27</td><td class="pt-cell right">54</td></tr>
+          <tr><td class="rank-cell ">#5</td><td class="univ-cell">立教大学</td><td class="right">36</td><td class="right">36</td><td class="pt-cell right">72</td></tr>
+          <tr><td class="rank-cell ">#6</td><td class="univ-cell">東京大学</td><td class="right">51</td><td class="right">51</td><td class="pt-cell right">102</td></tr>
+          <tr><td class="rank-cell ">#7</td><td class="univ-cell">青山学院大学</td><td class="right">42</td><td class="right">—</td><td class="pt-cell right">141</td></tr>
+          <tr><td class="rank-cell ">#8</td><td class="univ-cell">東京農工大学</td><td class="right">—</td><td class="right">48</td><td class="pt-cell right">147</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="event-card" id="ev-2026-spring-470">
+    <div class="event-card-header" onclick="toggleCard('ev-2026-spring-470')">
+      <div class="event-card-left">
+        <div class="event-name">2026年 春季選手権大会 決勝 470級 個人成績</div>
+        <div class="event-meta"><span>📅 2026年5月</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">杉原豪</td><td class="crew-cell">西分航太</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">山本結翔</td><td class="crew-cell">渡邉陽斗</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">大場大生</td><td class="crew-cell">末吉源</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell ">#13</td><td class="player-cell">中西司</td><td class="crew-cell">永井天音</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#14</td><td class="player-cell">大嶌来実</td><td class="crew-cell">松波啓太</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#15</td><td class="player-cell">松原啓悟</td><td class="crew-cell">土屋葵</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#19</td><td class="player-cell">浅野紗良</td><td class="crew-cell">上西来実</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#20</td><td class="player-cell">上原慎平</td><td class="crew-cell">後記慶太</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#21</td><td class="player-cell">渥美洸哉</td><td class="crew-cell">田畑武佐士</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#25</td><td class="player-cell">岩佐忠直</td><td class="crew-cell">菊地怜音</td><td class="univ-cell">慶應義塾大学</td></tr>
+          <tr><td class="rank-cell ">#26</td><td class="player-cell">鈴木健斗</td><td class="crew-cell">石戸聡真</td><td class="univ-cell">慶應義塾大学</td></tr>
+          <tr><td class="rank-cell ">#27</td><td class="player-cell">西田帆七</td><td class="crew-cell">柳井遼</td><td class="univ-cell">慶應義塾大学</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="event-card" id="ev-2026-spring-snipe">
+    <div class="event-card-header" onclick="toggleCard('ev-2026-spring-snipe')">
+      <div class="event-card-left">
+        <div class="event-name">2026年 春季選手権大会 決勝 スナイプ級 個人成績</div>
+        <div class="event-meta"><span>📅 2026年5月</span><span class="event-weight">ランキング対象</span></div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="event-body">
+      <table class="result-table">
+        <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">奥地龍信</td><td class="crew-cell">松原果保</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">髙島楓真</td><td class="crew-cell">堀田帆斗</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">福田陽</td><td class="crew-cell">草薙温大</td><td class="univ-cell">日本大学</td></tr>
+          <tr><td class="rank-cell ">#13</td><td class="player-cell">長井瑞希</td><td class="crew-cell">篠原風雅</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#14</td><td class="player-cell">大和佳以</td><td class="crew-cell">五百蔵大輝</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#15</td><td class="player-cell">谷口彩香</td><td class="crew-cell">志田宙翼</td><td class="univ-cell">法政大学</td></tr>
+          <tr><td class="rank-cell ">#19</td><td class="player-cell">阿部康志</td><td class="crew-cell">蛭間蒼</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#20</td><td class="player-cell">小本真耶</td><td class="crew-cell">増原瑞希</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#21</td><td class="player-cell">弦巻瑛太</td><td class="crew-cell">梅崎賢成</td><td class="univ-cell">明海大学</td></tr>
+          <tr><td class="rank-cell ">#25</td><td class="player-cell">平井雨響</td><td class="crew-cell">槐島帆花</td><td class="univ-cell">慶應義塾大学</td></tr>
+          <tr><td class="rank-cell ">#26</td><td class="player-cell">濵田昊</td><td class="crew-cell">倉田誠太郎</td><td class="univ-cell">慶應義塾大学</td></tr>
+          <tr><td class="rank-cell ">#27</td><td class="player-cell">諏訪海翔</td><td class="crew-cell">鬼頭直生</td><td class="univ-cell">慶應義塾大学</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- 2025 -->
+<div class="year-content" id="year-2025">
+  <h2 class="year-heading">2025</h2>
+  <div class="event-card"><div class="event-card-header">
+    <div class="event-card-left"><div class="event-name">2025年度 大会結果</div><div class="event-meta"><span>データ収集中</span></div></div>
+  </div></div>
+</div>
+<!-- 2024 -->
+<div class="year-content" id="year-2024">
+  <h2 class="year-heading">2024</h2>
+  <div class="event-card"><div class="event-card-header">
+    <div class="event-card-left"><div class="event-name">2024年度 大会結果</div><div class="event-meta"><span>データ収集中</span></div></div>
+  </div></div>
+</div>
 <div class="year-content" id="year-2019">
   <h2 class="year-heading">2019</h2>
 
@@ -679,129 +778,8 @@
   </div>
 </div>
 
-
-<!-- 2026 -->
-<div class="year-content" id="year-2026">
-  <h2 class="year-heading">2026</h2>
-
-  <div class="event-card" id="ev-2026-spring">
-    <div class="event-card-header" onclick="toggleCard('ev-2026-spring')">
-      <div class="event-card-left">
-        <div class="event-name">2026年 関東学生ヨット春季選手権大会 決勝</div>
-        <div class="event-meta">
-          <span>📅 2026年5月</span>
-          <span class="event-weight">ランキング対象</span>
-        </div>
-      </div>
-      <div class="event-winner"><small>優勝</small>日本大学</div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr>
-          <th style="width:60px">順位</th><th>大学</th>
-          <th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th>
-        </tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">3</td><td class="right">3</td><td class="pt-cell right">6</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">法政大学</td><td class="right">15</td><td class="right">15</td><td class="pt-cell right">30</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">明海大学</td><td class="right">21</td><td class="right">21</td><td class="pt-cell right">42</td></tr>
-          <tr><td class="rank-cell ">#4</td><td class="univ-cell">慶應義塾大学</td><td class="right">27</td><td class="right">27</td><td class="pt-cell right">54</td></tr>
-          <tr><td class="rank-cell ">#5</td><td class="univ-cell">立教大学</td><td class="right">36</td><td class="right">36</td><td class="pt-cell right">72</td></tr>
-          <tr><td class="rank-cell ">#6</td><td class="univ-cell">東京大学</td><td class="right">51</td><td class="right">51</td><td class="pt-cell right">102</td></tr>
-          <tr><td class="rank-cell ">#7</td><td class="univ-cell">青山学院大学</td><td class="right">42</td><td class="right">—</td><td class="pt-cell right">141</td></tr>
-          <tr><td class="rank-cell ">#8</td><td class="univ-cell">東京農工大学</td><td class="right">—</td><td class="right">48</td><td class="pt-cell right">147</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="event-card" id="ev-2026-spring-470">
-    <div class="event-card-header" onclick="toggleCard('ev-2026-spring-470')">
-      <div class="event-card-left">
-        <div class="event-name">2026年 春季選手権大会 決勝 470級 個人成績</div>
-        <div class="event-meta"><span>📅 2026年5月</span><span class="event-weight">ランキング対象</span></div>
-      </div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">杉原豪</td><td class="crew-cell">西分航太</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">山本結翔</td><td class="crew-cell">渡邉陽斗</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">大場大生</td><td class="crew-cell">末吉源</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell ">#13</td><td class="player-cell">中西司</td><td class="crew-cell">永井天音</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#14</td><td class="player-cell">大嶌来実</td><td class="crew-cell">松波啓太</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#15</td><td class="player-cell">松原啓悟</td><td class="crew-cell">土屋葵</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#19</td><td class="player-cell">浅野紗良</td><td class="crew-cell">上西来実</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#20</td><td class="player-cell">上原慎平</td><td class="crew-cell">後記慶太</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#21</td><td class="player-cell">渥美洸哉</td><td class="crew-cell">田畑武佐士</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#25</td><td class="player-cell">岩佐忠直</td><td class="crew-cell">菊地怜音</td><td class="univ-cell">慶應義塾大学</td></tr>
-          <tr><td class="rank-cell ">#26</td><td class="player-cell">鈴木健斗</td><td class="crew-cell">石戸聡真</td><td class="univ-cell">慶應義塾大学</td></tr>
-          <tr><td class="rank-cell ">#27</td><td class="player-cell">西田帆七</td><td class="crew-cell">柳井遼</td><td class="univ-cell">慶應義塾大学</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="event-card" id="ev-2026-spring-snipe">
-    <div class="event-card-header" onclick="toggleCard('ev-2026-spring-snipe')">
-      <div class="event-card-left">
-        <div class="event-name">2026年 春季選手権大会 決勝 スナイプ級 個人成績</div>
-        <div class="event-meta"><span>📅 2026年5月</span><span class="event-weight">ランキング対象</span></div>
-      </div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">奥地龍信</td><td class="crew-cell">松原果保</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">髙島楓真</td><td class="crew-cell">堀田帆斗</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">福田陽</td><td class="crew-cell">草薙温大</td><td class="univ-cell">日本大学</td></tr>
-          <tr><td class="rank-cell ">#13</td><td class="player-cell">長井瑞希</td><td class="crew-cell">篠原風雅</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#14</td><td class="player-cell">大和佳以</td><td class="crew-cell">五百蔵大輝</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#15</td><td class="player-cell">谷口彩香</td><td class="crew-cell">志田宙翼</td><td class="univ-cell">法政大学</td></tr>
-          <tr><td class="rank-cell ">#19</td><td class="player-cell">阿部康志</td><td class="crew-cell">蛭間蒼</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#20</td><td class="player-cell">小本真耶</td><td class="crew-cell">増原瑞希</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#21</td><td class="player-cell">弦巻瑛太</td><td class="crew-cell">梅崎賢成</td><td class="univ-cell">明海大学</td></tr>
-          <tr><td class="rank-cell ">#25</td><td class="player-cell">平井雨響</td><td class="crew-cell">槐島帆花</td><td class="univ-cell">慶應義塾大学</td></tr>
-          <tr><td class="rank-cell ">#26</td><td class="player-cell">濵田昊</td><td class="crew-cell">倉田誠太郎</td><td class="univ-cell">慶應義塾大学</td></tr>
-          <tr><td class="rank-cell ">#27</td><td class="player-cell">諏訪海翔</td><td class="crew-cell">鬼頭直生</td><td class="univ-cell">慶應義塾大学</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- 2025 -->
-<div class="year-content" id="year-2025">
-  <h2 class="year-heading">2025</h2>
-  <div class="event-card">
-    <div class="event-card-header">
-      <div class="event-card-left">
-        <div class="event-name">2025年度 大会結果</div>
-        <div class="event-meta"><span>データ収集中</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 2024 -->
-<div class="year-content" id="year-2024">
-  <h2 class="year-heading">2024</h2>
-  <div class="event-card">
-    <div class="event-card-header">
-      <div class="event-card-left">
-        <div class="event-name">2024年度 大会結果</div>
-        <div class="event-meta"><span>データ収集中</span></div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- 2023 -->
-<div class="year-content" id="year-2023">
+<div class="year-content active" id="year-2023">
   <h2 class="year-heading">2023</h2>
   <div class="event-card" id="ev-2023-spring-w">
     <div class="event-card-header" onclick="toggleCard('ev-2023-spring-w')">
