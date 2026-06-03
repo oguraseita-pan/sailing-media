@@ -8,7 +8,183 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+.page-hero {
+  padding: 120px 24px 60px;
+  background: linear-gradient(180deg, rgba(0,100,200,.12) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
+}
+.page-hero-inner { max-width: 1200px; margin: auto; }
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px);
+  letter-spacing: .04em; color: #fff; margin-bottom: 8px;
+}
+.page-desc { font-size: 15px; color: var(--muted2); }
 
+/* 年度タブ */
+.year-nav {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.year-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--muted2);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: all .2s;
+}
+.year-btn:hover { border-color: var(--accent); color: var(--accent); }
+.year-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+/* 年度コンテンツ */
+.year-content { display: none; padding: 40px 24px 80px; max-width: 1200px; margin: auto; }
+.year-content.active { display: block; }
+
+.year-heading {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: var(--accent);
+  letter-spacing: .06em;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+/* 大会カード */
+.event-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.event-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background .15s;
+  gap: 16px;
+}
+.event-card-header:hover { background: rgba(255,255,255,.03); }
+.event-card-left {}
+.event-name {
+  font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px;
+}
+.event-meta {
+  font-size: 12px; color: var(--muted2);
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.event-meta span {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.event-weight {
+  display: inline-block;
+  background: rgba(0,212,255,.12);
+  border: 1px solid rgba(0,212,255,.25);
+  color: var(--accent);
+  font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px;
+}
+.event-weight.gray {
+  background: rgba(255,255,255,.06);
+  border-color: var(--border);
+  color: var(--muted2);
+}
+.event-winner {
+  font-family: var(--font-display);
+  font-size: 22px; color: var(--gold);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.event-winner small { font-size: 11px; font-weight: 400; color: var(--muted); display: block; letter-spacing: .1em; font-family: var(--font-body); }
+
+.toggle-icon {
+  font-size: 20px; color: var(--muted);
+  transition: transform .3s;
+  flex-shrink: 0;
+}
+.event-card.open .toggle-icon { transform: rotate(180deg); }
+
+.event-body {
+  display: none;
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+.event-card.open .event-body { display: block; }
+
+/* 成績テーブル */
+.result-table {
+  width: 100%; border-collapse: collapse; margin-top: 16px;
+  font-size: 14px;
+}
+.result-table th {
+  text-align: left; padding: 10px 12px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; color: var(--muted);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.result-table th.right,
+.result-table td.right { text-align: right; }
+.result-table td {
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  color: var(--muted2);
+  vertical-align: middle;
+}
+.result-table tr:last-child td { border-bottom: none; }
+.result-table tr:hover td { background: rgba(255,255,255,.02); }
+
+.rank-cell {
+  font-family: var(--font-display);
+  font-size: 20px; letter-spacing: .04em;
+}
+.rank-1 { color: var(--gold); }
+.rank-2 { color: #c0c0c0; }
+.rank-3 { color: #cd7f32; }
+.univ-cell { font-weight: 700; color: #fff; }
+.pt-cell {
+  font-family: var(--font-display);
+  font-size: 18px; color: var(--accent);
+  letter-spacing: .04em;
+}
+
+/* 個人戦用 */
+.player-cell { color: #fff; font-weight: 700; }
+.crew-cell { color: var(--muted2); font-size: 13px; }
+
+@media(max-width:600px) {
+  .event-card-header { flex-direction: column; align-items: flex-start; }
+  .result-table th:nth-child(3),
+  .result-table td:nth-child(3),
+  .result-table th:nth-child(4),
+  .result-table td:nth-child(4) { display: none; }
+}
+</style>
+<style>
+.tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(109,40,217,.2);color:#c4b5fd;font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(109,40,217,.35);text-decoration:none;transition:all .2s;white-space:nowrap;font-family:'Noto Sans JP',sans-serif}
+.tack-back-btn:hover{background:rgba(109,40,217,.45);color:#fff;border-color:rgba(109,40,217,.65)}
+.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;color:var(--muted2);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
+.pdf-dl-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.06)}
+.event-date-note{font-size:12px;color:var(--muted2);margin-bottom:10px}
+</style>
 </head>
 <body>
 
@@ -19,7 +195,7 @@
       <a href="ranking.html">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
-      <a href="results.html" style="color:#fff">大会結果</a>
+      <a href="results.html" class="nav-active">大会結果</a>
       <a href="index.html" class="tack-back-btn">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
         TACK
@@ -77,35 +253,10 @@
       <div class="toggle-icon">▼</div>
     </div>
     <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">3</td><td class="right">3</td><td class="pt-cell right">6</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">法政大学</td><td class="right">13</td><td class="right">13</td><td class="pt-cell right">26</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">明海大学</td><td class="right">21</td><td class="right">21</td><td class="pt-cell right">42</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">慶應義塾大学</td><td class="right">27</td><td class="right">27</td><td class="pt-cell right">54</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">立教大学</td><td class="right">36</td><td class="right">36</td><td class="pt-cell right">72</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:20px">
-        <div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:8px">470級 個人成績</div>
-        <table class="result-table">
-          <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
-          <tbody>
-            <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">杉原豪</td><td class="crew-cell">西分航太</td><td class="univ-cell">日本大学</td></tr>
-            <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">山本結翔</td><td class="crew-cell">渡邉陽斗</td><td class="univ-cell">日本大学</td></tr>
-            <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">大場大生</td><td class="crew-cell">末吉源</td><td class="univ-cell">日本大学</td></tr>
-          </tbody>
-        </table>
-        <div style="font-size:13px;font-weight:700;color:#0f172a;margin:12px 0 8px">スナイプ級 個人成績</div>
-        <table class="result-table">
-          <thead><tr><th style="width:60px">順位</th><th>スキッパー</th><th>クルー</th><th>大学</th></tr></thead>
-          <tbody>
-            <tr><td class="rank-cell rank-1">#1</td><td class="player-cell">奥地龍信</td><td class="crew-cell">松原果保</td><td class="univ-cell">日本大学</td></tr>
-            <tr><td class="rank-cell rank-2">#2</td><td class="player-cell">髙島楓真</td><td class="crew-cell">堀田帆斗</td><td class="univ-cell">日本大学</td></tr>
-            <tr><td class="rank-cell rank-3">#3</td><td class="player-cell">福田陽</td><td class="crew-cell">草薙温大</td><td class="univ-cell">日本大学</td></tr>
-          </tbody>
-        </table>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
+        <a href="pdf/2026/2026_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2026/2026_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2026/2026_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
       </div>
     </div>
   </div>
@@ -151,99 +302,14 @@
       <div class="event-winner"><small>優勝</small>慶應義塾大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr>
-          <th style="width:60px">順位</th>
-          <th>大学</th>
-          <th class="right">470級</th>
-          <th class="right">スナイプ級</th>
-          <th class="right">総合</th>
-        </tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">慶應義塾大学</td><td class="right">117</td><td class="right">208</td><td class="pt-cell right">325</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">早稲田大学</td><td class="right">153</td><td class="right">180</td><td class="pt-cell right">333</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">日本大学</td><td class="right">188</td><td class="right">185</td><td class="pt-cell right">373</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">明海大学</td><td class="right">250</td><td class="right">274</td><td class="right">524</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">中央大学</td><td class="right">373</td><td class="right">257</td><td class="right">630</td></tr>
-          <tr><td class="rank-cell">#6</td><td class="univ-cell">法政大学</td><td class="right">230</td><td class="right">426</td><td class="right">656</td></tr>
-          <tr><td class="rank-cell">#7</td><td class="univ-cell">明治大学</td><td class="right">349</td><td class="right">438</td><td class="right">787</td></tr>
-          <tr><td class="rank-cell">#8</td><td class="univ-cell">東京大学</td><td class="right">482</td><td class="right">384</td><td class="right">866</td></tr>
-          <tr><td class="rank-cell">#9</td><td class="univ-cell">横浜国立大学</td><td class="right">528</td><td class="right">539</td><td class="right">1067</td></tr>
-          <tr><td class="rank-cell">#10</td><td class="univ-cell">学習院大学</td><td class="right">568</td><td class="right">537</td><td class="right">1105</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- 秋季決勝 -->
-  <div class="event-card" id="ev-2019-autumn">
-    <div class="event-card-header" onclick="toggleCard('ev-2019-autumn')">
-      <div class="event-card-left">
-        <div class="event-name">第86回 関東学生ヨット選手権大会 決勝</div>
-        <div class="event-meta">
-          <span>📅 2019年10月4日・5日・6日</span>
-          <span>📍 江ノ島</span>
-          <span class="event-weight">×1.0 ランキング対象</span>
-        </div>
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
+        <a href="pdf/2019/2019_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2019/2019_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2019/2019_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
       </div>
-      <div class="event-winner"><small>優勝</small>早稲田大学</div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr>
-          <th style="width:60px">順位</th><th>大学</th>
-          <th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th>
-        </tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">201</td><td class="right">123</td><td class="pt-cell right">324</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">日本大学</td><td class="right">105</td><td class="right">252</td><td class="pt-cell right">357</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">152</td><td class="right">272</td><td class="pt-cell right">424</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">明海大学</td><td class="right">361</td><td class="right">297</td><td class="right">658</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">中央大学</td><td class="right">345</td><td class="right">356</td><td class="right">701</td></tr>
-          <tr><td class="rank-cell">#6</td><td class="univ-cell">明治大学</td><td class="right">378</td><td class="right">411</td><td class="right">789</td></tr>
-        </tbody>
-      </table>
     </div>
   </div>
-
-  <!-- 個人選手権 -->
-  <div class="event-card" id="ev-2019-indiv">
-    <div class="event-card-header" onclick="toggleCard('ev-2019-indiv')">
-      <div class="event-card-left">
-        <div class="event-name">2019年度 関東学生ヨット個人選手権大会</div>
-        <div class="event-meta">
-          <span>📅 2019年</span>
-          <span class="event-weight" style="background:rgba(245,183,49,.1);border-color:rgba(245,183,49,.3);color:var(--gold)">×0.8 個人戦</span>
-        </div>
-      </div>
-      <div class="event-winner"><small>個人戦</small>各クラス参照</div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <p style="font-size:13px;color:var(--muted2);margin-bottom:12px">470級・スナイプ級 上位10艇</p>
-      <table class="result-table">
-        <thead><tr>
-          <th style="width:60px">順位</th><th>クラス</th>
-          <th>スキッパー</th><th>クルー</th><th>大学</th>
-        </tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td style="color:var(--accent);font-size:12px">470</td><td class="player-cell">小木曽 涼</td><td class="crew-cell">樫本 達真</td><td>慶應義塾大学</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td style="color:var(--accent);font-size:12px">470</td><td class="player-cell">高宮 豪太</td><td class="crew-cell">中川 健人</td><td>慶應義塾大学</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td style="color:var(--accent);font-size:12px">470</td><td class="player-cell">元津 志緒</td><td class="crew-cell">―</td><td>早稲田大学</td></tr>
-          <tr><td class="rank-cell">#4</td><td style="color:var(--accent);font-size:12px">470</td><td class="player-cell">小倉 晴太</td><td class="crew-cell">―</td><td>明治大学</td></tr>
-          <tr><td class="rank-cell">#5</td><td style="color:var(--accent);font-size:12px">470</td><td class="player-cell">鈴木 真人</td><td class="crew-cell">―</td><td>明海大学</td></tr>
-          <tr><td class="rank-cell rank-1">#1</td><td style="color:#f5b731;font-size:12px">Snipe</td><td class="player-cell">佐藤 海志</td><td class="crew-cell">―</td><td>日本大学</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td style="color:#f5b731;font-size:12px">Snipe</td><td class="player-cell">松尾 虎太郎</td><td class="crew-cell">―</td><td>早稲田大学</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td style="color:#f5b731;font-size:12px">Snipe</td><td class="player-cell">玉山 裕登</td><td class="crew-cell">―</td><td>慶應義塾大学</td></tr>
-          <tr><td class="rank-cell">#4</td><td style="color:#f5b731;font-size:12px">Snipe</td><td class="player-cell">尾道 佳諭</td><td class="crew-cell">―</td><td>早稲田大学</td></tr>
-          <tr><td class="rank-cell">#5</td><td style="color:#f5b731;font-size:12px">Snipe</td><td class="player-cell">加藤 凡尋</td><td class="crew-cell">―</td><td>明海大学</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
 <!-- ================================================================
   2018年度
@@ -263,44 +329,14 @@
       <div class="event-winner"><small>優勝</small>早稲田大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">120</td><td class="right">139</td><td class="pt-cell right">259</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">日本大学</td><td class="right">164</td><td class="right">104</td><td class="pt-cell right">268</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">235</td><td class="right">236</td><td class="pt-cell right">471</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">明海大学</td><td class="right">135</td><td class="right">364</td><td class="right">499</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="event-card" id="ev-2018-autumn">
-    <div class="event-card-header" onclick="toggleCard('ev-2018-autumn')">
-      <div class="event-card-left">
-        <div class="event-name">第85回 関東学生ヨット選手権大会 決勝</div>
-        <div class="event-meta">
-          <span>📅 2018年10月6日・7日・8日</span>
-          <span class="event-weight">×1.0 ランキング対象</span>
-        </div>
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
+        <a href="pdf/2018/2018_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
+        <a href="pdf/2018/2018_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
+        <a href="pdf/2018/2018_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
       </div>
-      <div class="event-winner"><small>優勝</small>早稲田大学</div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">135</td><td class="right">120</td><td class="pt-cell right">255</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">日本大学</td><td class="right">208</td><td class="right">141</td><td class="pt-cell right">349</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">269</td><td class="right">118</td><td class="pt-cell right">387</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">明海大学</td><td class="right">223</td><td class="right">290</td><td class="right">513</td></tr>
-        </tbody>
-      </table>
     </div>
   </div>
-</div>
 
 <!-- ================================================================
   2017年度
@@ -333,17 +369,8 @@
       <div class="event-winner"><small>優勝</small>早稲田大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">120</td><td class="right">110</td><td class="pt-cell right">230</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">慶應義塾大学</td><td class="right">156</td><td class="right">83</td><td class="pt-cell right">239</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">中央大学</td><td class="right">198</td><td class="right">179</td><td class="pt-cell right">377</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">日本大学</td><td class="right">162</td><td class="right">234</td><td class="right">396</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
         <a href="pdf/2017/2017_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
         <a href="pdf/2017/2017_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
         <a href="pdf/2017/2017_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
@@ -466,18 +493,8 @@
       <div class="event-winner"><small>優勝</small>日本大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">1位</td><td class="right">2位</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">慶應義塾大学</td><td class="right">2位</td><td class="right">1位</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">明海大学</td><td class="right">3位</td><td class="right">4位</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">早稲田大学</td><td class="right">5位</td><td class="right">3位</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">中央大学</td><td class="right">4位</td><td class="right">5位</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
         <a href="pdf/2016/2016_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
         <a href="pdf/2016/2016_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
       </div>
@@ -604,18 +621,8 @@
       <div class="event-winner"><small>優勝</small>早稲田大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">6</td><td class="right">11</td><td class="pt-cell right">17</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">慶應義塾大学</td><td class="right">25</td><td class="right">24</td><td class="pt-cell right">49</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">中央大学</td><td class="right">46</td><td class="right">36</td><td class="pt-cell right">82</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">横浜国立大学</td><td class="right">67</td><td class="right">31</td><td class="right">98</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">日本大学</td><td class="right">56</td><td class="right">48</td><td class="right">104</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
         <a href="pdf/2023/2023_spring_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
         <a href="pdf/2023/2023_spring_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
         <a href="pdf/2023/2023_spring_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
@@ -692,18 +699,8 @@
       <div class="event-winner"><small>優勝</small>日本大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">日本大学</td><td class="right">103</td><td class="right">221</td><td class="pt-cell right">324</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">早稲田大学</td><td class="right">173</td><td class="right">191</td><td class="pt-cell right">364</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">177</td><td class="right">245</td><td class="pt-cell right">422</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">中央大学</td><td class="right">308</td><td class="right">377</td><td class="right">685</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">明海大学</td><td class="right">416</td><td class="right">317</td><td class="right">733</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
         <a href="pdf/2021/2021_autumn_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
         <a href="pdf/2021/2021_autumn_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
       </div>
@@ -751,18 +748,8 @@
       <div class="event-winner"><small>優勝</small>早稲田大学</div>
       <div class="toggle-icon">▼</div>
     </div>
-    <div class="event-body">
-      <table class="result-table">
-        <thead><tr><th style="width:60px">順位</th><th>大学</th><th class="right">470級</th><th class="right">スナイプ級</th><th class="right">総合</th></tr></thead>
-        <tbody>
-          <tr><td class="rank-cell rank-1">#1</td><td class="univ-cell">早稲田大学</td><td class="right">30</td><td class="right">28</td><td class="pt-cell right">58</td></tr>
-          <tr><td class="rank-cell rank-2">#2</td><td class="univ-cell">日本大学</td><td class="right">23</td><td class="right">74</td><td class="pt-cell right">97</td></tr>
-          <tr><td class="rank-cell rank-3">#3</td><td class="univ-cell">慶應義塾大学</td><td class="right">95</td><td class="right">112</td><td class="pt-cell right">207</td></tr>
-          <tr><td class="rank-cell">#4</td><td class="univ-cell">中央大学</td><td class="right">103</td><td class="right">128</td><td class="right">231</td></tr>
-          <tr><td class="rank-cell">#5</td><td class="univ-cell">明治大学</td><td class="right">60</td><td class="right">186</td><td class="right">246</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="event-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:8px">
         <a href="pdf/2020/2020_autumn_final_470.pdf" target="_blank" class="pdf-dl-btn">📄 470級</a>
         <a href="pdf/2020/2020_autumn_final_snipe.pdf" target="_blank" class="pdf-dl-btn">📄 スナイプ級</a>
         <a href="pdf/2020/2020_autumn_final_total.pdf" target="_blank" class="pdf-dl-btn">📄 総合</a>
