@@ -1,3 +1,17 @@
+:root{
+  --bg:#050a18;
+  --bg2:#0a1020;
+  --border:rgba(255,255,255,.08);
+  --accent:#00d4ff;
+  --accent2:#6366f1;
+  --gold:#f5b731;
+  --muted:#475569;
+  --muted2:#94a3b8;
+  --surface:rgba(255,255,255,.04);
+  --radius:12px;
+  --font-display:'Bebas Neue',cursive;
+  --font-body:'Noto Sans JP',sans-serif;
+}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -182,8 +196,7 @@ img{display:block;max-width:100%}
   .player-grid{grid-template-columns:1fr;padding:0 16px 60px}
   .search-bar{padding:0 16px}
   .forecast-page-grid{grid-template-columns:1fr;padding:20px 16px 60px}
-    .year-content{padding:16px 16px 60px}
-}
+    }
 
 /* ── サブページ共通 ── */
 .page-hero{padding:72px 24px 52px;background:#fff;border-bottom:1px solid #e2e8f0}
