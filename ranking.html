@@ -8,13 +8,75 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+.page-hero{padding:120px 24px 60px;background:linear-gradient(180deg,rgba(0,100,200,.12) 0%,transparent 100%);border-bottom:1px solid var(--border)}
+.page-hero-inner{max-width:1200px;margin:auto}
+.page-title{font-family:var(--font-display);font-size:clamp(44px,6vw,72px);letter-spacing:.04em;color:#fff;margin-bottom:8px}
+.page-desc{font-size:15px;color:var(--muted2)}
+.tab-wrap{max-width:1200px;margin:0 auto;padding:32px 24px 0}
+.year-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.year-btn{padding:8px 20px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-family:var(--font-display);font-size:20px;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.year-btn:hover{border-color:var(--accent);color:var(--accent)}
+.year-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700}
+.cat-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.cat-btn{padding:7px 14px;border:1px solid var(--border);border-radius:99px;background:transparent;color:var(--muted2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
+.cat-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cat-btn.active{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.4);color:var(--accent)}
+.tab-panels{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+.rank-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.panel-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:#fff}
+.rank-header{display:grid;padding:12px 20px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.h6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.r6{grid-template-columns:52px 1fr 150px 80px 80px 80px}
+.h-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.r-univ{grid-template-columns:52px 1fr 70px 60px 90px 90px}
+.rank-row{display:grid;padding:13px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s;cursor:pointer}
+.rank-row:last-child{border-bottom:none}
+.rank-row:hover{background:rgba(255,255,255,.04)}
+.rank-num{font-family:var(--font-display);font-size:20px;color:var(--muted);letter-spacing:.04em}
+.top1 .rank-num{color:var(--gold)}
+.top2 .rank-num{color:#c0c0c0}
+.top3 .rank-num{color:#cd7f32}
+.rank-name{font-size:15px;font-weight:700;color:#fff}
+.rank-sub{font-size:12px;color:var(--muted2);margin-top:2px}
+.rank-univ{font-size:13px;color:var(--muted2)}
+.rank-cls{font-size:12px;color:var(--muted2)}
+.rank-role{font-size:12px;font-weight:700}
+.role-sk{color:var(--accent)}
+.role-cr{color:var(--gold)}
+.rank-pt{text-align:right;font-family:var(--font-display);font-size:20px;color:var(--accent);letter-spacing:.04em}
+.text-right{text-align:right}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+/* TACKボタン */
+.tack-back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.8);
+  font-size:12px;font-weight:500;
+  padding:5px 14px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.2);
+  text-decoration:none;
+  transition:background .2s;
+  white-space:nowrap;
+}
+.tack-back-btn:hover{background:rgba(255,255,255,.2)}
+.tack-back-btn svg{flex-shrink:0}
+@media(max-width:700px){
+  .h6,.r6{grid-template-columns:44px 1fr 70px}
+  .h6>*:nth-child(n+4),.r6>*:nth-child(n+4){display:none}
+  .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
+  .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
+}
+</style>
 </head>
 <body>
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
     <div class="nav-links">
-      <a href="ranking.html" class="nav-active">ランキング</a>
+      <a href="ranking.html">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
@@ -26,7 +88,7 @@
     <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="ranking.html" class="nav-active">ランキング</a>
+    <a href="ranking.html">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
@@ -45,9 +107,6 @@
 <div class="tab-wrap">
   <div class="year-tabs" id="yearTabs">
     <button class="year-btn active" data-year="all">歴代</button>
-    <button class="year-btn" data-year="2026">2026</button>
-    <button class="year-btn" data-year="2025">2025</button>
-    <button class="year-btn" data-year="2024">2024</button>
     <button class="year-btn" data-year="2023">2023</button>
     <button class="year-btn" data-year="2022">2022</button>
     <button class="year-btn" data-year="2021">2021</button>
@@ -89,7 +148,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p><p style="margin-top:6px;font-size:12px;opacity:.5">Part of <a href="index.html" style="color:inherit;text-decoration:underline">TACK Sailing Media</a></p></div>
-      <div class="footer-links"><a href="ranking.html" class="nav-active">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
+      <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
     </div>
     <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 独自アルゴリズムで算出。</small></div>
   </div>
@@ -119,7 +178,7 @@ function renderPlayers(data){
   return(data||[]).map((p,i)=>{
     const cls=p.cls==='470'?'470級':'スナイプ級';
     const rc=p.role==='Skipper'?'role-sk':'role-cr';
-    return`<div class="rank-row r6 ${tc(i)}" onclick="location.href='players.html?name=${encodeURIComponent(p.name)}'">
+    return`<div class="rank-row r6 ${tc(i)}" onclick="openPlayerModal('${p.name.replace(/'/g,\"\\'\")}')">
       <div class="rank-num">#${p.rank}</div>
       <div><div class="rank-name">${p.name}</div><div class="rank-sub">出場${p.events}大会</div></div>
       <div class="rank-univ">${p.univ}</div>
@@ -175,5 +234,110 @@ window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
 });
 </script>
+
+<!-- 選手モーダル -->
+<div class="modal-overlay" id="playerModalOverlay" onclick="closePlayerModal(event)" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;overflow-y:auto">
+  <div class="modal" id="playerModal" style="background:#fff;max-width:680px;margin:40px auto;border-radius:16px;padding:32px;position:relative">
+    <button onclick="document.getElementById('playerModalOverlay').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">✕</button>
+    <div id="playerModalContent"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+let _playerChart = null;
+
+function openPlayerModal(name) {
+  // SITE_DATAから選手を検索
+  const sources = [
+    SITE_DATA.individualRanking, SITE_DATA.rankingSkipper, SITE_DATA.rankingCrew,
+    SITE_DATA.ranking470Skipper, SITE_DATA.ranking470Crew,
+    SITE_DATA.rankingSnipeSkipper, SITE_DATA.rankingSnipeCrew,
+  ];
+  Object.keys(SITE_DATA).forEach(k => {
+    if (/^y\d{4}_/.test(k) && Array.isArray(SITE_DATA[k])) sources.push(SITE_DATA[k]);
+  });
+  const map = {};
+  sources.forEach(arr => {
+    if (!Array.isArray(arr)) return;
+    arr.forEach(p => {
+      const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+      if (!map[key] || map[key].pt < p.allPt) map[key] = {...p, pt: p.allPt};
+    });
+  });
+  const p = Object.values(map).find(x => x.name === name);
+  if (!p) { location.href = 'players.html?name=' + encodeURIComponent(name); return; }
+
+  const records = (p.records||[]).sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
+  const clsLabel = p.cls==='470' ? '470級' : 'スナイプ級';
+  const bestRank = records.length ? Math.min(...records.map(r=>r.rank)) : '-';
+
+  const yearMap = {};
+  records.forEach(r => {
+    if (!yearMap[r.year]) yearMap[r.year] = {ranks:[],pts:0};
+    yearMap[r.year].ranks.push(r.rank);
+    yearMap[r.year].pts += r.pt;
+  });
+  const years = Object.keys(yearMap).sort();
+  const yearAvgs = years.map(y => Math.round(yearMap[y].ranks.reduce((a,b)=>a+b,0)/yearMap[y].ranks.length*10)/10);
+
+  const rows = records.map(r =>
+    '<tr><td style="white-space:nowrap">'+r.year+'年</td>'
+    +'<td style="font-size:12px;color:#475569">'+r.event+'</td>'
+    +'<td style="white-space:nowrap;font-weight:700">#'+r.rank+'</td>'
+    +'<td style="text-align:right;color:#6366f1;font-weight:700">'+r.pt+'</td></tr>'
+  ).join('');
+
+  document.getElementById('playerModalContent').innerHTML =
+    '<div style="font-size:28px;font-weight:900;color:#0f172a;margin-bottom:4px">'+p.name+'</div>'
+    +'<div style="color:#64748b;margin-bottom:20px">'+p.univ+' / '+clsLabel+' / '+p.role+'</div>'
+    +'<div style="display:flex;gap:12px;margin-bottom:20px">'
+    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+p.pt+'</div><div style="font-size:12px;color:#94a3b8">累計Pt</div></div>'
+    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+records.length+'</div><div style="font-size:12px;color:#94a3b8">出場大会</div></div>'
+    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+bestRank+'</div><div style="font-size:12px;color:#94a3b8">最高順位</div></div>'
+    +'</div>'
+    +'<div style="font-weight:700;margin-bottom:8px">年度別 平均順位</div>'
+    +'<div style="background:#f8faff;border-radius:12px;padding:16px;margin-bottom:20px"><canvas id="_pc" height="160"></canvas></div>'
+    +'<div style="font-weight:700;margin-bottom:8px">大会別成績</div>'
+    +'<table style="width:100%;border-collapse:collapse;font-size:13px">'
+    +'<thead><tr style="border-bottom:2px solid #e2e8f0"><th style="padding:8px 4px;text-align:left">年度</th><th style="padding:8px 4px;text-align:left">大会名</th><th style="padding:8px 4px">着順</th><th style="padding:8px 4px;text-align:right">Pt</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table>';
+
+  document.getElementById('playerModalOverlay').style.display = 'block';
+
+  if (_playerChart) _playerChart.destroy();
+  _playerChart = new Chart(document.getElementById('_pc').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: years.map(y=>y+'年'),
+      datasets: [{
+        data: yearAvgs,
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99,102,241,.1)',
+        pointBackgroundColor: '#6366f1',
+        pointRadius: 6,
+        tension: 0.3, fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { reverse:true, min:1, ticks:{color:'#64748b',callback:v=>'#'+v}, grid:{color:'rgba(0,0,0,.06)'} },
+        x: { ticks:{color:'#64748b'} }
+      },
+      plugins: {
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>'平均順位: #'+ctx.parsed.y+'（'+yearMap[years[ctx.dataIndex]].ranks.length+'大会）'}}
+      }
+    }
+  });
+}
+
+function closePlayerModal(e) {
+  if (e.target === document.getElementById('playerModalOverlay'))
+    document.getElementById('playerModalOverlay').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
