@@ -150,36 +150,50 @@ function openModal(name, univ, cls, role) {
 
   const records = p.records || [];
   const sorted = [...records].sort((a,b) => a.year - b.year || a.event.localeCompare(b.event));
-  const labels = sorted.map(r => r.event.replace(/\d{4}年[度]?/,'').replace('関東学生ヨット','').replace('選手権大会','').replace('決勝','決勝').replace(' スナイプ級','Sn').replace(' 470級','470'));
-  const ranks = sorted.map(r => r.rank);
   const pts = sorted.map(r => r.pt);
   const clsLabel = p.cls === '470' ? '470級' : 'スナイプ級';
 
-  document.getElementById('modalContent').innerHTML = `
-    <div class="modal-name">${p.name}</div>
-    <div class="modal-univ">${p.univ} / ${clsLabel} / ${p.role}</div>
+  // ── 年度別平均順位を計算 ──
+  const yearMap = {};
+  sorted.forEach(r => {
+    if (!yearMap[r.year]) yearMap[r.year] = { ranks: [], pts: 0 };
+    yearMap[r.year].ranks.push(r.rank);
+    yearMap[r.year].pts += r.pt;
+  });
+  const years = Object.keys(yearMap).sort();
+  const yearAvgRanks = years.map(y => {
+    const arr = yearMap[y].ranks;
+    return Math.round(arr.reduce((a,b)=>a+b,0) / arr.length * 10) / 10;
+  });
+  const yearLabels = years.map(y => y + '年');
+
+  const bestRank = sorted.length ? Math.min(...sorted.map(r=>r.rank)) : '-';
+
+  document.getElementById('modalContent').innerHTML = \`
+    <div class="modal-name">\${p.name}</div>
+    <div class="modal-univ">\${p.univ} / \${clsLabel} / \${p.role}</div>
     <div class="modal-stats">
-      <div class="stat-card"><div class="stat-val">${p.pt}</div><div class="stat-label">累計Pt</div></div>
-      <div class="stat-card"><div class="stat-val">${sorted.length}</div><div class="stat-label">出場大会</div></div>
-      <div class="stat-card"><div class="stat-val">${ranks.length ? Math.min(...ranks) : '-'}</div><div class="stat-label">最高順位</div></div>
+      <div class="stat-card"><div class="stat-val">\${p.pt}</div><div class="stat-label">累計Pt</div></div>
+      <div class="stat-card"><div class="stat-val">\${sorted.length}</div><div class="stat-label">出場大会</div></div>
+      <div class="stat-card"><div class="stat-val">\${bestRank}</div><div class="stat-label">最高順位</div></div>
     </div>
     <div class="chart-wrap">
-      <div class="chart-title">大会別 着順推移</div>
-      <canvas id="rankChart" height="200"></canvas>
+      <div class="chart-title">年度別 平均順位</div>
+      <canvas id="rankChart" height="180"></canvas>
     </div>
-    <div class="chart-title" style="margin-top:16px">大会別成績</div>
+    <div class="chart-title" style="margin-top:20px;margin-bottom:12px">大会別成績</div>
     <table class="record-table">
-      <thead><tr><th>年度</th><th>大会</th><th>着順</th><th class="text-right">獲得Pt</th></tr></thead>
+      <thead><tr><th>年度</th><th>大会名</th><th>着順</th><th class="text-right">獲得Pt</th></tr></thead>
       <tbody>
-        ${sorted.map(r=>`<tr>
-          <td>${r.year}</td>
-          <td style="font-size:12px">${r.event}</td>
-          <td class="record-rank">#${r.rank}</td>
-          <td class="text-right" style="color:#6366f1;font-weight:700">${r.pt}</td>
-        </tr>`).join('')}
+        \${sorted.map(r=>\`<tr>
+          <td style="white-space:nowrap">\${r.year}年</td>
+          <td style="font-size:12px;color:#475569">\${r.event}</td>
+          <td class="record-rank" style="white-space:nowrap">#\${r.rank}</td>
+          <td class="text-right" style="color:#6366f1;font-weight:700">\${r.pt}</td>
+        </tr>\`).join('')}
       </tbody>
     </table>
-  `;
+  \`;
 
   document.getElementById('modalOverlay').classList.add('open');
 
@@ -188,14 +202,15 @@ function openModal(name, univ, cls, role) {
   chartInstance = new Chart(ctx, {
     type: 'line',
     data: {
-      labels,
+      labels: yearLabels,
       datasets: [{
-        label: '着順',
-        data: ranks,
+        label: '平均順位',
+        data: yearAvgRanks,
         borderColor: '#6366f1',
-        backgroundColor: 'rgba(99,102,241,.1)',
+        backgroundColor: 'rgba(99,102,241,.12)',
         pointBackgroundColor: '#6366f1',
-        pointRadius: 5,
+        pointRadius: 6,
+        pointHoverRadius: 8,
         tension: 0.3,
         fill: true,
       }]
@@ -204,16 +219,34 @@ function openModal(name, univ, cls, role) {
       responsive: true,
       scales: {
         y: {
-          reverse: true, min: 1,
-          ticks: { color: '#64748b', stepSize: 1 },
+          reverse: true,
+          min: 1,
+          ticks: {
+            color: '#64748b',
+            stepSize: 1,
+            callback: v => '#' + v
+          },
           grid: { color: 'rgba(0,0,0,.06)' },
-          title: { display: true, text: '着順（上位ほど上）', color: '#64748b' }
+          title: { display: true, text: '平均順位（上位ほど上）', color: '#64748b', font:{size:11} }
         },
-        x: { ticks: { color: '#64748b', maxRotation: 45 }, grid: { color: 'rgba(0,0,0,.04)' } }
+        x: {
+          ticks: { color: '#64748b' },
+          grid: { color: 'rgba(0,0,0,.04)' }
+        }
       },
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => `${ctx.parsed.y}位 (${pts[ctx.dataIndex]}pt)` } }
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const y = years[ctx.dataIndex];
+              const info = yearMap[y];
+              const avg = ctx.parsed.y;
+              const cnt = info.ranks.length;
+              return \`平均順位: #\${avg}（\${cnt}大会）\`;
+            }
+          }
+        }
       }
     }
   });
