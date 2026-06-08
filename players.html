@@ -73,35 +73,61 @@
 <script>
 // 全選手データを結合・重複排除（allPtで最大値を保持）
 function getAllPlayers() {
+  // key → {meta, records: {event -> record}}
   const map = {};
+
+  function mergePlayer(p) {
+    const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
+    if (!map[key]) {
+      map[key] = {
+        name: p.name, univ: p.univ, cls: p.cls, role: p.role,
+        allPt: p.allPt || p.pt || 0,
+        records: {}
+      };
+    }
+    // allPtは最大値を保持
+    if ((p.allPt || p.pt || 0) > map[key].allPt) {
+      map[key].allPt = p.allPt || p.pt || 0;
+    }
+    // recordsを全てマージ（イベント名でユニーク化）
+    if (Array.isArray(p.records)) {
+      p.records.forEach(function(r) {
+        if (!map[key].records[r.event]) {
+          map[key].records[r.event] = r;
+        }
+      });
+    }
+  }
+
+  // 歴代ランキングから取得（全recordsが入っているのでこれが主ソース）
   const keys = ['individualRanking','rankingSkipper','rankingCrew',
     'ranking470Skipper','ranking470Crew','rankingSnipeSkipper','rankingSnipeCrew'];
-  // 歴代ランキング
   keys.forEach(k => {
     const arr = SITE_DATA[k];
     if (!Array.isArray(arr)) return;
-    arr.forEach(p => {
-      const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
-      if (!map[key] || (map[key].allPt||0) < (p.allPt||p.pt||0)) {
-        map[key] = {...p, pt: p.allPt || p.pt};
-      }
-    });
+    arr.forEach(mergePlayer);
   });
-  // 年度別からも補完（歴代に載っていない選手）
+
+  // 年度別からも補完（歴代TOP20に載っていない選手のrecordsを追加）
   Object.keys(SITE_DATA).forEach(k => {
     if (!/^y\d{4}_/.test(k)) return;
     const arr = SITE_DATA[k];
     if (!Array.isArray(arr)) return;
-    arr.forEach(p => {
-      const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
-      if (!map[key]) {
-        map[key] = {...p, pt: p.allPt || p.pt};
-      } else if ((map[key].allPt||0) < (p.allPt||0)) {
-        map[key] = {...p, pt: p.allPt || p.pt};
-      }
-    });
+    arr.forEach(mergePlayer);
   });
-  return Object.values(map).sort((a,b) => (b.allPt||b.pt) - (a.allPt||a.pt));
+
+  // recordsをリストに変換してpt計算
+  return Object.values(map).map(function(p) {
+    const recs = Object.values(p.records).sort(function(a,b){
+      return a.year - b.year || a.event.localeCompare(b.event);
+    });
+    return {
+      name: p.name, univ: p.univ, cls: p.cls, role: p.role,
+      allPt: p.allPt, pt: p.allPt,
+      events: recs.length,
+      records: recs
+    };
+  }).sort((a,b) => b.allPt - a.allPt);
 }
 
 let allPlayers = [];

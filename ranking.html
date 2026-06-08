@@ -262,14 +262,29 @@ let _pmChart = null;
 
 function buildPlayerMap(){
   const map = {};
+  function merge(p) {
+    const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+    if(!map[key]) {
+      map[key] = {
+        name:p.name, univ:p.univ, cls:p.cls, role:p.role,
+        allPt: p.allPt||p.pt||0, records:{}
+      };
+    }
+    if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
+    if(Array.isArray(p.records)) {
+      p.records.forEach(r => { if(!map[key].records[r.event]) map[key].records[r.event]=r; });
+    }
+  }
   Object.keys(SITE_DATA).forEach(k => {
     if(k==='universityRanking'||k==='forecasts'||k==='nextEvent') return;
     const arr = SITE_DATA[k];
     if(!Array.isArray(arr)) return;
-    arr.forEach(p => {
-      const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
-      if(!map[key] || (map[key].allPt||map[key].pt||0) < (p.allPt||p.pt||0)) map[key] = p;
-    });
+    arr.forEach(merge);
+  });
+  // recordsをリストに変換
+  Object.values(map).forEach(p => {
+    p.records = Object.values(p.records).sort((a,b)=>a.year-b.year||a.event.localeCompare(b.event));
+    p.pt = p.allPt;
   });
   return map;
 }
