@@ -73,62 +73,47 @@
 <script>
 // 全選手データを結合・重複排除（allPtで最大値を保持）
 function getAllPlayers() {
-  // key → {meta, records: {event -> record}}
+  // 全配列を走査してrecordsを完全マージ
   const map = {};
 
-  function mergePlayer(p) {
-    const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
-    if (!map[key]) {
-      map[key] = {
-        name: p.name, univ: p.univ, cls: p.cls, role: p.role,
-        allPt: p.allPt || p.pt || 0,
-        records: {}
-      };
-    }
-    // allPtは最大値を保持
-    if ((p.allPt || p.pt || 0) > map[key].allPt) {
-      map[key].allPt = p.allPt || p.pt || 0;
-    }
-    // recordsを全てマージ（イベント名でユニーク化）
-    if (Array.isArray(p.records)) {
-      p.records.forEach(function(r) {
-        if (!map[key].records[r.event]) {
-          map[key].records[r.event] = r;
-        }
-      });
-    }
-  }
-
-  // 歴代ランキングから取得（全recordsが入っているのでこれが主ソース）
-  const keys = ['individualRanking','rankingSkipper','rankingCrew',
-    'ranking470Skipper','ranking470Crew','rankingSnipeSkipper','rankingSnipeCrew'];
-  keys.forEach(k => {
-    const arr = SITE_DATA[k];
-    if (!Array.isArray(arr)) return;
-    arr.forEach(mergePlayer);
-  });
-
-  // 年度別からも補完（歴代TOP20に載っていない選手のrecordsを追加）
   Object.keys(SITE_DATA).forEach(k => {
-    if (!/^y\d{4}_/.test(k)) return;
+    if (k === 'universityRanking' || k === 'forecasts' || k === 'nextEvent') return;
     const arr = SITE_DATA[k];
     if (!Array.isArray(arr)) return;
-    arr.forEach(mergePlayer);
+    arr.forEach(p => {
+      const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
+      if (!map[key]) {
+        map[key] = {
+          name: p.name, univ: p.univ, cls: p.cls, role: p.role,
+          allPt: 0, recMap: {}
+        };
+      }
+      // allPtは最大値を保持
+      if ((p.allPt || p.pt || 0) > map[key].allPt) {
+        map[key].allPt = p.allPt || p.pt || 0;
+      }
+      // recordsを全てマージ（イベント名でユニーク化）
+      if (Array.isArray(p.records)) {
+        p.records.forEach(r => {
+          map[key].recMap[r.event] = r;
+        });
+      }
+    });
   });
 
-  // recordsをリストに変換してpt計算
-  return Object.values(map).map(function(p) {
-    const recs = Object.values(p.records).sort(function(a,b){
-      return a.year - b.year || a.event.localeCompare(b.event);
-    });
+  return Object.values(map).map(p => {
+    const records = Object.values(p.recMap).sort((a, b) =>
+      a.year - b.year || a.event.localeCompare(b.event)
+    );
     return {
       name: p.name, univ: p.univ, cls: p.cls, role: p.role,
       allPt: p.allPt, pt: p.allPt,
-      events: recs.length,
-      records: recs
+      events: records.length,
+      records: records
     };
-  }).sort((a,b) => b.allPt - a.allPt);
+  }).sort((a, b) => b.allPt - a.allPt);
 }
+
 
 let allPlayers = [];
 let chartInstance = null;
