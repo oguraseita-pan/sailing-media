@@ -69,6 +69,9 @@
   .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
   .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
 }
+
+#pmOverlay{display:none}
+#pmOverlay.open{display:block}
 </style>
 </head>
 <body>
@@ -76,7 +79,7 @@
   <div class="nav-inner">
     <a href="sailrank.html" class="logo">SAIL<span>RANK</span></a>
     <div class="nav-links">
-      <a href="ranking.html">ランキング</a>
+      <a href="ranking.html" class="nav-active">ランキング</a>
       <a href="forecast.html">AI予測</a>
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
@@ -88,7 +91,7 @@
     <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="ranking.html">ランキング</a>
+    <a href="ranking.html" class="nav-active">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
@@ -107,7 +110,7 @@
 <div class="tab-wrap">
   <div class="year-tabs" id="yearTabs">
     <button class="year-btn active" data-year="all">歴代</button>
-    <button class="year-btn" data-year="2023">2023</button>
+    <button class="year-btn" data-year="2026">2026</button> <button class="year-btn" data-year="2025">2025</button> <button class="year-btn" data-year="2024">2024</button> <button class="year-btn" data-year="2023">2023</button>
     <button class="year-btn" data-year="2022">2022</button>
     <button class="year-btn" data-year="2021">2021</button>
     <button class="year-btn" data-year="2020">2020</button>
@@ -148,7 +151,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p><p style="margin-top:6px;font-size:12px;opacity:.5">Part of <a href="index.html" style="color:inherit;text-decoration:underline">TACK Sailing Media</a></p></div>
-      <div class="footer-links"><a href="ranking.html">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
+      <div class="footer-links"><a href="ranking.html" class="nav-active">ランキング</a><a href="forecast.html">AI予測</a><a href="players.html">選手DB</a><a href="results.html">大会結果</a></div>
     </div>
     <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 独自アルゴリズムで算出。</small></div>
   </div>
@@ -235,94 +238,100 @@ window.addEventListener('scroll',()=>{
 });
 </script>
 
-<!-- 選手モーダル -->
-<div class="modal-overlay" id="playerModalOverlay" onclick="closePlayerModal(event)" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;overflow-y:auto">
-  <div class="modal" id="playerModal" style="background:#fff;max-width:680px;margin:40px auto;border-radius:16px;padding:32px;position:relative">
-    <button onclick="document.getElementById('playerModalOverlay').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">✕</button>
-    <div id="playerModalContent"></div>
+<div id="pmOverlay" onclick="if(event.target===this)this.classList.remove('open')" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;overflow-y:auto">
+  <div style="background:#fff;max-width:660px;margin:40px auto 80px;border-radius:16px;padding:32px;position:relative">
+    <button onclick="document.getElementById('pmOverlay').classList.remove('open')" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;line-height:1">✕</button>
+    <div id="pmContent"></div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-let _playerChart = null;
-
+let _pmChart = null;
 function openPlayerModal(name) {
-  // SITE_DATAから選手を検索
-  const sources = [
-    SITE_DATA.individualRanking, SITE_DATA.rankingSkipper, SITE_DATA.rankingCrew,
-    SITE_DATA.ranking470Skipper, SITE_DATA.ranking470Crew,
-    SITE_DATA.rankingSnipeSkipper, SITE_DATA.rankingSnipeCrew,
-  ];
-  Object.keys(SITE_DATA).forEach(k => {
-    if (/^y\d{4}_/.test(k) && Array.isArray(SITE_DATA[k])) sources.push(SITE_DATA[k]);
-  });
   const map = {};
-  sources.forEach(arr => {
-    if (!Array.isArray(arr)) return;
-    arr.forEach(p => {
-      const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
-      if (!map[key] || map[key].pt < p.allPt) map[key] = {...p, pt: p.allPt};
-    });
+  const keys = ['individualRanking','rankingSkipper','rankingCrew','ranking470Skipper','ranking470Crew','rankingSnipeSkipper','rankingSnipeCrew'];
+  Object.keys(SITE_DATA).forEach(k => {
+    if (keys.includes(k) || /^y\d{4}_/.test(k)) {
+      const arr = SITE_DATA[k];
+      if (!Array.isArray(arr)) return;
+      arr.forEach(p => {
+        const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+        if (!map[key] || map[key].allPt < p.allPt) map[key] = p;
+      });
+    }
   });
   const p = Object.values(map).find(x => x.name === name);
   if (!p) { location.href = 'players.html?name=' + encodeURIComponent(name); return; }
 
-  const records = (p.records||[]).sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
+  const records = [...(p.records||[])].sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
   const clsLabel = p.cls==='470' ? '470級' : 'スナイプ級';
   const bestRank = records.length ? Math.min(...records.map(r=>r.rank)) : '-';
+  const totalPt = p.allPt;
+  const totalEvents = records.length;
 
+  // 年度別平均順位
   const yearMap = {};
   records.forEach(r => {
-    if (!yearMap[r.year]) yearMap[r.year] = {ranks:[],pts:0};
+    if (!yearMap[r.year]) yearMap[r.year] = {ranks:[]};
     yearMap[r.year].ranks.push(r.rank);
-    yearMap[r.year].pts += r.pt;
   });
   const years = Object.keys(yearMap).sort();
-  const yearAvgs = years.map(y => Math.round(yearMap[y].ranks.reduce((a,b)=>a+b,0)/yearMap[y].ranks.length*10)/10);
+  const avgRanks = years.map(y => {
+    const arr = yearMap[y].ranks;
+    return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length * 10)/10;
+  });
 
+  // 大会別成績テーブル
   const rows = records.map(r =>
-    '<tr><td style="white-space:nowrap">'+r.year+'年</td>'
-    +'<td style="font-size:12px;color:#475569">'+r.event+'</td>'
-    +'<td style="white-space:nowrap;font-weight:700">#'+r.rank+'</td>'
-    +'<td style="text-align:right;color:#6366f1;font-weight:700">'+r.pt+'</td></tr>'
+    '<tr style="border-bottom:1px solid #f1f5f9">'
+    +'<td style="padding:8px 4px;white-space:nowrap;color:#64748b;font-size:13px">'+r.year+'年</td>'
+    +'<td style="padding:8px 4px;font-size:12px;color:#475569">'+r.event+'</td>'
+    +'<td style="padding:8px 4px;text-align:center;font-weight:700">#'+r.rank+'</td>'
+    +'<td style="padding:8px 4px;text-align:right;color:#6366f1;font-weight:700">'+r.pt+'</td>'
+    +'</tr>'
   ).join('');
 
-  document.getElementById('playerModalContent').innerHTML =
-    '<div style="font-size:28px;font-weight:900;color:#0f172a;margin-bottom:4px">'+p.name+'</div>'
-    +'<div style="color:#64748b;margin-bottom:20px">'+p.univ+' / '+clsLabel+' / '+p.role+'</div>'
-    +'<div style="display:flex;gap:12px;margin-bottom:20px">'
-    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+p.pt+'</div><div style="font-size:12px;color:#94a3b8">累計Pt</div></div>'
-    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+records.length+'</div><div style="font-size:12px;color:#94a3b8">出場大会</div></div>'
-    +  '<div style="flex:1;background:#f8faff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">'+bestRank+'</div><div style="font-size:12px;color:#94a3b8">最高順位</div></div>'
-    +'</div>'
-    +'<div style="font-weight:700;margin-bottom:8px">年度別 平均順位</div>'
-    +'<div style="background:#f8faff;border-radius:12px;padding:16px;margin-bottom:20px"><canvas id="_pc" height="160"></canvas></div>'
-    +'<div style="font-weight:700;margin-bottom:8px">大会別成績</div>'
-    +'<table style="width:100%;border-collapse:collapse;font-size:13px">'
-    +'<thead><tr style="border-bottom:2px solid #e2e8f0"><th style="padding:8px 4px;text-align:left">年度</th><th style="padding:8px 4px;text-align:left">大会名</th><th style="padding:8px 4px">着順</th><th style="padding:8px 4px;text-align:right">Pt</th></tr></thead>'
+  document.getElementById('pmContent').innerHTML =
+    '<div style="font-size:26px;font-weight:900;color:#0f172a;margin-bottom:4px">'+p.name+'</div>'
+    +'<div style="color:#64748b;font-size:14px;margin-bottom:20px">'+p.univ+' ／ '+clsLabel+' ／ '+p.role+'</div>'
+    +'<div style="display:flex;gap:10px;margin-bottom:24px">'
+    +['<div style="flex:1;background:#f8faff;border-radius:12px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6366f1">'+totalPt+'</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">累計Pt</div></div>',
+      '<div style="flex:1;background:#f8faff;border-radius:12px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6366f1">'+totalEvents+'</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">出場大会</div></div>',
+      '<div style="flex:1;background:#f8faff;border-radius:12px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6366f1">'+bestRank+'</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">最高順位</div></div>'
+    ].join('')+'</div>'
+    +'<div style="font-weight:700;font-size:14px;margin-bottom:8px">年度別 平均順位</div>'
+    +'<div style="background:#f8faff;border-radius:12px;padding:16px;margin-bottom:20px"><canvas id="_pmChart" height="150"></canvas></div>'
+    +'<div style="font-weight:700;font-size:14px;margin-bottom:8px">大会別成績</div>'
+    +'<table style="width:100%;border-collapse:collapse">'
+    +'<thead><tr style="border-bottom:2px solid #e2e8f0"><th style="padding:8px 4px;text-align:left;font-size:12px;color:#94a3b8">年度</th><th style="padding:8px 4px;text-align:left;font-size:12px;color:#94a3b8">大会</th><th style="padding:8px 4px;font-size:12px;color:#94a3b8">着順</th><th style="padding:8px 4px;text-align:right;font-size:12px;color:#94a3b8">Pt</th></tr></thead>'
     +'<tbody>'+rows+'</tbody></table>';
 
-  document.getElementById('playerModalOverlay').style.display = 'block';
+  const ov = document.getElementById('pmOverlay');
+  ov.style.display = 'block';
+  setTimeout(() => ov.classList.add('open'), 10);
 
-  if (_playerChart) _playerChart.destroy();
-  _playerChart = new Chart(document.getElementById('_pc').getContext('2d'), {
+  if (_pmChart) _pmChart.destroy();
+  _pmChart = new Chart(document.getElementById('_pmChart').getContext('2d'), {
     type: 'line',
     data: {
-      labels: years.map(y=>y+'年'),
+      labels: years.map(y => y+'年'),
       datasets: [{
-        data: yearAvgs,
+        data: avgRanks,
         borderColor: '#6366f1',
         backgroundColor: 'rgba(99,102,241,.1)',
         pointBackgroundColor: '#6366f1',
-        pointRadius: 6,
-        tension: 0.3, fill: true
+        pointRadius: 6, tension: 0.3, fill: true
       }]
     },
     options: {
       responsive: true,
       scales: {
-        y: { reverse:true, min:1, ticks:{color:'#64748b',callback:v=>'#'+v}, grid:{color:'rgba(0,0,0,.06)'} },
+        y: { reverse:true, min:1,
+             ticks:{color:'#64748b', callback: v => '#'+v},
+             grid:{color:'rgba(0,0,0,.06)'},
+             title:{display:true, text:'平均順位', color:'#64748b', font:{size:11}}
+        },
         x: { ticks:{color:'#64748b'} }
       },
       plugins: {
@@ -331,11 +340,6 @@ function openPlayerModal(name) {
       }
     }
   });
-}
-
-function closePlayerModal(e) {
-  if (e.target === document.getElementById('playerModalOverlay'))
-    document.getElementById('playerModalOverlay').style.display = 'none';
 }
 </script>
 
