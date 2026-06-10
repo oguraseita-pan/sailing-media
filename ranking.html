@@ -125,13 +125,17 @@
   </div>
 </div>
 
-<div class="seg-tabs" id="segTabs">
-  <div class="seg-group">
-    <span class="seg-group-label">大学生</span>
+<div class="seg-section">
+  <div class="seg-tabs" id="segTabs">
+    <span class="seg-label">大学生</span>
     <button class="seg-btn active" data-seg="univ-kanto">関東</button>
-    <button class="seg-btn coming-soon" data-seg="univ-kansai" disabled>関西<span class="seg-coming-badge">準備中</span></button>
-    <button class="seg-btn coming-soon" data-seg="univ-other" disabled>その他<span class="seg-coming-badge">準備中</span></button>
+    <button class="seg-btn" data-seg="univ-kansai" disabled>関西<span class="seg-badge">準備中</span></button>
+    <button class="seg-btn" data-seg="univ-other" disabled>その他<span class="seg-badge">準備中</span></button>
+    <div class="seg-divider"></div>
+    <span class="seg-label">社会人</span>
+    <button class="seg-btn" data-seg="pro" disabled>全国<span class="seg-badge">準備中</span></button>
   </div>
+</div>
   <div class="seg-group">
     <span class="seg-group-label">高校生</span>
     <button class="seg-btn coming-soon" data-seg="hs-kanto" disabled>関東<span class="seg-coming-badge">準備中</span></button>
@@ -195,14 +199,17 @@
     </div>
     <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 独自アルゴリズムで算出。</small></div>
   </div>
+  <div class="coming-soon-title">このカテゴリーは準備中です</div>
+  <div class="coming-soon-desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div>
+</div>
+
+</footer>
 
 <div class="coming-soon-panel" id="comingSoonPanel">
   <div class="coming-soon-icon">🚧</div>
   <div class="coming-soon-title">このカテゴリーは準備中です</div>
   <div class="coming-soon-desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div>
 </div>
-
-</footer>
 
 <!-- 選手モーダル -->
 <div class="pm-overlay" id="pmOverlay" onclick="if(event.target===this)closePm()">
@@ -417,20 +424,16 @@ function openPm(name){
 // セグメント切り替え
 document.getElementById('segTabs').addEventListener('click', function(e) {
   const btn = e.target.closest('[data-seg]');
-  if (!btn || btn.classList.contains('coming-soon')) return;
+  if (!btn || btn.disabled) return;
   document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const seg = btn.dataset.seg;
-  if (seg === 'univ-kanto') {
-    document.getElementById('univKantoPanel').style.display = '';
-    document.querySelector('.tab-panels').style.display = '';
-    document.getElementById('comingSoonPanel').classList.remove('show');
-  } else {
-    document.getElementById('univKantoPanel').style.display = 'none';
-    document.querySelector('.tab-panels').style.display = 'none';
-    document.getElementById('comingSoonPanel').classList.add('show');
-  }
+  const isKanto = btn.dataset.seg === 'univ-kanto';
+  document.querySelector('.tab-wrap').style.display = isKanto ? '' : 'none';
+  document.querySelector('.tab-panels').style.display = isKanto ? '' : 'none';
+  const panel = document.getElementById('comingSoonPanel');
+  panel.classList.toggle('show', !isKanto);
 });
+
 
 function closePm(){
   document.getElementById('pmOverlay').classList.remove('open');
