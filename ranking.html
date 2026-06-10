@@ -74,22 +74,66 @@
   .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
 }
 
-/* カテゴリータブ */
-.seg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
-.seg-btn{padding:7px 16px;border:1px solid #e2e8f0;border-radius:99px;background:#fff;color:#64748b;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;position:relative}
-.seg-btn:hover{border-color:#6366f1;color:#6366f1}
-.seg-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
-.seg-btn.coming-soon{cursor:default;opacity:.55}
-.seg-btn.coming-soon:hover{border-color:#e2e8f0;color:#64748b}
-.seg-coming-badge{display:inline-block;font-size:9px;font-weight:700;background:#e2e8f0;color:#94a3b8;border-radius:99px;padding:1px 6px;margin-left:4px;vertical-align:middle;letter-spacing:.04em}
-.seg-group{display:flex;align-items:center;gap:8px;margin-right:12px}
-.seg-group-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.coming-soon-panel{display:none;text-align:center;padding:80px 24px;color:#94a3b8}
-.coming-soon-panel.show{display:block}
-.coming-soon-icon{font-size:48px;margin-bottom:16px}
-.coming-soon-title{font-size:20px;font-weight:700;color:#64748b;margin-bottom:8px}
-.coming-soon-desc{font-size:14px;line-height:1.7}
 
+
+/* ── カテゴリーセグメント ── */
+.cat-seg{
+  background:#f8faff;
+  border-bottom:1px solid #e2e8f0;
+  padding:0 24px;
+}
+.cat-seg-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:0;
+  height:52px;
+}
+.cat-seg-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 16px;
+}
+.cat-seg-group:first-child{padding-left:0}
+.cat-seg-divider{width:1px;height:24px;background:#e2e8f0;flex-shrink:0}
+.cat-seg-label{
+  font-size:11px;font-weight:700;color:#94a3b8;
+  letter-spacing:.1em;text-transform:uppercase;
+  white-space:nowrap;margin-right:2px;
+}
+.cat-seg-btn{
+  padding:5px 14px;
+  border:1.5px solid #e2e8f0;
+  border-radius:99px;
+  background:#fff;
+  color:#64748b;
+  font-size:13px;font-weight:600;
+  cursor:pointer;
+  transition:all .2s;
+  display:inline-flex;align-items:center;gap:4px;
+  white-space:nowrap;
+}
+.cat-seg-btn:hover:not([disabled]){border-color:#6366f1;color:#6366f1}
+.cat-seg-btn.seg-active{background:#6366f1;border-color:#6366f1;color:#fff}
+.cat-seg-btn[disabled]{cursor:default;opacity:.45;pointer-events:none}
+.cat-seg-badge{
+  font-size:9px;font-weight:700;
+  background:#f1f5f9;color:#94a3b8;
+  border-radius:99px;padding:1px 5px;
+  letter-spacing:.04em;
+}
+.cat-seg-btn.seg-active .cat-seg-badge{background:rgba(255,255,255,.25);color:rgba(255,255,255,.8)}
+/* 準備中パネル */
+.seg-coming-panel{
+  display:none;max-width:1200px;margin:80px auto;
+  padding:0 24px;text-align:center;color:#94a3b8;
+}
+.seg-coming-panel.active{display:block}
+.seg-coming-panel .icon{font-size:40px;margin-bottom:10px}
+.seg-coming-panel .ttl{font-size:18px;font-weight:700;color:#64748b;margin-bottom:6px}
+.seg-coming-panel .desc{font-size:14px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -125,28 +169,23 @@
   </div>
 </div>
 
-<div class="seg-section">
-  <div class="seg-tabs" id="segTabs">
-    <span class="seg-label">大学生</span>
-    <button class="seg-btn active" data-seg="univ-kanto">関東</button>
-    <button class="seg-btn" data-seg="univ-kansai" disabled>関西<span class="seg-badge">準備中</span></button>
-    <button class="seg-btn" data-seg="univ-other" disabled>その他<span class="seg-badge">準備中</span></button>
-    <div class="seg-divider"></div>
-    <span class="seg-label">社会人</span>
-    <button class="seg-btn" data-seg="pro" disabled>全国<span class="seg-badge">準備中</span></button>
+<div class="cat-seg" id="catSegBar">
+  <div class="cat-seg-inner">
+    <div class="cat-seg-group">
+      <span class="cat-seg-label">大学生</span>
+      <button class="cat-seg-btn seg-active" data-cseg="univ-kanto">関東</button>
+      <button class="cat-seg-btn" data-cseg="univ-kansai" disabled>関西<span class="cat-seg-badge">準備中</span></button>
+      <button class="cat-seg-btn" data-cseg="univ-other" disabled>その他<span class="cat-seg-badge">準備中</span></button>
+    </div>
+    <div class="cat-seg-divider"></div>
+    <div class="cat-seg-group">
+      <span class="cat-seg-label">社会人</span>
+      <button class="cat-seg-btn" data-cseg="pro" disabled>全国<span class="cat-seg-badge">準備中</span></button>
+    </div>
   </div>
 </div>
-  <div class="seg-group">
-    <span class="seg-group-label">高校生</span>
-    <button class="seg-btn coming-soon" data-seg="hs-kanto" disabled>関東<span class="seg-coming-badge">準備中</span></button>
-    <button class="seg-btn coming-soon" data-seg="hs-kansai" disabled>関西<span class="seg-coming-badge">準備中</span></button>
-    <button class="seg-btn coming-soon" data-seg="hs-other" disabled>その他<span class="seg-coming-badge">準備中</span></button>
-  </div>
-  <div class="seg-group">
-    <span class="seg-group-label">社会人</span>
-    <button class="seg-btn coming-soon" data-seg="pro" disabled>全国<span class="seg-coming-badge">準備中</span></button>
-  </div>
-</div>
+
+<div id="mainRankContent">
 
 <div class="tab-wrap" id="univKantoPanel">
   <div class="year-tabs" id="yearTabs">
@@ -205,11 +244,9 @@
 
 </footer>
 
-<div class="coming-soon-panel" id="comingSoonPanel">
-  <div class="coming-soon-icon">🚧</div>
-  <div class="coming-soon-title">このカテゴリーは準備中です</div>
-  <div class="coming-soon-desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div>
-</div>
+</div><!-- /mainRankContent -->
+
+<div class="seg-coming-panel" id="segComingPanel"><div class="icon">🚧</div><div class="ttl">このカテゴリーは準備中です</div><div class="desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div></div>
 
 <!-- 選手モーダル -->
 <div class="pm-overlay" id="pmOverlay" onclick="if(event.target===this)closePm()">
@@ -421,19 +458,17 @@ function openPm(name){
 }
 
 
-// セグメント切り替え
-document.getElementById('segTabs').addEventListener('click', function(e) {
-  const btn = e.target.closest('[data-seg]');
-  if (!btn || btn.disabled) return;
-  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const isKanto = btn.dataset.seg === 'univ-kanto';
-  document.querySelector('.tab-wrap').style.display = isKanto ? '' : 'none';
-  document.querySelector('.tab-panels').style.display = isKanto ? '' : 'none';
-  const panel = document.getElementById('comingSoonPanel');
-  panel.classList.toggle('show', !isKanto);
-});
 
+// カテゴリーセグメント切り替え
+document.getElementById('catSegBar').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-cseg]');
+  if (!btn || btn.disabled) return;
+  document.querySelectorAll('.cat-seg-btn').forEach(b => b.classList.remove('seg-active'));
+  btn.classList.add('seg-active');
+  const isKanto = btn.dataset.cseg === 'univ-kanto';
+  document.getElementById('mainRankContent').style.display = isKanto ? '' : 'none';
+  document.getElementById('segComingPanel').classList.toggle('active', !isKanto);
+});
 
 function closePm(){
   document.getElementById('pmOverlay').classList.remove('open');
