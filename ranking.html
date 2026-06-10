@@ -73,6 +73,23 @@
   .h-univ,.r-univ{grid-template-columns:44px 1fr 70px}
   .h-univ>*:nth-child(n+4),.r-univ>*:nth-child(n+4){display:none}
 }
+
+/* カテゴリータブ */
+.seg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
+.seg-btn{padding:7px 16px;border:1px solid #e2e8f0;border-radius:99px;background:#fff;color:#64748b;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;position:relative}
+.seg-btn:hover{border-color:#6366f1;color:#6366f1}
+.seg-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
+.seg-btn.coming-soon{cursor:default;opacity:.55}
+.seg-btn.coming-soon:hover{border-color:#e2e8f0;color:#64748b}
+.seg-coming-badge{display:inline-block;font-size:9px;font-weight:700;background:#e2e8f0;color:#94a3b8;border-radius:99px;padding:1px 6px;margin-left:4px;vertical-align:middle;letter-spacing:.04em}
+.seg-group{display:flex;align-items:center;gap:8px;margin-right:12px}
+.seg-group-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.coming-soon-panel{display:none;text-align:center;padding:80px 24px;color:#94a3b8}
+.coming-soon-panel.show{display:block}
+.coming-soon-icon{font-size:48px;margin-bottom:16px}
+.coming-soon-title{font-size:20px;font-weight:700;color:#64748b;margin-bottom:8px}
+.coming-soon-desc{font-size:14px;line-height:1.7}
+
 </style>
 </head>
 <body>
@@ -108,7 +125,26 @@
   </div>
 </div>
 
-<div class="tab-wrap">
+<div class="seg-tabs" id="segTabs">
+  <div class="seg-group">
+    <span class="seg-group-label">大学生</span>
+    <button class="seg-btn active" data-seg="univ-kanto">関東</button>
+    <button class="seg-btn coming-soon" data-seg="univ-kansai" disabled>関西<span class="seg-coming-badge">準備中</span></button>
+    <button class="seg-btn coming-soon" data-seg="univ-other" disabled>その他<span class="seg-coming-badge">準備中</span></button>
+  </div>
+  <div class="seg-group">
+    <span class="seg-group-label">高校生</span>
+    <button class="seg-btn coming-soon" data-seg="hs-kanto" disabled>関東<span class="seg-coming-badge">準備中</span></button>
+    <button class="seg-btn coming-soon" data-seg="hs-kansai" disabled>関西<span class="seg-coming-badge">準備中</span></button>
+    <button class="seg-btn coming-soon" data-seg="hs-other" disabled>その他<span class="seg-coming-badge">準備中</span></button>
+  </div>
+  <div class="seg-group">
+    <span class="seg-group-label">社会人</span>
+    <button class="seg-btn coming-soon" data-seg="pro" disabled>全国<span class="seg-coming-badge">準備中</span></button>
+  </div>
+</div>
+
+<div class="tab-wrap" id="univKantoPanel">
   <div class="year-tabs" id="yearTabs">
     <button class="year-btn active" data-year="all">歴代</button>
     <button class="year-btn" data-year="2026">2026</button>
@@ -159,6 +195,13 @@
     </div>
     <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 独自アルゴリズムで算出。</small></div>
   </div>
+
+<div class="coming-soon-panel" id="comingSoonPanel">
+  <div class="coming-soon-icon">🚧</div>
+  <div class="coming-soon-title">このカテゴリーは準備中です</div>
+  <div class="coming-soon-desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div>
+</div>
+
 </footer>
 
 <!-- 選手モーダル -->
@@ -369,6 +412,25 @@ function openPm(name){
     }
   });
 }
+
+
+// セグメント切り替え
+document.getElementById('segTabs').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-seg]');
+  if (!btn || btn.classList.contains('coming-soon')) return;
+  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const seg = btn.dataset.seg;
+  if (seg === 'univ-kanto') {
+    document.getElementById('univKantoPanel').style.display = '';
+    document.querySelector('.tab-panels').style.display = '';
+    document.getElementById('comingSoonPanel').classList.remove('show');
+  } else {
+    document.getElementById('univKantoPanel').style.display = 'none';
+    document.querySelector('.tab-panels').style.display = 'none';
+    document.getElementById('comingSoonPanel').classList.add('show');
+  }
+});
 
 function closePm(){
   document.getElementById('pmOverlay').classList.remove('open');
