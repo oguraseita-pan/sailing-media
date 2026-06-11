@@ -1,6 +1,6 @@
 // main.js ― データをHTMLに描画する
 
-// ―― nav scroll: 白背景を維持しつつシャドウのみ ――
+// ―― nav scroll: シャドウのみ ――
 const nav = document.getElementById('nav');
 if (nav) {
   window.addEventListener('scroll', () => {
@@ -10,36 +10,17 @@ if (nav) {
   });
 }
 
+// ―― sailrank.html 用のみ（ranking.html等では rankList が独自管理） ――
 function renderRanking() {
   const el = document.getElementById('rankList');
+  // ranking.html は独自のrender()関数で管理するためここでは何もしない
   if (!el) return;
-  const topClass = ['top1','top2','top3'];
-  el.innerHTML = SITE_DATA.individualRanking.map((p, i) => `
-    <div class="rank-row ${topClass[i] || ''}">
-      <div class="rank-num">#${p.rank}</div>
-      <div><div class="rank-name">${p.name}</div><div class="rank-role">${p.role}</div></div>
-      <div class="rank-univ">${p.univ}</div>
-      <div class="rank-class">${p.cls}</div>
-      <div class="rank-pt">${p.pt}</div>
-    </div>
-  `).join('');
 }
 
 function renderForecast() {
   const el = document.getElementById('forecastPreview');
+  // sailrank.htmlは独自のrenderForecast()で上書きするためここでは何もしない
   if (!el) return;
-  const maxPct = SITE_DATA.forecasts[0].pct;
-  el.innerHTML = SITE_DATA.forecasts.map(f => `
-    <div class="forecast-card">
-      <div class="forecast-rank-num">PREDICTED #${f.rank}</div>
-      <div class="forecast-name">${f.name}</div>
-      <div class="forecast-pct">${f.pct}%</div>
-      <div class="forecast-bar">
-        <div class="forecast-bar-fill" style="width:${(f.pct/maxPct*100).toFixed(1)}%"></div>
-      </div>
-      <div class="forecast-meta">${f.meta}</div>
-    </div>
-  `).join('');
 }
 
 function renderUnivGrid() {
@@ -55,6 +36,54 @@ function renderUnivGrid() {
       </div>
     </div>
   `).join('');
+}
+
+// ―― 共通: 選手データ結合（全ページで使用） ――
+// STEP1: individualRanking から正式な大会名・着順付きrecordsを取得
+// STEP2: y****_sk470等の年度別データで全選手を補完（99件打ち切り以下の選手も対象）
+function buildPlayerMap() {
+  const map = {};
+
+  // STEP1: individualRanking（上位20名分の詳細records）
+  (SITE_DATA.individualRanking || []).forEach(p => {
+    const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
+    if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
+    if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
+    if (Array.isArray(p.records)) p.records.forEach(r => { map[key].recMap[r.event] = r; });
+  });
+
+  // STEP2: 年度別データ（skipper/crew/individual は重複するため除外）
+  const suffixLabel = {
+    sk470:   '関東秋季選手権 470級',
+    cr470:   '関東秋季選手権 470級',
+    skSnipe: '関東秋季選手権 スナイプ級',
+    crSnipe: '関東秋季選手権 スナイプ級',
+  };
+  Object.keys(SITE_DATA).forEach(k => {
+    const m = k.match(/^y(\d{4})_(.+)$/);
+    if (!m) return;
+    const year = parseInt(m[1]), suffix = m[2];
+    const label = suffixLabel[suffix];
+    if (!label) return; // skipper/crew/individual はスキップ
+    (SITE_DATA[k] || []).forEach(p => {
+      const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
+      if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
+      if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
+      // 同一年度・同一ラベルは1エントリのみ（STEP1の正式recordを優先）
+      const evKey = year + '_' + label;
+      if (!map[key].recMap[evKey]) {
+        map[key].recMap[evKey] = { year, event: year + '年度 ' + label, rank: p.rank, pt: p.pt || 0 };
+      }
+    });
+  });
+
+  // recMap → records 配列に変換
+  const result = {};
+  Object.entries(map).forEach(([key, p]) => {
+    const records = Object.values(p.recMap).sort((a, b) => a.year - b.year || a.event.localeCompare(b.event));
+    result[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:p.allPt, pt:p.allPt, records };
+  });
+  return result;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

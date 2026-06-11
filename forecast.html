@@ -518,47 +518,8 @@ function renderIndivForecast() {
 <script>
 var _fcChart = null;
 
-function buildFcPlayerMap() {
-  var map = {};
-  // STEP1: individualRankingから正式records
-  (SITE_DATA.individualRanking || []).forEach(function(p) {
-    var key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
-    if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
-    if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
-    if(Array.isArray(p.records)) p.records.forEach(function(r){ map[key].recMap[r.event]=r; });
-  });
-  // STEP2: 年度別データから疑似record（skipper/crew/individual除外）
-  var suffixLabel = {
-    sk470:'関東秋季選手権 470級', cr470:'関東秋季選手権 470級',
-    skSnipe:'関東秋季選手権 スナイプ級', crSnipe:'関東秋季選手権 スナイプ級'
-  };
-  Object.keys(SITE_DATA).forEach(function(k) {
-    var m = k.match(/^y(\d{4})_(.+)$/);
-    if(!m) return;
-    var year = parseInt(m[1]), suffix = m[2];
-    var label = suffixLabel[suffix];
-    if(!label) return;
-    (SITE_DATA[k]||[]).forEach(function(p) {
-      var key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
-      if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
-      if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
-      var evKey = year+'_'+label;
-      if(!map[key].recMap[evKey]) {
-        map[key].recMap[evKey] = {year:year, event:year+'年度 '+label, rank:p.rank, pt:p.pt||0};
-      }
-    });
-  });
-  var result = {};
-  Object.keys(map).forEach(function(key) {
-    var p = map[key];
-    var records = Object.values(p.recMap).sort(function(a,b){ return a.year-b.year||a.event.localeCompare(b.event); });
-    result[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:p.allPt,records:records};
-  });
-  return result;
-}
-
 function openForecastModal(name) {
-  var map = buildFcPlayerMap();
+  var map = buildPlayerMap();
   var p = Object.values(map).find(function(x){ return x.name === name; });
   if(!p) return;
 
