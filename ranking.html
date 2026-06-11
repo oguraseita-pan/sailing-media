@@ -357,7 +357,9 @@ function updateTitle(){
 function render(){
   updateTitle();
   const key = getKey(currentYear, currentCat);
-  const data = SITE_DATA[key] || [];
+  const full = SITE_DATA[key] || [];
+  // 歴代(all)は20位まで、年度別は20位まで統一
+  const data = full.slice(0, 20);
   const html = currentCat==='university' ? renderUniv(data) : renderPlayers(data);
   document.getElementById('rankList').innerHTML = html || '<div class="empty">データなし</div>';
 }
@@ -422,7 +424,8 @@ function openPm(name, univ){
                  : all.sort((a,b)=>b.allPt-a.allPt)[0];
   if(!p){ location.href = 'players.html?name=' + encodeURIComponent(name); return; }
 
-  const records = [...(p.records||[])].sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
+  // allPtはあるがrecordsが空の選手は、allPtを年度別に推定してフォールバック
+  let records = [...(p.records||[])].sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
   const totalPt = p.allPt || p.pt;
   const clsLabel = p.cls==='470' ? '470級' : 'スナイプ級';
   const bestRank = records.length ? Math.min(...records.map(r=>r.rank)) : '-';
@@ -438,11 +441,16 @@ function openPm(name, univ){
     const arr = yearMap[y];
     return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length * 10)/10;
   });
+  const hasRecords = years.length > 0;
 
   // 大会別成績テーブル
   const rows = records.map(r =>
-    `<tr><td>${r.year}年</td><td style="font-size:12px">${r.event}</td><td class="rnk">#${r.rank}</td><td class="pt">${r.pt}</td></tr>`
+    `<tr><td>${r.year}年</td><td style="font-size:12px">${r.event}</td><td class="rnk">${r.rank}</td><td class="pt">${r.pt}</td></tr>`
   ).join('');
+
+  const chartOrMsg = hasRecords
+    ? `<div class="pm-section">年度別 平均順位</div><div class="pm-chart-wrap"><canvas id="pmChart" height="160"></canvas></div>`
+    : `<div class="pm-chart-wrap" style="display:flex;align-items:center;justify-content:center;min-height:80px;color:#94a3b8;font-size:13px">大会成績データ収集中（データは随時追加予定）</div>`;
 
   document.getElementById('pmContent').innerHTML = `
     <div class="pm-name">${p.name}</div>
@@ -452,8 +460,7 @@ function openPm(name, univ){
       <div class="pm-stat"><div class="pm-stat-val">${records.length}</div><div class="pm-stat-lbl">出場大会</div></div>
       <div class="pm-stat"><div class="pm-stat-val">${bestRank}</div><div class="pm-stat-lbl">最高順位</div></div>
     </div>
-    <div class="pm-section">年度別 平均順位</div>
-    <div class="pm-chart-wrap"><canvas id="pmChart" height="160"></canvas></div>
+    ${chartOrMsg}
     <div class="pm-section">大会別成績</div>
     <table class="pm-table">
       <thead><tr><th>年度</th><th>大会名</th><th style="text-align:center">着順</th><th class="r">Pt</th></tr></thead>
@@ -462,6 +469,7 @@ function openPm(name, univ){
 
   document.getElementById('pmOverlay').classList.add('open');
 
+  if(!hasRecords) return;
   if(_pmChart) _pmChart.destroy();
   _pmChart = new Chart(document.getElementById('pmChart').getContext('2d'), {
     type: 'line',

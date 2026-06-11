@@ -194,6 +194,7 @@ function openModal(name, univ, cls, role) {
     var arr = yearMap[y];
     return Math.round(arr.reduce(function(a,b){return a+b;},0) / arr.length * 10) / 10;
   });
+  var hasRecords = years.length > 0;
 
   // 大会別成績テーブル
   var rows = records.map(function(r) {
@@ -213,10 +214,9 @@ function openModal(name, univ, cls, role) {
     +   '<div class="stat-card"><div class="stat-val">' + records.length + '</div><div class="stat-label">出場大会</div></div>'
     +   '<div class="stat-card"><div class="stat-val">' + bestRank + '</div><div class="stat-label">最高順位</div></div>'
     + '</div>'
-    + '<div class="chart-wrap">'
-    +   '<div class="chart-title">年度別 平均順位</div>'
-    +   '<canvas id="rankChart" height="200"></canvas>'
-    + '</div>'
+    +(hasRecords
+      ? '<div class="chart-wrap"><div class="chart-title">年度別 平均順位</div><canvas id="rankChart" height="200"></canvas></div>'
+      : '<div class="chart-wrap" style="display:flex;align-items:center;justify-content:center;min-height:80px;color:#94a3b8;font-size:13px">大会成績データ収集中</div>')
     + '<div class="chart-title">大会別成績</div>'
     + '<table class="record-table">'
     +   '<thead><tr><th>年度</th><th>大会名</th><th>着順</th><th class="text-right">獲得Pt</th></tr></thead>'
@@ -225,6 +225,7 @@ function openModal(name, univ, cls, role) {
 
   document.getElementById('modalOverlay').classList.add('open');
 
+  if (!hasRecords) return;
   if (chartInstance) chartInstance.destroy();
   var ctx = document.getElementById('rankChart').getContext('2d');
   chartInstance = new Chart(ctx, {
