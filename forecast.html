@@ -228,8 +228,9 @@
     <!-- アルゴリズム説明 -->
     <div class="algo-note">
       <strong>予測アルゴリズムについて</strong><br>
-      各大会の開催日から予測基準日までの経過日数をもとに指数関数的に係数を算出（直近ほど高係数）。同年内でも春季→個人→秋季の順に重みが変わります。学連・非公式大会の係数は同等。<strong>個人予測は2026年の大会に出場した選手のみを対象</strong>とし、在学中かどうかを判定しています。出場選手のレベルによる調整・過去データの相関分析は今後導入予定。<br>
-      ※ この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。
+      <strong>大学予測</strong>：各年度・各クラスの大学別上位3艇のpt合計に大会日係数を乗算（直近2026年春季が最高係数）して積み上げ。予選・女子インカレは対象外。<br>
+      <strong>個人予測</strong>：2026年の大会に出場した選手（＝在学確認済み）のみを対象に、全出場年度のptを大会日係数付きで合算。過去の実績も係数減衰で反映。係数はλ=400の指数減衰（直近27日前≒0.93、1年前≒0.40、2年前≒0.16）。<br>
+      ※ 予選・女子インカレ等の限定参加大会は集計対象外。この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。
     </div>
   </div>
 
@@ -266,42 +267,48 @@ var currentType = 'univ';
 var currentCls  = 'total';
 var currentIndivCls = 'all';
 
-// ── 予測基準日（今日） ──
+// ── 予測基準日 ──
 var TODAY = new Date(2026, 5, 11); // 2026-06-11
 
-// ── 大会名 → 推定開催日 ──
-// event名と year から月を推定してDateオブジェクトを返す
-// 春季決勝 ≒ 5月中旬、個人選手権 ≒ 7月上旬、秋季/全日本決勝 ≒ 10月中旬
-function estimateEventDate(eventName, year) {
+// ── 使用するデータキー（予選・女子インカレ除外、クラス別本戦のみ） ──
+// skipper/crew/individual は集計対象外
+var CLS_KEYS_470    = ['sk470', 'cr470'];
+var CLS_KEYS_SNIPE  = ['skSnipe', 'crSnipe'];
+var CLS_KEYS_ALL    = CLS_KEYS_470.concat(CLS_KEYS_SNIPE);
+
+// ── 年度 × キー → 推定開催日 ──
+// 春季決勝≒5/15、個人選手権≒7/5、秋季/全日本決勝≒10/15
+// sk/cr 系は秋季決勝（10月）がメイン大会
+// 2026年春季(5月)は最新データとして扱う
+var EVENT_MONTH = {
+  sk470:    { spring: new Date(2026,4,15), main: function(y){return new Date(y,9,15);} },
+  cr470:    { spring: new Date(2026,4,15), main: function(y){return new Date(y,9,15);} },
+  skSnipe:  { spring: new Date(2026,4,15), main: function(y){return new Date(y,9,15);} },
+  crSnipe:  { spring: new Date(2026,4,15), main: function(y){return new Date(y,9,15);} },
+};
+
+function getEventDate(suffix, year) {
   var y = parseInt(year, 10);
-  if (eventName.includes('春季')) return new Date(y, 4, 15);   // 5/15
-  if (eventName.includes('個人')) return new Date(y, 6,  5);   // 7/5
-  // 秋季・全日本・第○○回 決勝
-  return new Date(y, 9, 15);                                    // 10/15
+  if (y === 2026) return new Date(2026, 4, 15);  // 2026年=春季(5/15)
+  return new Date(y, 9, 15);                      // それ以前=秋季(10/15)
 }
 
-// ── 大会日ベースの係数（指数減衰） ──
-// 基準日からの経過日数 d に対して exp(-d / λ)
-// λ=500 で約1.5年で係数が 1/e ≈ 0.37 に減衰
-var LAMBDA = 500;
-function dateWeight(eventDate) {
-  var diffDays = (TODAY - eventDate) / 86400000;
-  if (diffDays < 0) diffDays = 0; // 未来大会は最大係数1
-  return Math.exp(-diffDays / LAMBDA);
+// ── 大会日ベースの指数減衰係数 ──
+// λ=400: 直近1年≒0.40、2年前≒0.16、3年前≒0.065
+var LAMBDA = 400;
+function dateWeight(evDate) {
+  var d = (TODAY - evDate) / 86400000;
+  if (d < 0) d = 0;
+  return Math.exp(-d / LAMBDA);
 }
 
-// ── 今年（2026）の大会に出場した選手セットを構築 ──
-// y2026_* に1件でも登場した name|cls|role を有効とする
-function buildActivePlayerSet() {
-  var active = new Set();
-  var keys2026 = ['y2026_sk470','y2026_cr470','y2026_skSnipe','y2026_crSnipe',
-                  'y2026_skipper','y2026_crew','y2026_individual'];
-  keys2026.forEach(function(key) {
-    (SITE_DATA[key] || []).forEach(function(p) {
-      active.add(p.name);
-    });
+// ── 2026年出場選手セット（在学フィルター用） ──
+function buildActive2026() {
+  var s = new Set();
+  CLS_KEYS_ALL.forEach(function(suffix) {
+    (SITE_DATA['y2026_' + suffix] || []).forEach(function(p) { s.add(p.name); });
   });
-  return active;
+  return s;
 }
 
 // ── 初期化 ──
@@ -341,11 +348,11 @@ function setType(type) {
 function setCls(cls) {
   currentCls = cls;
   ['total','470','snipe'].forEach(function(c) {
-    var id = 'clsBtn' + (c==='total'?'Total':c==='470'?'470':'Snipe');
-    document.getElementById(id).classList.toggle('active', c === cls);
+    document.getElementById('clsBtn'+(c==='total'?'Total':c==='470'?'470':'Snipe'))
+      .classList.toggle('active', c === cls);
   });
-  var labels = {total:'大学 総合予測', '470':'大学 470級予測', snipe:'大学 スナイプ予測'};
-  document.getElementById('univPanelTitle').textContent = labels[cls];
+  document.getElementById('univPanelTitle').textContent =
+    {total:'大学 総合予測','470':'大学 470級予測',snipe:'大学 スナイプ予測'}[cls];
   renderUnivForecast();
 }
 
@@ -353,95 +360,103 @@ function setCls(cls) {
 function setIndivCls(cls) {
   currentIndivCls = cls;
   ['all','470','snipe'].forEach(function(c) {
-    var id = 'indivClsBtn' + (c==='all'?'All':c==='470'?'470':'Snipe');
-    document.getElementById(id).classList.toggle('active', c === cls);
+    document.getElementById('indivClsBtn'+(c==='all'?'All':c==='470'?'470':'Snipe'))
+      .classList.toggle('active', c === cls);
   });
-  var labels = {all:'個人 全クラス予測', '470':'個人 470級予測', snipe:'個人 スナイプ予測'};
-  document.getElementById('indivPanelTitle').textContent = labels[cls];
+  document.getElementById('indivPanelTitle').textContent =
+    {all:'個人 全クラス予測','470':'個人 470級予測',snipe:'個人 スナイプ予測'}[cls];
   renderIndivForecast();
 }
 
-// ── 予測スコア計算（大学） ──
-// individualRanking の records を使い、大会ごとに日付係数を適用
+// ── 大学予測スコア計算 ──
+// 方針：各年度・各クラスの「大学別上位3艇のpt合計」× 大会日係数 を積み上げ
+// 使用年度：2026（最重要）〜 2024（直近3年）+ 2016〜2023（低係数で補完）
 function calcUnivScores(clsFilter) {
+  var suffixes = clsFilter === '470' ? CLS_KEYS_470
+               : clsFilter === 'snipe' ? CLS_KEYS_SNIPE
+               : CLS_KEYS_ALL;
+
   var univMap = {};
 
-  (SITE_DATA.individualRanking || []).forEach(function(p) {
-    // クラスフィルター
-    if (clsFilter !== 'total') {
-      var wantCls = clsFilter === '470' ? '470' : 'snipe';
-      if (p.cls !== wantCls) return;
-    }
-    var u = p.univ;
-    if (!univMap[u]) univMap[u] = 0;
+  // 全年度を走査
+  var years = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+  years.forEach(function(yr) {
+    var evDate = getEventDate(null, yr);
+    var w = dateWeight(evDate);
 
-    // 大会ごとに日付係数 × pt を加算
-    (p.records || []).forEach(function(r) {
-      var evDate = estimateEventDate(r.event, r.year);
-      var w = dateWeight(evDate);
-      univMap[u] += (r.pt || 0) * w;
+    suffixes.forEach(function(suffix) {
+      var key = 'y' + yr + '_' + suffix;
+      var rows = SITE_DATA[key] || [];
+
+      // 大学別に集約
+      var byUniv = {};
+      rows.forEach(function(p) {
+        if (!byUniv[p.univ]) byUniv[p.univ] = [];
+        byUniv[p.univ].push(p.pt || 0);
+      });
+
+      // 上位3艇の合計 × 係数 を加算
+      Object.keys(byUniv).forEach(function(u) {
+        var top3 = byUniv[u].sort(function(a,b){return b-a;}).slice(0,3);
+        var sum  = top3.reduce(function(s,v){return s+v;},0);
+        if (!univMap[u]) univMap[u] = 0;
+        univMap[u] += sum * w;
+      });
     });
   });
 
-  var arr = Object.keys(univMap).map(function(name) {
-    return {name: name, score: univMap[name]};
-  }).sort(function(a,b) { return b.score - a.score; }).slice(0, 10);
+  var arr = Object.keys(univMap)
+    .map(function(n){ return {name:n, score:univMap[n]}; })
+    .sort(function(a,b){ return b.score-a.score; })
+    .slice(0,10);
 
   var total = arr.reduce(function(s,x){return s+x.score;},0);
-  return arr.map(function(x, i) {
-    return {
-      rank:  i + 1,
-      name:  x.name,
-      pct:   total > 0 ? Math.round(x.score / total * 1000) / 10 : 0,
-      score: x.score
-    };
+  return arr.map(function(x,i){
+    return {rank:i+1, name:x.name,
+            pct: total>0 ? Math.round(x.score/total*1000)/10 : 0};
   });
 }
 
-// ── 予測スコア計算（個人） ──
-// ① 2026年の大会に出場した選手のみ対象
-// ② 大会ごとに日付係数を適用
+// ── 個人予測スコア計算 ──
+// 方針：① 2026年出場選手のみ対象（在学確認）
+//       ② 全年度の y****_sk470 / cr470 / skSnipe / crSnipe から
+//          大会日係数付きで pt を集計（過去分も加算）
 function calcIndivScores(clsFilter) {
-  var activePlayers = buildActivePlayerSet();
+  var active2026 = buildActive2026();
+  var suffixes = clsFilter === '470' ? CLS_KEYS_470
+               : clsFilter === 'snipe' ? CLS_KEYS_SNIPE
+               : CLS_KEYS_ALL;
+
   var playerMap = {};
 
-  (SITE_DATA.individualRanking || []).forEach(function(p) {
-    // ① 在学フィルター：今年の大会に出場していない選手は除外
-    if (!activePlayers.has(p.name)) return;
+  var years = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+  years.forEach(function(yr) {
+    var evDate = getEventDate(null, yr);
+    var w = dateWeight(evDate);
 
-    // ② クラスフィルター
-    if (clsFilter !== 'all') {
-      var wantCls = clsFilter === '470' ? '470' : 'snipe';
-      if (p.cls !== wantCls) return;
-    }
+    suffixes.forEach(function(suffix) {
+      (SITE_DATA['y' + yr + '_' + suffix] || []).forEach(function(p) {
+        // ① 在学フィルター
+        if (!active2026.has(p.name)) return;
 
-    var key = p.name + '|' + p.cls + '|' + p.role;
-    if (!playerMap[key]) {
-      playerMap[key] = {name:p.name, univ:p.univ, cls:p.cls, role:p.role, score:0};
-    }
-
-    // 大会ごとに日付係数 × pt を加算
-    (p.records || []).forEach(function(r) {
-      var evDate = estimateEventDate(r.event, r.year);
-      var w = dateWeight(evDate);
-      playerMap[key].score += (r.pt || 0) * w;
+        var k = p.name + '|' + p.cls + '|' + p.role;
+        if (!playerMap[k]) {
+          playerMap[k] = {name:p.name, univ:p.univ, cls:p.cls, role:p.role, score:0};
+        }
+        // ② 大会日係数 × pt を加算
+        playerMap[k].score += (p.pt || 0) * w;
+      });
     });
   });
 
   var arr = Object.values(playerMap)
-    .sort(function(a,b){ return b.score - a.score; })
-    .slice(0, 20);
+    .sort(function(a,b){ return b.score-a.score; })
+    .slice(0,20);
 
   var total = arr.reduce(function(s,x){return s+x.score;},0);
-  return arr.map(function(x, i) {
-    return {
-      rank: i + 1,
-      name: x.name,
-      univ: x.univ,
-      cls:  x.cls,
-      role: x.role,
-      pct:  total > 0 ? Math.round(x.score / total * 1000) / 10 : 0
-    };
+  return arr.map(function(x,i){
+    return {rank:i+1, name:x.name, univ:x.univ, cls:x.cls, role:x.role,
+            pct: total>0 ? Math.round(x.score/total*1000)/10 : 0};
   });
 }
 
