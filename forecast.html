@@ -258,6 +258,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
@@ -490,8 +491,8 @@ function renderIndivForecast() {
     var roleTag = '<span class="fc-tag ' + (p.role==='Skipper'?'tag-sk':'tag-cr') + '">' + p.role + '</span>';
     var clsTag  = '<span class="fc-tag ' + (p.cls==='470'?'tag-470':'tag-snipe') + '">'
                   + (p.cls==='470'?'470級':'スナイプ') + '</span>';
-    var url = 'players.html?name=' + encodeURIComponent(p.name);
-    return '<div class="fc-indiv-card ' + tc + '" onclick="location.href=\'' + url + '\'">'
+    var safeName = p.name.replace(/'/g, "\\'");
+    return '<div class="fc-indiv-card ' + tc + '" onclick="openForecastModal(\'' + safeName + '\')">'
       + '<div class="fc-indiv-rank">#' + p.rank + '</div>'
       + '<div class="fc-indiv-info">'
       + '<div class="fc-name">' + p.name + '</div>'
@@ -505,5 +506,135 @@ function renderIndivForecast() {
     html || '<div style="text-align:center;padding:40px;color:#94a3b8">今年の大会に出場した選手データがありません</div>';
 }
 </script>
+
+<!-- ── 選手プロフィールモーダル（AI予測ページ内） ── -->
+<div class="modal-overlay" id="fcModalOverlay" onclick="closeForecastModal(event)">
+  <div class="modal" id="fcModal">
+    <button class="modal-close" onclick="document.getElementById('fcModalOverlay').classList.remove('open')">✕</button>
+    <div id="fcModalContent"></div>
+  </div>
+</div>
+
+<script>
+var _fcChart = null;
+
+function buildFcPlayerMap() {
+  var map = {};
+  // STEP1: individualRankingから正式records
+  (SITE_DATA.individualRanking || []).forEach(function(p) {
+    var key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+    if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
+    if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
+    if(Array.isArray(p.records)) p.records.forEach(function(r){ map[key].recMap[r.event]=r; });
+  });
+  // STEP2: 年度別データから疑似record（skipper/crew/individual除外）
+  var suffixLabel = {
+    sk470:'関東秋季選手権 470級', cr470:'関東秋季選手権 470級',
+    skSnipe:'関東秋季選手権 スナイプ級', crSnipe:'関東秋季選手権 スナイプ級'
+  };
+  Object.keys(SITE_DATA).forEach(function(k) {
+    var m = k.match(/^y(\d{4})_(.+)$/);
+    if(!m) return;
+    var year = parseInt(m[1]), suffix = m[2];
+    var label = suffixLabel[suffix];
+    if(!label) return;
+    (SITE_DATA[k]||[]).forEach(function(p) {
+      var key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+      if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
+      if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
+      var evKey = year+'_'+label;
+      if(!map[key].recMap[evKey]) {
+        map[key].recMap[evKey] = {year:year, event:year+'年度 '+label, rank:p.rank, pt:p.pt||0};
+      }
+    });
+  });
+  var result = {};
+  Object.keys(map).forEach(function(key) {
+    var p = map[key];
+    var records = Object.values(p.recMap).sort(function(a,b){ return a.year-b.year||a.event.localeCompare(b.event); });
+    result[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:p.allPt,records:records};
+  });
+  return result;
+}
+
+function openForecastModal(name) {
+  var map = buildFcPlayerMap();
+  var p = Object.values(map).find(function(x){ return x.name === name; });
+  if(!p) return;
+
+  var records = p.records.slice().sort(function(a,b){ return a.year-b.year||a.event.localeCompare(b.event); });
+  var clsLabel = p.cls === '470' ? '470級' : 'スナイプ級';
+  var totalPt = p.allPt;
+  var bestRank = records.length ? Math.min.apply(null, records.map(function(r){ return r.rank; })) : '-';
+
+  var yearMap = {};
+  records.forEach(function(r) {
+    if(!yearMap[r.year]) yearMap[r.year] = [];
+    yearMap[r.year].push(r.rank);
+  });
+  var years = Object.keys(yearMap).sort();
+  var avgRanks = years.map(function(y) {
+    var arr = yearMap[y];
+    return Math.round(arr.reduce(function(a,b){return a+b;},0)/arr.length*10)/10;
+  });
+
+  var rows = records.map(function(r) {
+    return '<tr><td>'+r.year+'年</td><td style="font-size:12px">'+r.event+'</td>'
+      +'<td class="record-rank">'+r.rank+'</td>'
+      +'<td class="text-right" style="color:#6366f1;font-weight:700">'+r.pt+'</td></tr>';
+  }).join('');
+
+  document.getElementById('fcModalContent').innerHTML =
+    '<div class="modal-name">'+p.name+'</div>'
+    +'<div class="modal-univ">'+p.univ+' / '+clsLabel+' / '+p.role+'</div>'
+    +'<div class="modal-stats">'
+    +'<div class="stat-card"><div class="stat-val">'+totalPt+'</div><div class="stat-label">累計Pt</div></div>'
+    +'<div class="stat-card"><div class="stat-val">'+records.length+'</div><div class="stat-label">出場大会</div></div>'
+    +'<div class="stat-card"><div class="stat-val">'+bestRank+'</div><div class="stat-label">最高順位</div></div>'
+    +'</div>'
+    +'<div class="chart-wrap"><div class="chart-title">年度別 平均順位</div><canvas id="fcRankChart" height="200"></canvas></div>'
+    +'<div class="chart-title">大会別成績</div>'
+    +'<table class="record-table"><thead><tr><th>年度</th><th>大会名</th><th>着順</th><th class="text-right">獲得Pt</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table>';
+
+  document.getElementById('fcModalOverlay').classList.add('open');
+
+  if(_fcChart) _fcChart.destroy();
+  _fcChart = new Chart(document.getElementById('fcRankChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: years.map(function(y){ return y+'年'; }),
+      datasets: [{label:'平均順位', data:avgRanks, borderColor:'#6366f1',
+        backgroundColor:'rgba(99,102,241,.1)', pointBackgroundColor:'#6366f1',
+        pointRadius:6, tension:0.3, fill:true}]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { reverse:true, min:1,
+          ticks: { color:'#64748b', stepSize:1 },
+          grid: { color:'rgba(0,0,0,.06)' },
+          title: { display:true, text:'平均順位', color:'#64748b' }
+        },
+        x: { ticks:{ color:'#64748b' }, grid:{ color:'rgba(0,0,0,.04)' } }
+      },
+      plugins: {
+        legend: { display:false },
+        tooltip: { callbacks: { label: function(ctx) {
+          var y = years[ctx.dataIndex];
+          return '平均順位: '+ctx.parsed.y+'（'+yearMap[y].length+'大会）';
+        }}}
+      }
+    }
+  });
+}
+
+function closeForecastModal(e) {
+  if(e.target === document.getElementById('fcModalOverlay')) {
+    document.getElementById('fcModalOverlay').classList.remove('open');
+  }
+}
+</script>
+
 </body>
 </html>

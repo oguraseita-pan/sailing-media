@@ -400,26 +400,24 @@ function buildPlayerMap(){
 
   // STEP2: y****_sk470等の年度別データから全選手を補完
   // individualRankingに未掲載の選手もグラフ・成績が表示できるよう疑似recordを生成
+  // ※ skipper/crew/individual はsk470等と重複するため除外
   const suffixLabel = {
     sk470:'関東秋季選手権 470級', cr470:'関東秋季選手権 470級',
-    skSnipe:'関東秋季選手権 スナイプ級', crSnipe:'関東秋季選手権 スナイプ級',
-    skipper:'個人選手権 総合', crew:'個人選手権 総合',
-    individual:'個人選手権 総合'
+    skSnipe:'関東秋季選手権 スナイプ級', crSnipe:'関東秋季選手権 スナイプ級'
   };
   Object.keys(SITE_DATA).forEach(k => {
     const m = k.match(/^y(\d{4})_(.+)$/);
     if(!m) return;
     const year = parseInt(m[1]), suffix = m[2];
     const label = suffixLabel[suffix];
-    if(!label) return;
+    if(!label) return;  // skipper/crew/individualはスキップ
     (SITE_DATA[k]||[]).forEach(p => {
       const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
       if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
       if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
-      // STEP1で既に正式な大会名recordがある場合は上書きしない
-      // STEP1未掲載の場合のみ疑似recordを追加
-      const evKey = year+'_'+suffix;
-      if(!map[key].recMap[year+'_'+suffix]) {
+      // evKeyをlabelベースにして重複登録を防ぐ（STEP1の正式recordも保護）
+      const evKey = year+'_'+label;
+      if(!map[key].recMap[evKey]) {
         map[key].recMap[evKey] = {
           year, event: year+'年度 '+label,
           rank: p.rank, pt: p.pt||0
