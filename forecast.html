@@ -612,7 +612,7 @@ function openForecastModal(name) {
       responsive: true,
       scales: {
         y: { reverse:true, min:1,
-          ticks: { color:'#64748b', stepSize:1 },
+          ticks: { color:'#64748b', stepSize:1, callback: function(v){ return Number.isInteger(v) ? v : null; } },
           grid: { color:'rgba(0,0,0,.06)' },
           title: { display:true, text:'平均順位', color:'#64748b' }
         },

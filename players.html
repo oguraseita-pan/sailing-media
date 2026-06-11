@@ -248,7 +248,8 @@ function openModal(name, univ, cls, role) {
         y: {
           reverse: true,
           min: 1,
-          ticks: { color: '#6b7a8d', stepSize: 1 },
+          min: 1,
+          ticks: { color: '#6b7a8d', stepSize: 1, callback: function(v){ return Number.isInteger(v) ? v : null; } },
           grid: { color: 'rgba(255,255,255,.06)' },
           title: { display: true, text: '平均順位', color: '#6b7a8d' }
         },

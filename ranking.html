@@ -414,9 +414,12 @@ function buildPlayerMap(){
 }
 
 
-function openPm(name){
+function openPm(name, univ){
   const map = buildPlayerMap();
-  const p = Object.values(map).find(x => x.name === name);
+  // univ指定があればname+univで検索、なければnameのみ（allPtが最大のエントリを優先）
+  const all = Object.values(map).filter(x => x.name === name);
+  const p = univ ? (all.find(x => x.univ === univ) || all.sort((a,b)=>b.allPt-a.allPt)[0])
+                 : all.sort((a,b)=>b.allPt-a.allPt)[0];
   if(!p){ location.href = 'players.html?name=' + encodeURIComponent(name); return; }
 
   const records = [...(p.records||[])].sort((a,b) => a.year-b.year || a.event.localeCompare(b.event));
@@ -476,7 +479,7 @@ function openPm(name){
       responsive: true,
       scales: {
         y: { reverse:true, min:1,
-             ticks:{color:'#64748b', callback: v => '#'+v},
+             ticks:{color:'#64748b', callback: function(v){ return Number.isInteger(v) ? v : null; }},
              grid:{color:'rgba(0,0,0,.06)'},
              title:{display:true, text:'平均順位', color:'#64748b', font:{size:11}}
         },
@@ -552,7 +555,8 @@ function openUnivModal(univName) {
       const clsLabel = p.cls === '470' ? '470級' : 'スナイプ';
       const roleClass = p.role === 'Skipper' ? 'role-sk' : 'role-cr';
       const safeName = p.name.replace(/'/g, "\\'");
-      return '<div class="univ-player-card" onclick="openPm(\'' + safeName + '\')">'
+      const univSafe = (p.univ||'').replace(/'/g, "\\'");
+      return '<div class="univ-player-card" onclick="openPm(\'' + safeName + '\',\''+univSafe+'\')">'
         + '<div class="univ-card-name">' + p.name + '</div>'
         + '<div class="univ-card-tags">'
         + '<span class="rank-role ' + roleClass + '">' + p.role + '</span>'
