@@ -513,53 +513,51 @@ function openUnivModal(univName) {
   const year = currentYear;
   const isAll = year === 'all';
 
-  // 表示する選手を収集
-  // data.jsの全ランキングキーから該当大学の選手を取得
   const playerKeys = isAll
     ? ['rankingSkipper','rankingCrew','ranking470Skipper','ranking470Crew','rankingSnipeSkipper','rankingSnipeCrew']
     : [`y${year}_skipper`,`y${year}_crew`,`y${year}_sk470`,`y${year}_cr470`,`y${year}_skSnipe`,`y${year}_crSnipe`];
 
-  // 選手をマップで重複なく収集
   const pMap = {};
   playerKeys.forEach(key => {
     (SITE_DATA[key] || []).forEach(p => {
       if (p.univ !== univName) return;
       const k = p.name + '|' + p.cls + '|' + p.role;
-      if (!pMap[k] || (p.pt > pMap[k].pt)) pMap[k] = p;
+      if (!pMap[k] || p.pt > pMap[k].pt) pMap[k] = p;
     });
   });
 
-  // ポイント降順でソート
   const players = Object.values(pMap).sort((a, b) => b.pt - a.pt);
-
-  // タイトル
   const yearLabel = isAll ? '歴代' : `${year}年度`;
   document.getElementById('univModalTitle').textContent = `${univName} — ${yearLabel}選手一覧`;
   document.getElementById('univModalSub').textContent = `${players.length}名`;
 
-  // カード描画
   const grid = document.getElementById('univPlayerGrid');
   if (!players.length) {
     grid.innerHTML = '<div class="univ-empty">選手データがありません</div>';
   } else {
+    const ptLabel = isAll ? '累計PT' : `${year}PT`;
     grid.innerHTML = players.map(p => {
       const clsLabel = p.cls === '470' ? '470級' : 'スナイプ';
       const roleClass = p.role === 'Skipper' ? 'role-sk' : 'role-cr';
-      const ptLabel = isAll ? '累計PT' : `${year}PT`;
-      return `<div class="univ-player-card" onclick="openPm('${p.name.replace(/'/g,"\'")}')">
-        <div class="univ-card-name">${p.name}</div>
-        <div class="univ-card-tags">
-          <span class="rank-role ${roleClass}">${p.role}</span>
-          <span class="rank-cls">${clsLabel}</span>
-        </div>
-        <div class="univ-card-pt">${p.pt}<span>${ptLabel}</span></div>
-      </div>`;
+      const name = p.name.replace(/'/g, "\\'");
+      const action = isAll
+        ? `openPm('${name}')`
+        : `location.href='players.html?name='+encodeURIComponent('${name}')`;
+      return '<div class="univ-player-card" onclick="' + action + '">'
+        + '<div class="univ-card-name">' + p.name + '</div>'
+        + '<div class="univ-card-tags">'
+        + '<span class="rank-role ' + roleClass + '">' + p.role + '</span>'
+        + '<span class="rank-cls">' + clsLabel + '</span>'
+        + '</div>'
+        + '<div class="univ-card-pt">' + p.pt + '<span>' + ptLabel + '</span></div>'
+        + '</div>';
     }).join('');
   }
 
   document.getElementById('univModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 
 function closeUnivModal() {
   document.getElementById('univModalOverlay').classList.remove('open');
