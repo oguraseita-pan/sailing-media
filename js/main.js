@@ -53,24 +53,33 @@ function buildPlayerMap() {
   });
 
   // STEP2: 年度別データ（skipper/crew/individual は重複するため除外）
+  // 各キーと大会名の対応
+  // sk470/cr470/skSnipe/crSnipe → 秋季選手権（クラス別順位）
+  // skipper/crew → 個人選手権（役割別順位）
+  // individual → 個人選手権総合（全体順位）
+  // ※ 同一ptでも別大会・別順位なので全て別レコードとして表示
   const suffixLabel = {
-    sk470:   '関東秋季選手権 470級',
-    cr470:   '関東秋季選手権 470級',
-    skSnipe: '関東秋季選手権 スナイプ級',
-    crSnipe: '関東秋季選手権 スナイプ級',
+    sk470:      '関東秋季選手権 470級',
+    cr470:      '関東秋季選手権 470級',
+    skSnipe:    '関東秋季選手権 スナイプ級',
+    crSnipe:    '関東秋季選手権 スナイプ級',
+    skipper:    '個人選手権 スキッパー部門',
+    crew:       '個人選手権 クルー部門',
+    individual: '個人選手権 総合',
   };
   Object.keys(SITE_DATA).forEach(k => {
     const m = k.match(/^y(\d{4})_(.+)$/);
     if (!m) return;
     const year = parseInt(m[1]), suffix = m[2];
     const label = suffixLabel[suffix];
-    if (!label) return; // skipper/crew/individual はスキップ
+    if (!label) return;
     (SITE_DATA[k] || []).forEach(p => {
       const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
       if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
       if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
-      // 同一年度・同一ラベルは1エントリのみ（STEP1の正式recordを優先）
-      const evKey = year + '_' + label;
+      // evKey = year_suffix でキーを一意化（同一大会の重複登録を防ぐ）
+      // STEP1の正式な大会名recordがある場合は上書きしない
+      const evKey = year + '_' + suffix;
       if (!map[key].recMap[evKey]) {
         map[key].recMap[evKey] = { year, event: year + '年度 ' + label, rank: p.rank, pt: p.pt || 0 };
       }
