@@ -228,8 +228,7 @@
     <!-- アルゴリズム説明 -->
     <div class="algo-note">
       <strong>予測アルゴリズムについて</strong><br>
-      直近年度の成績に高い係数を適用（直近年×1.5、前年×1.2、2年前×1.0）し、歴代累計スコアと合算して確率を算出しています。
-      学連大会・非公式大会の係数は同等。出場選手のレベルによる調整も今後導入予定。<br>
+      各大会の開催日から予測基準日までの経過日数をもとに指数関数的に係数を算出（直近ほど高係数）。同年内でも春季→個人→秋季の順に重みが変わります。学連・非公式大会の係数は同等。<strong>個人予測は2026年の大会に出場した選手のみを対象</strong>とし、在学中かどうかを判定しています。出場選手のレベルによる調整・過去データの相関分析は今後導入予定。<br>
       ※ この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。
     </div>
   </div>
@@ -262,17 +261,52 @@
 <script src="js/main.js"></script>
 <script>
 // ── 状態管理 ──
-var currentSeg = 'college-kanto';
+var currentSeg  = 'college-kanto';
 var currentType = 'univ';
-var currentCls = 'total';
+var currentCls  = 'total';
 var currentIndivCls = 'all';
+
+// ── 予測基準日（今日） ──
+var TODAY = new Date(2026, 5, 11); // 2026-06-11
+
+// ── 大会名 → 推定開催日 ──
+// event名と year から月を推定してDateオブジェクトを返す
+// 春季決勝 ≒ 5月中旬、個人選手権 ≒ 7月上旬、秋季/全日本決勝 ≒ 10月中旬
+function estimateEventDate(eventName, year) {
+  var y = parseInt(year, 10);
+  if (eventName.includes('春季')) return new Date(y, 4, 15);   // 5/15
+  if (eventName.includes('個人')) return new Date(y, 6,  5);   // 7/5
+  // 秋季・全日本・第○○回 決勝
+  return new Date(y, 9, 15);                                    // 10/15
+}
+
+// ── 大会日ベースの係数（指数減衰） ──
+// 基準日からの経過日数 d に対して exp(-d / λ)
+// λ=500 で約1.5年で係数が 1/e ≈ 0.37 に減衰
+var LAMBDA = 500;
+function dateWeight(eventDate) {
+  var diffDays = (TODAY - eventDate) / 86400000;
+  if (diffDays < 0) diffDays = 0; // 未来大会は最大係数1
+  return Math.exp(-diffDays / LAMBDA);
+}
+
+// ── 今年（2026）の大会に出場した選手セットを構築 ──
+// y2026_* に1件でも登場した name|cls|role を有効とする
+function buildActivePlayerSet() {
+  var active = new Set();
+  var keys2026 = ['y2026_sk470','y2026_cr470','y2026_skSnipe','y2026_crSnipe',
+                  'y2026_skipper','y2026_crew','y2026_individual'];
+  keys2026.forEach(function(key) {
+    (SITE_DATA[key] || []).forEach(function(p) {
+      active.add(p.name);
+    });
+  });
+  return active;
+}
 
 // ── 初期化 ──
 document.addEventListener('DOMContentLoaded', function() {
-  // 次回大会
-  var ne = SITE_DATA.nextEvent || '次回大会未定';
-  document.getElementById('nextEventName').textContent = ne;
-
+  document.getElementById('nextEventName').textContent = SITE_DATA.nextEvent || '次回大会未定';
   renderUnivForecast();
   renderIndivForecast();
 });
@@ -280,16 +314,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // ── セグメント切替 ──
 function setSeg(seg) {
   currentSeg = seg;
-  var panelKanto = document.getElementById('panelKanto');
-  var panelComing = document.getElementById('panelComing');
-  var segKanto = document.getElementById('segKanto');
+  var kantoPanel  = document.getElementById('panelKanto');
+  var comingPanel = document.getElementById('panelComing');
+  var segKanto    = document.getElementById('segKanto');
   if (seg === 'college-kanto') {
-    panelKanto.style.display = '';
-    panelComing.classList.remove('active');
+    kantoPanel.style.display = '';
+    comingPanel.classList.remove('active');
     segKanto.classList.add('seg-active');
   } else {
-    panelKanto.style.display = 'none';
-    panelComing.classList.add('active');
+    kantoPanel.style.display = 'none';
+    comingPanel.classList.add('active');
     segKanto.classList.remove('seg-active');
   }
 }
@@ -297,9 +331,9 @@ function setSeg(seg) {
 // ── 予測タイプ切替 ──
 function setType(type) {
   currentType = type;
-  document.getElementById('typeUniv').style.display = type === 'univ' ? '' : 'none';
+  document.getElementById('typeUniv').style.display  = type === 'univ'  ? '' : 'none';
   document.getElementById('typeIndiv').style.display = type === 'indiv' ? '' : 'none';
-  document.getElementById('typeBtnUniv').classList.toggle('active', type === 'univ');
+  document.getElementById('typeBtnUniv').classList.toggle('active',  type === 'univ');
   document.getElementById('typeBtnIndiv').classList.toggle('active', type === 'indiv');
 }
 
@@ -307,7 +341,8 @@ function setType(type) {
 function setCls(cls) {
   currentCls = cls;
   ['total','470','snipe'].forEach(function(c) {
-    document.getElementById('clsBtn' + (c==='total'?'Total':c==='470'?'470':'Snipe')).classList.toggle('active', c === cls);
+    var id = 'clsBtn' + (c==='total'?'Total':c==='470'?'470':'Snipe');
+    document.getElementById(id).classList.toggle('active', c === cls);
   });
   var labels = {total:'大学 総合予測', '470':'大学 470級予測', snipe:'大学 スナイプ予測'};
   document.getElementById('univPanelTitle').textContent = labels[cls];
@@ -318,7 +353,8 @@ function setCls(cls) {
 function setIndivCls(cls) {
   currentIndivCls = cls;
   ['all','470','snipe'].forEach(function(c) {
-    document.getElementById('indivClsBtn' + (c==='all'?'All':c==='470'?'470':'Snipe')).classList.toggle('active', c === cls);
+    var id = 'indivClsBtn' + (c==='all'?'All':c==='470'?'470':'Snipe');
+    document.getElementById(id).classList.toggle('active', c === cls);
   });
   var labels = {all:'個人 全クラス予測', '470':'個人 470級予測', snipe:'個人 スナイプ予測'};
   document.getElementById('indivPanelTitle').textContent = labels[cls];
@@ -326,81 +362,85 @@ function setIndivCls(cls) {
 }
 
 // ── 予測スコア計算（大学） ──
+// individualRanking の records を使い、大会ごとに日付係数を適用
 function calcUnivScores(clsFilter) {
-  // 年度係数
-  var yearWeights = {2026:1.5, 2025:1.2, 2024:1.0, 2023:0.8, 2022:0.6};
   var univMap = {};
 
-  // 年度別データからスコア集計
-  Object.keys(yearWeights).forEach(function(yr) {
-    var w = yearWeights[yr];
-    var keys = [];
-    if (clsFilter === 'total' || clsFilter === '470') {
-      keys.push('y' + yr + '_sk470', 'y' + yr + '_cr470');
+  (SITE_DATA.individualRanking || []).forEach(function(p) {
+    // クラスフィルター
+    if (clsFilter !== 'total') {
+      var wantCls = clsFilter === '470' ? '470' : 'snipe';
+      if (p.cls !== wantCls) return;
     }
-    if (clsFilter === 'total' || clsFilter === 'snipe') {
-      keys.push('y' + yr + '_skSnipe', 'y' + yr + '_crSnipe');
-    }
-    keys.forEach(function(key) {
-      (SITE_DATA[key] || []).forEach(function(p) {
-        var u = p.univ;
-        if (!univMap[u]) univMap[u] = {score:0, recentScore:0};
-        // allPt = 歴代累計、pt = 当該年度
-        univMap[u].score += (p.allPt || 0) * 0.003 + (p.pt || 0) * w;
-      });
+    var u = p.univ;
+    if (!univMap[u]) univMap[u] = 0;
+
+    // 大会ごとに日付係数 × pt を加算
+    (p.records || []).forEach(function(r) {
+      var evDate = estimateEventDate(r.event, r.year);
+      var w = dateWeight(evDate);
+      univMap[u] += (r.pt || 0) * w;
     });
   });
 
-  // スコアを配列化してソート
   var arr = Object.keys(univMap).map(function(name) {
-    return {name: name, score: univMap[name].score};
+    return {name: name, score: univMap[name]};
   }).sort(function(a,b) { return b.score - a.score; }).slice(0, 10);
 
-  // 合計スコアで正規化して%に変換
   var total = arr.reduce(function(s,x){return s+x.score;},0);
   return arr.map(function(x, i) {
     return {
-      rank: i+1,
-      name: x.name,
-      pct: total > 0 ? Math.round(x.score / total * 1000) / 10 : 0,
+      rank:  i + 1,
+      name:  x.name,
+      pct:   total > 0 ? Math.round(x.score / total * 1000) / 10 : 0,
       score: x.score
     };
   });
 }
 
 // ── 予測スコア計算（個人） ──
+// ① 2026年の大会に出場した選手のみ対象
+// ② 大会ごとに日付係数を適用
 function calcIndivScores(clsFilter) {
-  var yearWeights = {2026:1.5, 2025:1.2, 2024:1.0, 2023:0.8, 2022:0.6};
+  var activePlayers = buildActivePlayerSet();
   var playerMap = {};
 
-  Object.keys(yearWeights).forEach(function(yr) {
-    var w = yearWeights[yr];
-    var keys = [];
-    if (clsFilter === 'all' || clsFilter === '470') {
-      keys.push('y' + yr + '_sk470', 'y' + yr + '_cr470');
+  (SITE_DATA.individualRanking || []).forEach(function(p) {
+    // ① 在学フィルター：今年の大会に出場していない選手は除外
+    if (!activePlayers.has(p.name)) return;
+
+    // ② クラスフィルター
+    if (clsFilter !== 'all') {
+      var wantCls = clsFilter === '470' ? '470' : 'snipe';
+      if (p.cls !== wantCls) return;
     }
-    if (clsFilter === 'all' || clsFilter === 'snipe') {
-      keys.push('y' + yr + '_skSnipe', 'y' + yr + '_crSnipe');
+
+    var key = p.name + '|' + p.cls + '|' + p.role;
+    if (!playerMap[key]) {
+      playerMap[key] = {name:p.name, univ:p.univ, cls:p.cls, role:p.role, score:0};
     }
-    keys.forEach(function(key) {
-      (SITE_DATA[key] || []).forEach(function(p) {
-        var k = p.name + '|' + p.cls + '|' + p.role;
-        if (!playerMap[k]) playerMap[k] = {name:p.name, univ:p.univ, cls:p.cls, role:p.role, score:0};
-        playerMap[k].score += (p.allPt || 0) * 0.003 + (p.pt || 0) * w;
-      });
+
+    // 大会ごとに日付係数 × pt を加算
+    (p.records || []).forEach(function(r) {
+      var evDate = estimateEventDate(r.event, r.year);
+      var w = dateWeight(evDate);
+      playerMap[key].score += (r.pt || 0) * w;
     });
   });
 
-  var arr = Object.values(playerMap).sort(function(a,b){return b.score-a.score;}).slice(0, 20);
+  var arr = Object.values(playerMap)
+    .sort(function(a,b){ return b.score - a.score; })
+    .slice(0, 20);
+
   var total = arr.reduce(function(s,x){return s+x.score;},0);
   return arr.map(function(x, i) {
     return {
-      rank: i+1,
+      rank: i + 1,
       name: x.name,
       univ: x.univ,
-      cls: x.cls,
+      cls:  x.cls,
       role: x.role,
-      pct: total > 0 ? Math.round(x.score / total * 1000) / 10 : 0
+      pct:  total > 0 ? Math.round(x.score / total * 1000) / 10 : 0
     };
   });
 }
@@ -411,7 +451,7 @@ function renderUnivForecast() {
   var maxPct = data.length > 0 ? data[0].pct : 1;
   var topCls = ['top1','top2','top3'];
   var html = data.map(function(u) {
-    var tc = u.rank <= 3 ? topCls[u.rank-1] : '';
+    var tc   = u.rank <= 3 ? topCls[u.rank-1] : '';
     var barW = maxPct > 0 ? Math.round(u.pct / maxPct * 100) : 0;
     return '<div class="fc-card ' + tc + '">'
       + '<div class="fc-row">'
@@ -422,7 +462,8 @@ function renderUnivForecast() {
       + '<div class="fc-bar-track"><div class="fc-bar-fill" style="width:' + barW + '%"></div></div>'
       + '</div>';
   }).join('');
-  document.getElementById('univForecastList').innerHTML = html || '<div style="text-align:center;padding:40px;color:#94a3b8">データがありません</div>';
+  document.getElementById('univForecastList').innerHTML =
+    html || '<div style="text-align:center;padding:40px;color:#94a3b8">データがありません</div>';
 }
 
 // ── 個人予測描画 ──
@@ -430,9 +471,10 @@ function renderIndivForecast() {
   var data = calcIndivScores(currentIndivCls);
   var topCls = ['top1','top2','top3'];
   var html = data.map(function(p) {
-    var tc = p.rank <= 3 ? topCls[p.rank-1] : '';
+    var tc      = p.rank <= 3 ? topCls[p.rank-1] : '';
     var roleTag = '<span class="fc-tag ' + (p.role==='Skipper'?'tag-sk':'tag-cr') + '">' + p.role + '</span>';
-    var clsTag = '<span class="fc-tag ' + (p.cls==='470'?'tag-470':'tag-snipe') + '">' + (p.cls==='470'?'470級':'スナイプ') + '</span>';
+    var clsTag  = '<span class="fc-tag ' + (p.cls==='470'?'tag-470':'tag-snipe') + '">'
+                  + (p.cls==='470'?'470級':'スナイプ') + '</span>';
     var url = 'players.html?name=' + encodeURIComponent(p.name);
     return '<div class="fc-indiv-card ' + tc + '" onclick="location.href=\'' + url + '\'">'
       + '<div class="fc-indiv-rank">#' + p.rank + '</div>'
@@ -444,7 +486,8 @@ function renderIndivForecast() {
       + '<div class="fc-indiv-pct">' + p.pct + '<span>%</span></div>'
       + '</div>';
   }).join('');
-  document.getElementById('indivForecastList').innerHTML = html || '<div style="text-align:center;padding:40px;color:#94a3b8">データがありません</div>';
+  document.getElementById('indivForecastList').innerHTML =
+    html || '<div style="text-align:center;padding:40px;color:#94a3b8">今年の大会に出場した選手データがありません</div>';
 }
 </script>
 </body>
