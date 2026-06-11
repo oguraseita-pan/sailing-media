@@ -144,7 +144,7 @@
 .univ-modal-sub{font-size:13px;color:#64748b}
 .univ-modal-close{width:32px;height:32px;border:none;background:#f1f5f9;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#64748b;transition:all .15s}
 .univ-modal-close:hover{background:#e2e8f0;color:#0f172a}
-.univ-modal-body{overflow-y:auto;padding:16px 24px 24px;flex:1;min-height:0}
+.univ-modal-body{overflow-y:auto;padding:16px 24px 24px}
 .univ-player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:4px}
 .univ-player-card{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s}
 .univ-player-card:hover{border-color:#6366f1;background:#fff;box-shadow:0 4px 12px rgba(99,102,241,.1);transform:translateY(-1px)}
@@ -357,7 +357,8 @@ function updateTitle(){
 function render(){
   updateTitle();
   const key = getKey(currentYear, currentCat);
-  const data = SITE_DATA[key] || [];
+  const full = SITE_DATA[key] || [];
+  const data = full.slice(0, 20);  // 歴代・年度ともに上位20位まで表示
   const html = currentCat==='university' ? renderUniv(data) : renderPlayers(data);
   document.getElementById('rankList').innerHTML = html || '<div class="empty">データなし</div>';
 }
@@ -386,24 +387,47 @@ let _pmChart = null;
 
 function buildPlayerMap(){
   const map = {};
+
+  // STEP1: individualRankingから大会名・着順付きrecordsを取得（上位選手）
+  (SITE_DATA.individualRanking || []).forEach(p => {
+    const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
+    if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
+    if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
+    if(Array.isArray(p.records)) {
+      p.records.forEach(r => { map[key].recMap[r.event] = r; });
+    }
+  });
+
+  // STEP2: y****_sk470等の年度別データから全選手を補完
+  // individualRankingに未掲載の選手もグラフ・成績が表示できるよう疑似recordを生成
+  const suffixLabel = {
+    sk470:'関東秋季選手権 470級', cr470:'関東秋季選手権 470級',
+    skSnipe:'関東秋季選手権 スナイプ級', crSnipe:'関東秋季選手権 スナイプ級',
+    skipper:'個人選手権 総合', crew:'個人選手権 総合',
+    individual:'個人選手権 総合'
+  };
   Object.keys(SITE_DATA).forEach(k => {
-    if(k==='universityRanking'||k==='forecasts'||k==='nextEvent') return;
-    const arr = SITE_DATA[k];
-    if(!Array.isArray(arr)) return;
-    arr.forEach(p => {
+    const m = k.match(/^y(\d{4})_(.+)$/);
+    if(!m) return;
+    const year = parseInt(m[1]), suffix = m[2];
+    const label = suffixLabel[suffix];
+    if(!label) return;
+    (SITE_DATA[k]||[]).forEach(p => {
       const key = p.name+'|'+p.univ+'|'+p.cls+'|'+p.role;
-      if(!map[key]) {
-        map[key] = {
-          name:p.name, univ:p.univ, cls:p.cls, role:p.role,
-          allPt:0, recMap:{}
-        };
-      }
+      if(!map[key]) map[key] = {name:p.name,univ:p.univ,cls:p.cls,role:p.role,allPt:0,recMap:{}};
       if((p.allPt||p.pt||0) > map[key].allPt) map[key].allPt = p.allPt||p.pt||0;
-      if(Array.isArray(p.records)) {
-        p.records.forEach(r => { map[key].recMap[r.event] = r; });
+      // STEP1で既に正式な大会名recordがある場合は上書きしない
+      // STEP1未掲載の場合のみ疑似recordを追加
+      const evKey = year+'_'+suffix;
+      if(!map[key].recMap[year+'_'+suffix]) {
+        map[key].recMap[evKey] = {
+          year, event: year+'年度 '+label,
+          rank: p.rank, pt: p.pt||0
+        };
       }
     });
   });
+
   // recMapをrecordsリストに変換
   const result = {};
   Object.entries(map).forEach(([key, p]) => {
@@ -564,11 +588,11 @@ function openUnivModal(univName) {
     grid.innerHTML = html;
   }
 
-  document.getElementById('univModalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // display:none中はscrollTop変更が無効なので、open後にリセット
+  // スクロール位置を常に先頭にリセット
   const modalBody = document.querySelector('.univ-modal-body');
   if (modalBody) modalBody.scrollTop = 0;
+  document.getElementById('univModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 
