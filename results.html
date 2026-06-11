@@ -68,7 +68,9 @@
 .event-card.open .toggle-icon { transform: rotate(180deg); }
 
 .event-body{display:none;padding:0 20px 16px;border-top:1px solid #e2e8f0}
+.event-body.open{display:block}
 .event-card.open .event-body{display:none;padding:0 20px 16px;border-top:1px solid #e2e8f0}
+.event-body.open{display:block}
 
 /* 成績テーブル */
 .result-table {
@@ -141,8 +143,8 @@
 <style>
 .tack-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(109,40,217,.2);color:#c4b5fd;font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(109,40,217,.35);text-decoration:none;transition:all .2s;white-space:nowrap;font-family:'Noto Sans JP',sans-serif}
 .tack-back-btn:hover{background:rgba(109,40,217,.45);color:#fff;border-color:rgba(109,40,217,.65)}
-.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid #e2e8f0;border-radius:8px;color:#64748b;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s}
-.pdf-dl-btn:hover{border-color:#6366f1;color:#6366f1;background:rgba(0,212,255,.06)}
+.pdf-dl-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#6366f1;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s}
+.pdf-dl-btn:hover{border-color:#6366f1;color:#6366f1;background:#f8faff}
 .event-date-note{font-size:12px;color:#64748b;margin-bottom:10px}
 
 /* ── カテゴリーセグメント ── */
@@ -1488,7 +1490,11 @@ function switchYear(year, btn) {
 
 function toggleCard(id) {
   const card = document.getElementById(id);
-  card.classList.toggle('open');
+  const body = card.querySelector('.event-body');
+  if (!body) return;
+  body.classList.toggle('open');
+  const icon = card.querySelector('.toggle-icon');
+  if (icon) icon.textContent = body.classList.contains('open') ? '▲' : '▼';
 }
 </script>
 <script>
