@@ -552,7 +552,7 @@ function openUnivModal(univName) {
       const clsLabel = p.cls === '470' ? '470級' : 'スナイプ';
       const roleClass = p.role === 'Skipper' ? 'role-sk' : 'role-cr';
       const safeName = p.name.replace(/'/g, "\\'");
-      return '<div class="univ-player-card" onclick="openPm(\'' + safeName + '\'">'
+      return '<div class="univ-player-card" onclick="openPm(\'' + safeName + '\')">'
         + '<div class="univ-card-name">' + p.name + '</div>'
         + '<div class="univ-card-tags">'
         + '<span class="rank-role ' + roleClass + '">' + p.role + '</span>'
