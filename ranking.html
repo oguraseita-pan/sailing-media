@@ -134,6 +134,26 @@
 .seg-coming-panel .icon{font-size:40px;margin-bottom:10px}
 .seg-coming-panel .ttl{font-size:18px;font-weight:700;color:#64748b;margin-bottom:6px}
 .seg-coming-panel .desc{font-size:14px;line-height:1.7}
+
+/* 大学選手モーダル */
+.univ-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+.univ-modal-overlay.open{display:flex}
+.univ-modal{background:#fff;border-radius:16px;width:100%;max-width:800px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden}
+.univ-modal-header{padding:20px 24px 16px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.univ-modal-title{font-size:18px;font-weight:700;color:#0f172a;flex:1}
+.univ-modal-sub{font-size:13px;color:#64748b}
+.univ-modal-close{width:32px;height:32px;border:none;background:#f1f5f9;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#64748b;transition:all .15s}
+.univ-modal-close:hover{background:#e2e8f0;color:#0f172a}
+.univ-modal-body{overflow-y:auto;padding:16px 24px 24px}
+.univ-player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:4px}
+.univ-player-card{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s}
+.univ-player-card:hover{border-color:#6366f1;background:#fff;box-shadow:0 4px 12px rgba(99,102,241,.1);transform:translateY(-1px)}
+.univ-card-name{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:4px}
+.univ-card-tags{display:flex;gap:6px;margin-bottom:8px}
+.univ-card-pt{font-size:20px;font-weight:800;color:#6366f1}
+.univ-card-pt span{font-size:13px;font-weight:500;color:#94a3b8;margin-left:2px}
+.univ-empty{text-align:center;padding:40px;color:#94a3b8;font-size:14px}
+
 </style>
 </head>
 <body>
@@ -248,6 +268,23 @@
 
 <div class="seg-coming-panel" id="segComingPanel"><div class="icon">🚧</div><div class="ttl">このカテゴリーは準備中です</div><div class="desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div></div>
 
+
+<!-- 大学選手モーダル -->
+<div class="univ-modal-overlay" id="univModalOverlay" onclick="if(event.target===this)closeUnivModal()">
+  <div class="univ-modal">
+    <div class="univ-modal-header">
+      <div>
+        <div class="univ-modal-title" id="univModalTitle"></div>
+        <div class="univ-modal-sub" id="univModalSub"></div>
+      </div>
+      <button class="univ-modal-close" onclick="closeUnivModal()">✕</button>
+    </div>
+    <div class="univ-modal-body">
+      <div class="univ-player-grid" id="univPlayerGrid"></div>
+    </div>
+  </div>
+</div>
+
 <!-- 選手モーダル -->
 <div class="pm-overlay" id="pmOverlay" onclick="if(event.target===this)closePm()">
   <div class="pm-modal">
@@ -299,11 +336,11 @@ function renderUniv(data){
   h.className = 'rank-header h-univ';
   h.innerHTML = `<span>順位</span><span>大学</span><span class="text-right">大会数</span><span class="text-right">TOP3</span><span class="text-right">平均順位</span><span class="text-right">累計Pt</span>`;
   return (data||[]).map((u,i) => `
-    <div class="rank-row r-univ ${tc(i)}">
+    <div class="rank-row r-univ ${tc(i)}" style="cursor:pointer" onclick="openUnivModal('${u.name.replace(/'/g,"\'")}')">
       <div class="rank-num">#${u.rank}</div>
       <div class="rank-name">${u.name}</div>
       <div class="rank-pt text-right">${u.events}</div>
-      <div class="rank-pt text-right" style="color:#f5b731">${u.top3}</div>
+      <div class="rank-pt text-right" style="color:#f59e0b">${u.top3}</div>
       <div class="rank-cls text-right">${u.avgRank}位</div>
       <div class="rank-pt">${u.pt}</div>
     </div>`).join('');
@@ -469,6 +506,65 @@ document.getElementById('catSegBar').addEventListener('click', function(e) {
   document.getElementById('mainRankContent').style.display = isKanto ? '' : 'none';
   document.getElementById('segComingPanel').classList.toggle('active', !isKanto);
 });
+
+
+// 大学選手モーダル
+function openUnivModal(univName) {
+  const year = currentYear;
+  const isAll = year === 'all';
+
+  // 表示する選手を収集
+  // data.jsの全ランキングキーから該当大学の選手を取得
+  const playerKeys = isAll
+    ? ['rankingSkipper','rankingCrew','ranking470Skipper','ranking470Crew','rankingSnipeSkipper','rankingSnipeCrew']
+    : [`y${year}_skipper`,`y${year}_crew`,`y${year}_sk470`,`y${year}_cr470`,`y${year}_skSnipe`,`y${year}_crSnipe`];
+
+  // 選手をマップで重複なく収集
+  const pMap = {};
+  playerKeys.forEach(key => {
+    (SITE_DATA[key] || []).forEach(p => {
+      if (p.univ !== univName) return;
+      const k = p.name + '|' + p.cls + '|' + p.role;
+      if (!pMap[k] || (p.pt > pMap[k].pt)) pMap[k] = p;
+    });
+  });
+
+  // ポイント降順でソート
+  const players = Object.values(pMap).sort((a, b) => b.pt - a.pt);
+
+  // タイトル
+  const yearLabel = isAll ? '歴代' : `${year}年度`;
+  document.getElementById('univModalTitle').textContent = `${univName} — ${yearLabel}選手一覧`;
+  document.getElementById('univModalSub').textContent = `${players.length}名`;
+
+  // カード描画
+  const grid = document.getElementById('univPlayerGrid');
+  if (!players.length) {
+    grid.innerHTML = '<div class="univ-empty">選手データがありません</div>';
+  } else {
+    grid.innerHTML = players.map(p => {
+      const clsLabel = p.cls === '470' ? '470級' : 'スナイプ';
+      const roleClass = p.role === 'Skipper' ? 'role-sk' : 'role-cr';
+      const ptLabel = isAll ? '累計PT' : `${year}PT`;
+      return `<div class="univ-player-card" onclick="openPm('${p.name.replace(/'/g,"\'")}')">
+        <div class="univ-card-name">${p.name}</div>
+        <div class="univ-card-tags">
+          <span class="rank-role ${roleClass}">${p.role}</span>
+          <span class="rank-cls">${clsLabel}</span>
+        </div>
+        <div class="univ-card-pt">${p.pt}<span>${ptLabel}</span></div>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('univModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeUnivModal() {
+  document.getElementById('univModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 function closePm(){
   document.getElementById('pmOverlay').classList.remove('open');
