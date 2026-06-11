@@ -517,47 +517,42 @@ function openUnivModal(univName) {
   let totalCount = 0;
 
   if (isAll) {
-    // 歴代: SITE_DATA.univPlayers から取得（全選手数も取得）
     const ud = SITE_DATA.univPlayers && SITE_DATA.univPlayers[univName];
     if (ud) {
       players = ud.players || [];
       totalCount = ud.total || players.length;
     }
   } else {
-    // 年度別: y${year}_* キーから収集
-    const playerKeys = [`y${year}_skipper`,`y${year}_crew`,`y${year}_sk470`,`y${year}_cr470`,`y${year}_skSnipe`,`y${year}_crSnipe`];
+    const playerKeys = ['y'+year+'_skipper','y'+year+'_crew','y'+year+'_sk470','y'+year+'_cr470','y'+year+'_skSnipe','y'+year+'_crSnipe'];
     const pMap = {};
-    playerKeys.forEach(key => {
-      (SITE_DATA[key] || []).forEach(p => {
+    playerKeys.forEach(function(key) {
+      (SITE_DATA[key] || []).forEach(function(p) {
         if (p.univ !== univName) return;
         const k = p.name + '|' + p.cls + '|' + p.role;
         if (!pMap[k] || p.pt > pMap[k].pt) pMap[k] = p;
       });
     });
-    players = Object.values(pMap).sort((a, b) => b.pt - a.pt);
+    players = Object.values(pMap).sort(function(a,b){ return b.pt - a.pt; });
     totalCount = players.length;
   }
 
-  // タイトル・件数
-  const yearLabel = isAll ? '歴代' : `${year}年度`;
+  const yearLabel = isAll ? '歴代' : (year + '年度');
   const countLabel = totalCount > players.length
-    ? `${totalCount}名中上位${players.length}名を表示`
-    : `${totalCount}名`;
-  document.getElementById('univModalTitle').textContent = `${univName} — ${yearLabel}選手一覧`;
+    ? (totalCount + '名中上位' + players.length + '名を表示')
+    : (totalCount + '名');
+  document.getElementById('univModalTitle').textContent = univName + ' \u2014 ' + yearLabel + '選手一覧';
   document.getElementById('univModalSub').textContent = countLabel;
 
-  // カード描画
   const grid = document.getElementById('univPlayerGrid');
   if (!players.length) {
     grid.innerHTML = '<div class="univ-empty">選手データがありません</div>';
   } else {
-    const ptLabel = isAll ? '累計PT' : `${year}PT`;
-    grid.innerHTML = players.map(p => {
+    const ptLabel = isAll ? '累計PT' : (year + 'PT');
+    const html = players.map(function(p) {
       const clsLabel = p.cls === '470' ? '470級' : 'スナイプ';
       const roleClass = p.role === 'Skipper' ? 'role-sk' : 'role-cr';
-      const safeName = p.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-      // 選手DBへリンク（詳細はplayers.htmlで確認）
-      return '<div class="univ-player-card" onclick="location.href='players.html?name='+encodeURIComponent(p.name)+''">'
+      const url = 'players.html?name=' + encodeURIComponent(p.name);
+      return '<div class="univ-player-card" onclick="location.href=\'' + url + '\'">'
         + '<div class="univ-card-name">' + p.name + '</div>'
         + '<div class="univ-card-tags">'
         + '<span class="rank-role ' + roleClass + '">' + p.role + '</span>'
@@ -566,6 +561,7 @@ function openUnivModal(univName) {
         + '<div class="univ-card-pt">' + p.pt + '<span>' + ptLabel + '</span></div>'
         + '</div>';
     }).join('');
+    grid.innerHTML = html;
   }
 
   document.getElementById('univModalOverlay').classList.add('open');
