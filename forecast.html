@@ -8,7 +8,112 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* ── ページ共通 ── */
+.page-hero{padding:40px 24px 32px;border-bottom:1px solid #e2e8f0}
+.page-hero-inner{max-width:1200px;margin:auto}
+.page-desc{font-size:15px;color:#64748b}
 
+/* ── カテゴリーセグメント ── */
+.cat-seg{background:#f8faff;border-bottom:1px solid #e2e8f0;padding:0 24px}
+.cat-seg-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0;height:52px}
+.cat-seg-group{display:flex;align-items:center;gap:6px;padding:0 16px}
+.cat-seg-group:first-child{padding-left:0}
+.cat-seg-divider{width:1px;height:24px;background:#e2e8f0;flex-shrink:0}
+.cat-seg-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;margin-right:2px}
+.cat-seg-btn{padding:5px 14px;border:1.5px solid #e2e8f0;border-radius:99px;background:#fff;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.cat-seg-btn:hover:not([disabled]){border-color:#6366f1;color:#6366f1}
+.cat-seg-btn.seg-active{background:#6366f1;border-color:#6366f1;color:#fff}
+.cat-seg-btn[disabled]{cursor:default;opacity:.45;pointer-events:none}
+.cat-seg-badge{font-size:9px;font-weight:700;background:#f1f5f9;color:#94a3b8;border-radius:99px;padding:1px 5px;letter-spacing:.04em}
+.cat-seg-btn.seg-active .cat-seg-badge{background:rgba(255,255,255,.25);color:rgba(255,255,255,.8)}
+
+/* ── コンテンツラッパー ── */
+.forecast-wrap{max-width:1200px;margin:0 auto;padding:28px 24px 80px}
+
+/* ── 次回大会バナー ── */
+.next-event-bar{background:linear-gradient(135deg,#6366f1 0%,#818cf8 100%);border-radius:12px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.next-event-icon{font-size:20px;flex-shrink:0}
+.next-event-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:2px}
+.next-event-name{font-size:16px;font-weight:700;color:#fff}
+.next-event-badge{margin-left:auto;background:rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
+
+/* ── 予測タイプタブ ── */
+.type-tabs{display:flex;gap:6px;margin-bottom:20px}
+.type-btn{padding:8px 22px;border:1.5px solid #e2e8f0;border-radius:99px;background:#fff;color:#64748b;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.type-btn:hover{border-color:#6366f1;color:#6366f1}
+.type-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
+
+/* ── クラスタブ ── */
+.cls-tabs{display:flex;gap:6px;margin-bottom:20px}
+.cls-btn{padding:6px 16px;border:1px solid #e2e8f0;border-radius:99px;background:transparent;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.cls-btn:hover{border-color:#6366f1;color:#6366f1}
+.cls-btn.active{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.4);color:#6366f1}
+
+/* ── パネルタイトル ── */
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.panel-title{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:.06em;color:#0f172a}
+.algo-badge{font-size:11px;font-weight:600;color:#94a3b8;background:#f1f5f9;border-radius:99px;padding:4px 12px;border:1px solid #e2e8f0}
+
+/* ── 予測カード（大学） ── */
+.forecast-list{display:flex;flex-direction:column;gap:10px}
+.fc-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;transition:box-shadow .2s}
+.fc-card:hover{box-shadow:0 4px 16px rgba(99,102,241,.1)}
+.fc-card.top1{border-color:#f5b731;background:linear-gradient(135deg,#fffdf0 0%,#fff 100%)}
+.fc-card.top2{border-color:#c8d0dc;background:linear-gradient(135deg,#f9fafb 0%,#fff 100%)}
+.fc-card.top3{border-color:#d9a87c;background:linear-gradient(135deg,#fff8f3 0%,#fff 100%)}
+.fc-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.fc-rank{font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:.04em;color:#94a3b8;width:36px;flex-shrink:0}
+.fc-card.top1 .fc-rank{color:#f5b731}
+.fc-card.top2 .fc-rank{color:#9ca3af}
+.fc-card.top3 .fc-rank{color:#cd7f32}
+.fc-name{font-size:16px;font-weight:700;color:#0f172a;flex:1}
+.fc-pct{font-family:'Bebas Neue',cursive;font-size:26px;letter-spacing:.04em;color:#6366f1}
+.fc-pct-unit{font-size:14px;font-family:'Noto Sans JP',sans-serif;color:#94a3b8;margin-left:1px}
+.fc-bar-track{background:#f1f5f9;border-radius:99px;height:6px;overflow:hidden}
+.fc-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#818cf8);transition:width .6s ease}
+.fc-card.top1 .fc-bar-fill{background:linear-gradient(90deg,#f5b731,#fcd34d)}
+
+/* ── 予測カード（個人） ── */
+.fc-indiv-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:44px 1fr 120px 80px;align-items:center;gap:8px;transition:box-shadow .2s;cursor:pointer}
+.fc-indiv-card:hover{box-shadow:0 4px 16px rgba(99,102,241,.1);border-color:#c7d2fe}
+.fc-indiv-card.top1{border-color:#f5b731}
+.fc-indiv-card.top2{border-color:#c8d0dc}
+.fc-indiv-card.top3{border-color:#d9a87c}
+.fc-indiv-rank{font-family:'Bebas Neue',cursive;font-size:20px;color:#94a3b8}
+.fc-indiv-card.top1 .fc-indiv-rank{color:#f5b731}
+.fc-indiv-card.top2 .fc-indiv-rank{color:#9ca3af}
+.fc-indiv-card.top3 .fc-indiv-rank{color:#cd7f32}
+.fc-indiv-info .fc-name{font-size:15px}
+.fc-indiv-tags{display:flex;gap:5px;margin-top:3px}
+.fc-tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+.tag-sk{background:rgba(99,102,241,.1);color:#6366f1}
+.tag-cr{background:rgba(245,183,49,.15);color:#d97706}
+.tag-470{background:#f1f5f9;color:#64748b}
+.tag-snipe{background:#f0fdf4;color:#16a34a}
+.fc-indiv-univ{font-size:13px;color:#64748b;text-align:right}
+.fc-indiv-pct{font-family:'Bebas Neue',cursive;font-size:22px;color:#6366f1;text-align:right;white-space:nowrap}
+.fc-indiv-pct span{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:#94a3b8}
+
+/* ── 準備中パネル ── */
+.coming-panel{display:none;text-align:center;padding:80px 24px;color:#94a3b8}
+.coming-panel.active{display:block}
+.coming-panel .icon{font-size:40px;margin-bottom:12px}
+.coming-panel .ttl{font-size:18px;font-weight:700;color:#64748b;margin-bottom:6px}
+.coming-panel .desc{font-size:14px;line-height:1.8}
+
+/* ── アルゴリズム説明 ── */
+.algo-note{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin-top:28px;font-size:13px;color:#64748b;line-height:1.8}
+.algo-note strong{color:#0f172a}
+
+/* ── レスポンシブ ── */
+@media(max-width:640px){
+  .fc-indiv-card{grid-template-columns:36px 1fr 70px}
+  .fc-indiv-card .fc-indiv-univ{display:none}
+  .cat-seg-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cat-seg{overflow:hidden}
+}
+</style>
 </head>
 <body>
 
@@ -21,108 +126,326 @@
       <a href="players.html">選手DB</a>
       <a href="results.html">大会結果</a>
       <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
         TACK
       </a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="ranking.html">ランキング</a>
     <a href="forecast.html">AI予測</a>
     <a href="players.html">選手DB</a>
     <a href="results.html">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
+    <a href="index.html">← TACKトップへ</a>
   </div>
 </nav>
 
+<!-- ページヘッダー -->
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="section-label">AI FORECAST</div>
     <h1 class="page-title">AI大会予測</h1>
-    <p class="page-desc">過去の成績データを学習したAIが大会前の順位を予測します。</p>
+    <p class="page-desc">過去の成績データを学習したAIが大会前の順位を確率で予測します。</p>
   </div>
 </div>
 
-<div class="forecast-page-grid">
-  <div class="forecast-main">
-    <div class="event-badge" id="eventBadge">─</div>
-    <div class="forecast-list" id="fullForecastList"></div>
-  </div>
-
-  <div class="forecast-side">
-    <div class="side-card">
-      <h3>予測の仕組み</h3>
-      <p>主要決勝大会の成績のみを学習データとして使用。予選や女子限定レースは含めず、公平な比較を実現しています。</p>
-      <ul style="font-size:13px;color:var(--muted2);line-height:2;margin-top:8px;padding-left:1em">
-        <li>過去成績の重み付き平均</li>
-        <li>直近大会の成績を優先</li>
-        <li>フィールドサイズによる正規化</li>
-        <li>決勝・個人戦への補正係数</li>
-      </ul>
-      <p class="ai-disclaimer">※ この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。</p>
+<!-- カテゴリーセグメント -->
+<div class="cat-seg">
+  <div class="cat-seg-inner">
+    <div class="cat-seg-group">
+      <span class="cat-seg-label">大学</span>
+      <button class="cat-seg-btn seg-active" data-seg="college-national" disabled>
+        全国 <span class="cat-seg-badge">準備中</span>
+      </button>
+      <button class="cat-seg-btn seg-active" id="segKanto" data-seg="college-kanto" onclick="setSeg('college-kanto')">
+        関東
+      </button>
+      <button class="cat-seg-btn" data-seg="college-kansai" disabled>
+        関西 <span class="cat-seg-badge">準備中</span>
+      </button>
     </div>
-    <div class="side-card">
-      <h3>次回更新</h3>
-      <p style="color:var(--accent);font-weight:700;font-size:16px" id="nextUpdate">大会前7日以内に更新</p>
-      <p style="margin-top:8px">大会2週間前から公開し、新しい情報が入るたびに更新します。</p>
+    <div class="cat-seg-divider"></div>
+    <div class="cat-seg-group">
+      <span class="cat-seg-label">社会人</span>
+      <button class="cat-seg-btn" data-seg="pro" disabled>
+        全国 <span class="cat-seg-badge">準備中</span>
+      </button>
     </div>
   </div>
 </div>
+
+<!-- メインコンテンツ -->
+<div class="forecast-wrap">
+
+  <!-- 関東大学コンテンツ -->
+  <div id="panelKanto">
+
+    <!-- 次回大会バナー -->
+    <div class="next-event-bar">
+      <div class="next-event-icon">🗓️</div>
+      <div>
+        <div class="next-event-label">Next Event</div>
+        <div class="next-event-name" id="nextEventName">—</div>
+      </div>
+      <div class="next-event-badge" id="nextEventBadge">予測中</div>
+    </div>
+
+    <!-- 予測タイプタブ -->
+    <div class="type-tabs">
+      <button class="type-btn active" id="typeBtnUniv" onclick="setType('univ')">大学予測</button>
+      <button class="type-btn" id="typeBtnIndiv" onclick="setType('indiv')">個人予測</button>
+    </div>
+
+    <!-- 大学予測パネル -->
+    <div id="typeUniv">
+      <div class="cls-tabs">
+        <button class="cls-btn active" id="clsBtnTotal" onclick="setCls('total')">総合</button>
+        <button class="cls-btn" id="clsBtn470" onclick="setCls('470')">470級</button>
+        <button class="cls-btn" id="clsBtnSnipe" onclick="setCls('snipe')">スナイプ</button>
+      </div>
+      <div class="panel-header">
+        <div class="panel-title" id="univPanelTitle">大学 総合予測</div>
+        <div class="algo-badge">🤖 AIスコア算出</div>
+      </div>
+      <div class="forecast-list" id="univForecastList"></div>
+    </div>
+
+    <!-- 個人予測パネル -->
+    <div id="typeIndiv" style="display:none">
+      <div class="cls-tabs">
+        <button class="cls-btn active" id="indivClsBtnAll" onclick="setIndivCls('all')">全クラス</button>
+        <button class="cls-btn" id="indivClsBtn470" onclick="setIndivCls('470')">470級</button>
+        <button class="cls-btn" id="indivClsBtnSnipe" onclick="setIndivCls('snipe')">スナイプ</button>
+      </div>
+      <div class="panel-header">
+        <div class="panel-title" id="indivPanelTitle">個人 全クラス予測</div>
+        <div class="algo-badge">🤖 AIスコア算出</div>
+      </div>
+      <div class="forecast-list" id="indivForecastList"></div>
+    </div>
+
+    <!-- アルゴリズム説明 -->
+    <div class="algo-note">
+      <strong>予測アルゴリズムについて</strong><br>
+      直近年度の成績に高い係数を適用（直近年×1.5、前年×1.2、2年前×1.0）し、歴代累計スコアと合算して確率を算出しています。
+      学連大会・非公式大会の係数は同等。出場選手のレベルによる調整も今後導入予定。<br>
+      ※ この予測は過去データによる統計的な推計であり、実際の結果を保証するものではありません。
+    </div>
+  </div>
+
+  <!-- 準備中パネル -->
+  <div class="coming-panel" id="panelComing">
+    <div class="icon">🚧</div>
+    <div class="ttl">このカテゴリーは準備中です</div>
+    <div class="desc">現在、データを収集・整理しています。<br>近日公開予定ですのでお楽しみに。</div>
+  </div>
+
+</div><!-- /forecast-wrap -->
 
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo">SAIL<span>RANK</span></div>
-        <p>学生セーリングの熱量を、数字で伝える。</p>
-      </div>
+      <div class="footer-brand"><div class="logo">SAIL<span>RANK</span></div><p>学生セーリングの熱量を、数字で伝える。</p></div>
       <div class="footer-links">
         <a href="ranking.html">ランキング</a>
         <a href="forecast.html">AI予測</a>
         <a href="players.html">選手DB</a>
         <a href="results.html">大会結果</a>
-      <a href="index.html" class="tack-back-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        TACK
-      </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <small>© 2024 SAIL RANK. 予測はあくまで統計的推計です。</small>
-    </div>
+    <div class="footer-bottom"><small>© 2024 SAIL RANK / TACK Sailing Media. 予測はあくまで統計的推計です。</small></div>
   </div>
 </footer>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const badge = document.getElementById('eventBadge');
-  if (badge) badge.textContent = '📅 ' + SITE_DATA.nextEvent;
+// ── 状態管理 ──
+var currentSeg = 'college-kanto';
+var currentType = 'univ';
+var currentCls = 'total';
+var currentIndivCls = 'all';
 
-  const list = document.getElementById('fullForecastList');
-  if (!list) return;
-  const maxPct = SITE_DATA.forecasts[0].pct;
-  list.innerHTML = SITE_DATA.forecasts.map(f => `
-    <div class="fc-row ${f.rank === 1 ? 'rank1' : ''}">
-      <div class="fc-rank">#${f.rank}</div>
-      <div>
-        <div class="fc-name">${f.name}</div>
-        <div class="fc-bar">
-          <div class="fc-bar-fill" style="width:${(f.pct/maxPct*100).toFixed(1)}%"></div>
-        </div>
-        <div class="fc-meta">${f.meta}</div>
-      </div>
-      <div class="fc-pct">${f.pct}<small>%</small></div>
-    </div>
-  `).join('');
+// ── 初期化 ──
+document.addEventListener('DOMContentLoaded', function() {
+  // 次回大会
+  var ne = SITE_DATA.nextEvent || '次回大会未定';
+  document.getElementById('nextEventName').textContent = ne;
+
+  renderUnivForecast();
+  renderIndivForecast();
 });
+
+// ── セグメント切替 ──
+function setSeg(seg) {
+  currentSeg = seg;
+  var panelKanto = document.getElementById('panelKanto');
+  var panelComing = document.getElementById('panelComing');
+  var segKanto = document.getElementById('segKanto');
+  if (seg === 'college-kanto') {
+    panelKanto.style.display = '';
+    panelComing.classList.remove('active');
+    segKanto.classList.add('seg-active');
+  } else {
+    panelKanto.style.display = 'none';
+    panelComing.classList.add('active');
+    segKanto.classList.remove('seg-active');
+  }
+}
+
+// ── 予測タイプ切替 ──
+function setType(type) {
+  currentType = type;
+  document.getElementById('typeUniv').style.display = type === 'univ' ? '' : 'none';
+  document.getElementById('typeIndiv').style.display = type === 'indiv' ? '' : 'none';
+  document.getElementById('typeBtnUniv').classList.toggle('active', type === 'univ');
+  document.getElementById('typeBtnIndiv').classList.toggle('active', type === 'indiv');
+}
+
+// ── クラス切替（大学） ──
+function setCls(cls) {
+  currentCls = cls;
+  ['total','470','snipe'].forEach(function(c) {
+    document.getElementById('clsBtn' + (c==='total'?'Total':c==='470'?'470':'Snipe')).classList.toggle('active', c === cls);
+  });
+  var labels = {total:'大学 総合予測', '470':'大学 470級予測', snipe:'大学 スナイプ予測'};
+  document.getElementById('univPanelTitle').textContent = labels[cls];
+  renderUnivForecast();
+}
+
+// ── クラス切替（個人） ──
+function setIndivCls(cls) {
+  currentIndivCls = cls;
+  ['all','470','snipe'].forEach(function(c) {
+    document.getElementById('indivClsBtn' + (c==='all'?'All':c==='470'?'470':'Snipe')).classList.toggle('active', c === cls);
+  });
+  var labels = {all:'個人 全クラス予測', '470':'個人 470級予測', snipe:'個人 スナイプ予測'};
+  document.getElementById('indivPanelTitle').textContent = labels[cls];
+  renderIndivForecast();
+}
+
+// ── 予測スコア計算（大学） ──
+function calcUnivScores(clsFilter) {
+  // 年度係数
+  var yearWeights = {2026:1.5, 2025:1.2, 2024:1.0, 2023:0.8, 2022:0.6};
+  var univMap = {};
+
+  // 年度別データからスコア集計
+  Object.keys(yearWeights).forEach(function(yr) {
+    var w = yearWeights[yr];
+    var keys = [];
+    if (clsFilter === 'total' || clsFilter === '470') {
+      keys.push('y' + yr + '_sk470', 'y' + yr + '_cr470');
+    }
+    if (clsFilter === 'total' || clsFilter === 'snipe') {
+      keys.push('y' + yr + '_skSnipe', 'y' + yr + '_crSnipe');
+    }
+    keys.forEach(function(key) {
+      (SITE_DATA[key] || []).forEach(function(p) {
+        var u = p.univ;
+        if (!univMap[u]) univMap[u] = {score:0, recentScore:0};
+        // allPt = 歴代累計、pt = 当該年度
+        univMap[u].score += (p.allPt || 0) * 0.003 + (p.pt || 0) * w;
+      });
+    });
+  });
+
+  // スコアを配列化してソート
+  var arr = Object.keys(univMap).map(function(name) {
+    return {name: name, score: univMap[name].score};
+  }).sort(function(a,b) { return b.score - a.score; }).slice(0, 10);
+
+  // 合計スコアで正規化して%に変換
+  var total = arr.reduce(function(s,x){return s+x.score;},0);
+  return arr.map(function(x, i) {
+    return {
+      rank: i+1,
+      name: x.name,
+      pct: total > 0 ? Math.round(x.score / total * 1000) / 10 : 0,
+      score: x.score
+    };
+  });
+}
+
+// ── 予測スコア計算（個人） ──
+function calcIndivScores(clsFilter) {
+  var yearWeights = {2026:1.5, 2025:1.2, 2024:1.0, 2023:0.8, 2022:0.6};
+  var playerMap = {};
+
+  Object.keys(yearWeights).forEach(function(yr) {
+    var w = yearWeights[yr];
+    var keys = [];
+    if (clsFilter === 'all' || clsFilter === '470') {
+      keys.push('y' + yr + '_sk470', 'y' + yr + '_cr470');
+    }
+    if (clsFilter === 'all' || clsFilter === 'snipe') {
+      keys.push('y' + yr + '_skSnipe', 'y' + yr + '_crSnipe');
+    }
+    keys.forEach(function(key) {
+      (SITE_DATA[key] || []).forEach(function(p) {
+        var k = p.name + '|' + p.cls + '|' + p.role;
+        if (!playerMap[k]) playerMap[k] = {name:p.name, univ:p.univ, cls:p.cls, role:p.role, score:0};
+        playerMap[k].score += (p.allPt || 0) * 0.003 + (p.pt || 0) * w;
+      });
+    });
+  });
+
+  var arr = Object.values(playerMap).sort(function(a,b){return b.score-a.score;}).slice(0, 20);
+  var total = arr.reduce(function(s,x){return s+x.score;},0);
+  return arr.map(function(x, i) {
+    return {
+      rank: i+1,
+      name: x.name,
+      univ: x.univ,
+      cls: x.cls,
+      role: x.role,
+      pct: total > 0 ? Math.round(x.score / total * 1000) / 10 : 0
+    };
+  });
+}
+
+// ── 大学予測描画 ──
+function renderUnivForecast() {
+  var data = calcUnivScores(currentCls);
+  var maxPct = data.length > 0 ? data[0].pct : 1;
+  var topCls = ['top1','top2','top3'];
+  var html = data.map(function(u) {
+    var tc = u.rank <= 3 ? topCls[u.rank-1] : '';
+    var barW = maxPct > 0 ? Math.round(u.pct / maxPct * 100) : 0;
+    return '<div class="fc-card ' + tc + '">'
+      + '<div class="fc-row">'
+      + '<div class="fc-rank">#' + u.rank + '</div>'
+      + '<div class="fc-name">' + u.name + '</div>'
+      + '<div><span class="fc-pct">' + u.pct + '</span><span class="fc-pct-unit">%</span></div>'
+      + '</div>'
+      + '<div class="fc-bar-track"><div class="fc-bar-fill" style="width:' + barW + '%"></div></div>'
+      + '</div>';
+  }).join('');
+  document.getElementById('univForecastList').innerHTML = html || '<div style="text-align:center;padding:40px;color:#94a3b8">データがありません</div>';
+}
+
+// ── 個人予測描画 ──
+function renderIndivForecast() {
+  var data = calcIndivScores(currentIndivCls);
+  var topCls = ['top1','top2','top3'];
+  var html = data.map(function(p) {
+    var tc = p.rank <= 3 ? topCls[p.rank-1] : '';
+    var roleTag = '<span class="fc-tag ' + (p.role==='Skipper'?'tag-sk':'tag-cr') + '">' + p.role + '</span>';
+    var clsTag = '<span class="fc-tag ' + (p.cls==='470'?'tag-470':'tag-snipe') + '">' + (p.cls==='470'?'470級':'スナイプ') + '</span>';
+    var url = 'players.html?name=' + encodeURIComponent(p.name);
+    return '<div class="fc-indiv-card ' + tc + '" onclick="location.href=\'' + url + '\'">'
+      + '<div class="fc-indiv-rank">#' + p.rank + '</div>'
+      + '<div class="fc-indiv-info">'
+      + '<div class="fc-name">' + p.name + '</div>'
+      + '<div class="fc-indiv-tags">' + roleTag + clsTag + '</div>'
+      + '</div>'
+      + '<div class="fc-indiv-univ">' + p.univ + '</div>'
+      + '<div class="fc-indiv-pct">' + p.pct + '<span>%</span></div>'
+      + '</div>';
+  }).join('');
+  document.getElementById('indivForecastList').innerHTML = html || '<div style="text-align:center;padding:40px;color:#94a3b8">データがありません</div>';
+}
 </script>
 </body>
 </html>
