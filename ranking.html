@@ -144,7 +144,7 @@
 .univ-modal-sub{font-size:13px;color:#64748b}
 .univ-modal-close{width:32px;height:32px;border:none;background:#f1f5f9;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#64748b;transition:all .15s}
 .univ-modal-close:hover{background:#e2e8f0;color:#0f172a}
-.univ-modal-body{overflow-y:auto;padding:16px 24px 24px}
+.univ-modal-body{overflow-y:auto;padding:16px 24px 24px;flex:1;min-height:0}
 .univ-player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:4px}
 .univ-player-card{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s}
 .univ-player-card:hover{border-color:#6366f1;background:#fff;box-shadow:0 4px 12px rgba(99,102,241,.1);transform:translateY(-1px)}
@@ -564,11 +564,11 @@ function openUnivModal(univName) {
     grid.innerHTML = html;
   }
 
-  // スクロール位置を常に先頭にリセット
-  const modalBody = document.querySelector('.univ-modal-body');
-  if (modalBody) modalBody.scrollTop = 0;
   document.getElementById('univModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // display:none中はscrollTop変更が無効なので、open後にリセット
+  const modalBody = document.querySelector('.univ-modal-body');
+  if (modalBody) modalBody.scrollTop = 0;
 }
 
 
