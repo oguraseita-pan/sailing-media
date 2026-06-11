@@ -73,30 +73,47 @@
 <script>
 // 全選手データを結合・重複排除（allPtで最大値を保持）
 function getAllPlayers() {
-  // 全配列を走査してrecordsを完全マージ
   const map = {};
 
+  // STEP1: individualRankingから正式な大会名・着順付きrecordsを取得
+  (SITE_DATA.individualRanking || []).forEach(p => {
+    const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
+    if (!map[key]) {
+      map[key] = { name: p.name, univ: p.univ, cls: p.cls, role: p.role, allPt: 0, recMap: {} };
+    }
+    if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
+    if (Array.isArray(p.records)) {
+      p.records.forEach(r => { map[key].recMap[r.event] = r; });
+    }
+  });
+
+  // STEP2: 年度別データ（y****_sk470等）から全選手を補完
+  // individualRankingに未掲載の選手にも疑似recordを生成してグラフ・成績を表示可能にする
+  const suffixLabel = {
+    sk470:   '関東秋季選手権 470級',   cr470:   '関東秋季選手権 470級',
+    skSnipe: '関東秋季選手権 スナイプ級', crSnipe: '関東秋季選手権 スナイプ級',
+    skipper: '個人選手権 総合',          crew:    '個人選手権 総合',
+    individual: '個人選手権 総合'
+  };
   Object.keys(SITE_DATA).forEach(k => {
-    if (k === 'universityRanking' || k === 'forecasts' || k === 'nextEvent') return;
-    const arr = SITE_DATA[k];
-    if (!Array.isArray(arr)) return;
-    arr.forEach(p => {
+    const m = k.match(/^y(\d{4})_(.+)$/);
+    if (!m) return;
+    const year = parseInt(m[1]), suffix = m[2];
+    const label = suffixLabel[suffix];
+    if (!label) return;
+    (SITE_DATA[k] || []).forEach(p => {
       const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
       if (!map[key]) {
-        map[key] = {
-          name: p.name, univ: p.univ, cls: p.cls, role: p.role,
-          allPt: 0, recMap: {}
+        map[key] = { name: p.name, univ: p.univ, cls: p.cls, role: p.role, allPt: 0, recMap: {} };
+      }
+      if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
+      // STEP1で正式recordが既にある場合は上書きしない
+      const evKey = year + '_' + suffix;
+      if (!map[key].recMap[evKey]) {
+        map[key].recMap[evKey] = {
+          year, event: year + '年度 ' + label,
+          rank: p.rank, pt: p.pt || 0
         };
-      }
-      // allPtは最大値を保持
-      if ((p.allPt || p.pt || 0) > map[key].allPt) {
-        map[key].allPt = p.allPt || p.pt || 0;
-      }
-      // recordsを全てマージ（イベント名でユニーク化）
-      if (Array.isArray(p.records)) {
-        p.records.forEach(r => {
-          map[key].recMap[r.event] = r;
-        });
       }
     });
   });
