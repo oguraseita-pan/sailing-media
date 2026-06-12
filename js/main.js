@@ -53,17 +53,38 @@ function buildPlayerMap() {
   });
 
   // STEP2: 年度別データ（skipper/crew/individual は重複するため除外）
-  // STEP2: y系データから選手の存在・allPt・clsを補完する
-  // 【重要】y系のptは年間累計ptであり特定大会の記録ではない
-  // 大会別成績（records）はSTEP1のindividualRankingのみが正確なデータ
-  // ここでは選手の存在確認とallPtの更新のみ行い、疑似recordは作らない
+  // STEP2: y系データから年次成績recordを生成
+  // y系の各エントリは「その年のクラス別累計ランキング順位」
+  // sk470/cr470 = 470級クラス別ランキング、skSnipe/crSnipe = スナイプ級クラス別
+  // skipper/crew/individual = 個人選手権系ランキング（重複するため除外）
+  // rankはその年の順位、ptはその年の累計ptをrecordとして記録
+  const suffixInfo = {
+    sk470:   { cls:'470',   label: (y) => y + '年度 関東学連 470級ランキング',   type:'autumn' },
+    cr470:   { cls:'470',   label: (y) => y + '年度 関東学連 470級ランキング',   type:'autumn' },
+    skSnipe: { cls:'snipe', label: (y) => y + '年度 関東学連 スナイプ級ランキング', type:'autumn' },
+    crSnipe: { cls:'snipe', label: (y) => y + '年度 関東学連 スナイプ級ランキング', type:'autumn' },
+  };
   Object.keys(SITE_DATA).forEach(k => {
-    if (!k.match(/^y\d{4}_/)) return;
+    const m = k.match(/^y(\d{4})_(.+)$/);
+    if (!m) return;
+    const year = parseInt(m[1]), suffix = m[2];
+    const info = suffixInfo[suffix];
+    if (!info) return; // skipper/crew/individual はスキップ
     (SITE_DATA[k] || []).forEach(p => {
       const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
       if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
-      // allPtは最大値を保持（年間累計ptの最大値 = 最終年度の累計）
       if ((p.allPt || 0) > map[key].allPt) map[key].allPt = p.allPt || 0;
+      // STEP1の正式recordがない年度のみ年間ランキングをrecordとして追加
+      // evKeyを year+'_'+suffix で一意化
+      const evKey = year + '_' + suffix;
+      if (!map[key].recMap[evKey]) {
+        map[key].recMap[evKey] = {
+          year,
+          event: info.label(year),
+          rank: p.rank,
+          pt: p.pt || 0
+        };
+      }
     });
   });
 
