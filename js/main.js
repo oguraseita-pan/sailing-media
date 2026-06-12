@@ -39,59 +39,43 @@ function renderUnivGrid() {
 }
 
 // ―― 共通: 選手データ結合（全ページで使用） ――
-// STEP1: individualRanking から正式な大会名・着順付きrecordsを取得
-// STEP2: y****_sk470等の年度別データで全選手を補完（99件打ち切り以下の選手も対象）
+// STEP1: data.jsのplayerRecords（PDF全件）から正確な大会名・着順・pt付きrecordsを取得
+// STEP2: y****_sk470等の年度別データで選手の存在とallPtを補完
 function buildPlayerMap() {
   const map = {};
 
-  // STEP1: individualRanking（上位20名分の詳細records）
+  // STEP1: playerRecords（PDFから抽出した全選手の正確な大会記録）
+  const pr = SITE_DATA.playerRecords || {};
+  Object.keys(pr).forEach(key => {
+    const parts = key.split('|');
+    if (parts.length !== 4) return;
+    const [name, univ, cls, role] = parts;
+    if (!map[key]) map[key] = { name, univ, cls, role, allPt:0, recMap:{} };
+    pr[key].forEach(r => {
+      map[key].recMap[r.event] = r;
+    });
+  });
+
+  // individualRankingで allPt を補完（累計ランキングに基づく正確な値）
   (SITE_DATA.individualRanking || []).forEach(p => {
     const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
     if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
-    if ((p.allPt || p.pt || 0) > map[key].allPt) map[key].allPt = p.allPt || p.pt || 0;
-    if (Array.isArray(p.records)) p.records.forEach(r => { map[key].recMap[r.event] = r; });
+    if ((p.allPt || 0) > map[key].allPt) map[key].allPt = p.allPt || 0;
+    // individualRankingにのみ存在するrecords（2016個人470等、PDFで取れなかった分）を補完
+    if (Array.isArray(p.records)) {
+      p.records.forEach(r => {
+        if (!map[key].recMap[r.event]) map[key].recMap[r.event] = r;
+      });
+    }
   });
 
-  // STEP2: y系データから年次成績recordを補完
-  // sk470/cr470/skSnipe/crSnipe のみ使用（skipper/crew/individual は除外）
-  // individualRankingに掲載されている選手はSTEP1の正式recordを優先
-  // それ以外の選手には秋季選手権の正式名称で年間順位recordを追加
-  const autumnName = {
-    2016:'第83回 関東学生ヨット選手権大会 決勝',
-    2017:'第84回 関東学生ヨット選手権大会 決勝',
-    2018:'第85回 関東学生ヨット選手権大会 決勝',
-    2019:'第86回 関東学生ヨット選手権大会 決勝',
-    2020:'第87回 関東学生ヨット選手権大会 決勝',
-    2021:'第88回 関東学生ヨット選手権大会 決勝',
-    2022:'第89回 関東学生ヨット選手権大会 決勝',
-    2023:'第90回 関東学生ヨット選手権大会 決勝',
-    2024:'第91回 関東学生ヨット選手権大会 決勝',
-    2025:'第92回 関東学生ヨット選手権大会 決勝',
-    2026:'関東学生ヨット春季選手権大会 決勝',
-  };
-  const clsSuffix = { sk470:'470級', cr470:'470級', skSnipe:'スナイプ級', crSnipe:'スナイプ級' };
+  // STEP2: y系データで allPt を補完（playerRecords未掲載選手も対象）
   Object.keys(SITE_DATA).forEach(k => {
-    const m = k.match(/^y(\d{4})_(.+)$/);
-    if (!m) return;
-    const year = parseInt(m[1]), suffix = m[2];
-    const clsLabel = clsSuffix[suffix];
-    if (!clsLabel) return; // skipper/crew/individual はスキップ
+    if (!k.match(/^y\d{4}_/)) return;
     (SITE_DATA[k] || []).forEach(p => {
       const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
       if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
       if ((p.allPt || 0) > map[key].allPt) map[key].allPt = p.allPt || 0;
-      // STEP1で正式recordが既にある年はスキップ（正確データを優先）
-      // 正式recordのevKeyは大会名そのもの、STEP2のevKeyは year_suffix
-      const evKey = year + '_' + suffix;
-      if (!map[key].recMap[evKey]) {
-        const baseName = autumnName[year] || (year + '年度 関東学生ヨット選手権大会 決勝');
-        map[key].recMap[evKey] = {
-          year,
-          event: baseName + ' ' + clsLabel,
-          rank: p.rank,
-          pt: p.pt || 0
-        };
-      }
     });
   });
 
