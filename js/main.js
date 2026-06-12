@@ -52,35 +52,42 @@ function buildPlayerMap() {
     if (Array.isArray(p.records)) p.records.forEach(r => { map[key].recMap[r.event] = r; });
   });
 
-  // STEP2: 年度別データ（skipper/crew/individual は重複するため除外）
-  // STEP2: y系データから年次成績recordを生成
-  // y系の各エントリは「その年のクラス別累計ランキング順位」
-  // sk470/cr470 = 470級クラス別ランキング、skSnipe/crSnipe = スナイプ級クラス別
-  // skipper/crew/individual = 個人選手権系ランキング（重複するため除外）
-  // rankはその年の順位、ptはその年の累計ptをrecordとして記録
-  const suffixInfo = {
-    sk470:   { cls:'470',   label: (y) => y + '年度 関東学連 470級ランキング',   type:'autumn' },
-    cr470:   { cls:'470',   label: (y) => y + '年度 関東学連 470級ランキング',   type:'autumn' },
-    skSnipe: { cls:'snipe', label: (y) => y + '年度 関東学連 スナイプ級ランキング', type:'autumn' },
-    crSnipe: { cls:'snipe', label: (y) => y + '年度 関東学連 スナイプ級ランキング', type:'autumn' },
+  // STEP2: y系データから年次成績recordを補完
+  // sk470/cr470/skSnipe/crSnipe のみ使用（skipper/crew/individual は除外）
+  // individualRankingに掲載されている選手はSTEP1の正式recordを優先
+  // それ以外の選手には秋季選手権の正式名称で年間順位recordを追加
+  const autumnName = {
+    2016:'第83回 関東学生ヨット選手権大会 決勝',
+    2017:'第84回 関東学生ヨット選手権大会 決勝',
+    2018:'第85回 関東学生ヨット選手権大会 決勝',
+    2019:'第86回 関東学生ヨット選手権大会 決勝',
+    2020:'第87回 関東学生ヨット選手権大会 決勝',
+    2021:'第88回 関東学生ヨット選手権大会 決勝',
+    2022:'第89回 関東学生ヨット選手権大会 決勝',
+    2023:'第90回 関東学生ヨット選手権大会 決勝',
+    2024:'第91回 関東学生ヨット選手権大会 決勝',
+    2025:'第92回 関東学生ヨット選手権大会 決勝',
+    2026:'関東学生ヨット春季選手権大会 決勝',
   };
+  const clsSuffix = { sk470:'470級', cr470:'470級', skSnipe:'スナイプ級', crSnipe:'スナイプ級' };
   Object.keys(SITE_DATA).forEach(k => {
     const m = k.match(/^y(\d{4})_(.+)$/);
     if (!m) return;
     const year = parseInt(m[1]), suffix = m[2];
-    const info = suffixInfo[suffix];
-    if (!info) return; // skipper/crew/individual はスキップ
+    const clsLabel = clsSuffix[suffix];
+    if (!clsLabel) return; // skipper/crew/individual はスキップ
     (SITE_DATA[k] || []).forEach(p => {
       const key = p.name + '|' + p.univ + '|' + p.cls + '|' + p.role;
       if (!map[key]) map[key] = { name:p.name, univ:p.univ, cls:p.cls, role:p.role, allPt:0, recMap:{} };
       if ((p.allPt || 0) > map[key].allPt) map[key].allPt = p.allPt || 0;
-      // STEP1の正式recordがない年度のみ年間ランキングをrecordとして追加
-      // evKeyを year+'_'+suffix で一意化
+      // STEP1で正式recordが既にある年はスキップ（正確データを優先）
+      // 正式recordのevKeyは大会名そのもの、STEP2のevKeyは year_suffix
       const evKey = year + '_' + suffix;
       if (!map[key].recMap[evKey]) {
+        const baseName = autumnName[year] || (year + '年度 関東学生ヨット選手権大会 決勝');
         map[key].recMap[evKey] = {
           year,
-          event: info.label(year),
+          event: baseName + ' ' + clsLabel,
           rank: p.rank,
           pt: p.pt || 0
         };
