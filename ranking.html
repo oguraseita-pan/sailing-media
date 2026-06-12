@@ -547,11 +547,11 @@ function openUnivModal(univName) {
     grid.innerHTML = html;
   }
 
-  // スクロール位置を常に先頭にリセット
-  const modalBody = document.querySelector('.univ-modal-body');
-  if (modalBody) modalBody.scrollTop = 0;
   document.getElementById('univModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // open後にスクロール位置をリセット（display:none中はscrollTop変更が無効なため）
+  const modalBody = document.querySelector('.univ-modal-body');
+  if (modalBody) modalBody.scrollTop = 0;
 }
 
 
